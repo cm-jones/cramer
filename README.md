@@ -2,6 +2,8 @@
 
 lincpp is an open-source C++ library that implements common matrix and vector operations as well as linear algebra algorithms such as calculating the eigenvalues and eigenvectors of a square matrix.
 
+lincpp is an open-source C++ library that implements common vector and matrix operations as well as important algorithms such as solving a system of linear equations (Ax = b), LU and QR decomposition, and calculating the eigenvalues and eigenvectors of a square matrix.
+
 ## Usage
 
 ## Build
