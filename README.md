@@ -15,7 +15,7 @@ LinCPP is an open-source, numerical linear algebra library for C++ that implemen
 - For any matrix $A$, computing:
   - the LU, QR, and SVD factorizations of $A$
   - solving a system of linear equations ($Ax = b$)
-  - the eigenvalues ($\lambda$) and eigenvectors ($\x$) of $A$ ($Ax = \lambda x$)
+  - the eigenvalues ($\lambda$) and eigenvectors ($x$) of $A$ ($Ax = \lambda x$)
 
 ## Installation
 
