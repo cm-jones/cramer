@@ -2,20 +2,28 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-LinCPP is an open-source, numerical linear algebra library for C++ that implements common operations on vectors and matrices as well as important algorithms in linear algebra.
+lincpp is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., eigenvectors and eigenvalues, systems of linear equations).
 
 ## Features
 
-- For a square matrix $A$, computing:
-  - $tr(A)$, the trace of A
-  - $det(A)$, the determinate of A
-  - $A^T$, the transpose of A
-  - $A^{-1}$, the inverse of A (if and only if $det(A) = 0$)
-  - $A^n$, the integer powers of A
-- For any matrix $A$, computing:
-  - the LU, QR, and SVD factorizations of $A$
-  - solving a system of linear equations ($Ax = b$)
-  - the eigenvalues ($\lambda$) and eigenvectors ($x$) of $A$ ($Ax = \lambda x$)
+lincpp supports the following computations:
+
+- For any two vectors $x$ and $y$:
+  - $\abs(x)$: the norm (or length),
+  - $x \cdot y$: the inner product, and
+  - $x \otimes y$: the outer product.
+
+- For a square matrix $A$ (n x n):
+  - $tr(A)$: the trace of A,
+  - $det(A)$: the determinate of A,
+  - $A^T$: the transpose of A,
+  - $A^{-1}$: the inverse of A (if it exists), and
+  - $A^n$, the integer powers of A.
+
+- For any matrix $A$ (m x n):
+  - the LU, QR, and SVD factorizations of $A$,
+  - solving a system of linear equations ($Ax = b$), and
+  - the eigenvalues ($\lambda$) and eigenvectors ($x$) of $A$ ($Ax = \lambda x$).
 
 ## Installation
 
