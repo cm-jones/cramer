@@ -2,7 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-lincpp is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., eigenvectors and eigenvalues, systems of linear equations).
+lincpp is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
 
 ## Features
 
@@ -19,11 +19,11 @@ lincpp supports the following computations:
   - $A^T$, the transpose of A,
   - $A^{-1}$, the inverse of A (if it exists),
   - $A^n$, the integer powers of A, and
-  - the eigenvalues and eigenvectors of $A$ such that $Ax = \lambda x$.
+  - the eigenvalues and eigenvectors of $A$, such that $Ax = \lambda x$.
 
 - For any matrix $A_{m \times n}$,
   - the LU, QR, and SVD factorizations of $A$, and
-  - solving a system of linear equations such that $Ax = b$.
+  - solving a system of linear equations, such that $Ax = b$.
 
 ## Installation
 
