@@ -8,22 +8,22 @@ lincpp is an open-source, numerical linear algebra library for C++ that implemen
 
 lincpp supports the following computations:
 
-- For any two vectors $x$ and $y$:
-  - $\lVert x \rVert$: the norm (or length),
-  - $x \cdot y$: the inner product, and
-  - $x \otimes y$: the outer product.
+- For any two vectors $x$ and $y$,
+  - $\lVert x \rVert$, the norm,
+  - $x \cdot y$, the inner product, and
+  - $x \otimes y$, the outer product.
 
-- For a square matrix $A$ (n x n):
-  - $tr(A)$: the trace of A,
-  - $det(A)$: the determinate of A,
-  - $A^T$: the transpose of A,
-  - $A^{-1}$: the inverse of A (if it exists), and
-  - $A^n$, the integer powers of A.
+- For a square matrix $A$ ($n \times n$),
+  - $tr(A)$, the trace of A,
+  - $det(A)$, the determinate of A,
+  - $A^T$, the transpose of A,
+  - $A^{-1}$, the inverse of A (if it exists),
+  - $A^n$, the integer powers of A, and
+  - the eigenvalues and eigenvectors of $A$ ($Ax = \lambda x$).
 
-- For any matrix $A$ (m x n):
+- For any matrix $A$ ($m \times n$),
   - the LU, QR, and SVD factorizations of $A$,
-  - solving a system of linear equations ($Ax = b$), and
-  - the eigenvalues ($\lambda$) and eigenvectors ($x$) of $A$ ($Ax = \lambda x$).
+  - solving a system of linear equations ($Ax = b$).
 
 ## Installation
 
