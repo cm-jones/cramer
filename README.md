@@ -66,8 +66,8 @@ lincpp supports the following computations:
 Include the necessary headers in your C++ source files:
 
 ```cpp
-#include <numcpp/vector.h>
-#include <numcpp/matrix.h>
+#include <lincpp/vector.h>
+#include <lincpp/matrix.h>
 ```
 
 Create vectors and matrices, and perform operations on them:
