@@ -7,15 +7,15 @@ LinCPP is an open-source, numerical linear algebra library for C++ that implemen
 ## Features
 
 - For a square matrix $A$, computing:
-  - $tr(A)$, i.e., the trace of A
-  - $det(A)$, i.e., the determinate of A
-  - $A^T$, i.e., the transpose of A
-  - $A^{-1}$, i.e., the inverse of A (if and only if $det(A) = 0$)
-  - $A^n$, i.e., the integer powers of A
+  - $tr(A)$, the trace of A
+  - $det(A)$, the determinate of A
+  - $A^T$, the transpose of A
+  - $A^{-1}$, the inverse of A (if and only if $det(A) = 0$)
+  - $A^n$, the integer powers of A
 - For any matrix $A$, computing:
   - the LU, QR, and SVD factorizations of $A$
-  - $x$ such that $Ax = b$
-  - $\lambda$, $x$ such that $Ax = \lambda x$
+  - solving a system of linear equations ($Ax = b$)
+  - the eigenvalues ($\lambda$) and eigenvectors ($\x$) of $A$ ($Ax = \lambda x$)
 
 ## Installation
 
