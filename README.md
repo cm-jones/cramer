@@ -13,17 +13,17 @@ lincpp supports the following computations:
   - $x \cdot y$, the inner product, and
   - $x \otimes y$, the outer product.
 
-- For a square matrix $A$ ($n \times n$),
+- For a square matrix $A_{n \times n}$),
   - $tr(A)$, the trace of A,
   - $det(A)$, the determinate of A,
   - $A^T$, the transpose of A,
   - $A^{-1}$, the inverse of A (if it exists),
   - $A^n$, the integer powers of A, and
-  - the eigenvalues and eigenvectors of $A$ ($Ax = \lambda x$).
+  - the eigenvalues and eigenvectors of $A$ such that $Ax = \lambda x$.
 
-- For any matrix $A$ ($m \times n$),
+- For any matrix $A_{m \times n}$),
   - the LU, QR, and SVD factorizations of $A$,
-  - solving a system of linear equations ($Ax = b$).
+  - solving a system of linear equations such that $Ax = b$.
 
 ## Installation
 
