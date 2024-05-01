@@ -2,7 +2,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-LinCPP is an open-source, numerical linear algebra library for C++ that implements common operations on vectors and matrices, as well as important algorithms such as: solving a system of linear equations; LU, QR, and SVD decomposition; and computing the eigenvalues and eigenvectors of a square matrix.
+LinCPP is an open-source, numerical linear algebra library for C++ that implements common operations on vectors and matrices as well as important algorithms in linear algebra.
 
 ## Features
 
