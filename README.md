@@ -9,7 +9,7 @@ lincpp is an open-source, numerical linear algebra library for C++ that implemen
 lincpp supports the following computations:
 
 - For any two vectors $x$ and $y$:
-  - $\abs(x)$: the norm (or length),
+  - $\lVert x \rVert$: the norm (or length),
   - $x \cdot y$: the inner product, and
   - $x \otimes y$: the outer product.
 
