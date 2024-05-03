@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <random>
 #include <limits>
+#include <unistd.h>
 
 #include "../include/vector.h"
 #include "../include/matrix.h"
@@ -208,20 +209,55 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
 
     Matrix<T> product(rows, other.cols);
 
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < other.cols; ++j) {
-            T sum = static_cast<T>(0);
-            for (size_t k = 0; k < cols; ++k) {
-                sum += data[i][k] * other(k, j);
+    // Get the cache line size using sysconf
+    const long CACHE_LINE_SIZE = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+    if (CACHE_LINE_SIZE == -1) {
+        // Default to a reasonable block size if sysconf fails
+        CACHE_LINE_SIZE = 64;
+    }
+
+    // Get the cache size using sysconf
+    const long CACHE_SIZE = sysconf(_SC_LEVEL1_DCACHE_SIZE);
+    if (CACHE_SIZE == -1) {
+        // Default to a reasonable cache size if sysconf fails
+        CACHE_SIZE = 32768; // 32 KB
+    }
+
+    // Get the cache associativity using sysconf
+    const long CACHE_ASSOCIATIVITY = sysconf(_SC_LEVEL1_DCACHE_ASSOC);
+    if (CACHE_ASSOCIATIVITY == -1) {
+        // Default to a reasonable cache associativity if sysconf fails
+        CACHE_ASSOCIATIVITY = 8;
+    }
+
+    // Calculate the optimum block size based on cache parameters and matrix sizes
+    const size_t BLOCK_SIZE = std::min(
+        static_cast<size_t>(std::sqrt(CACHE_SIZE / CACHE_ASSOCIATIVITY / sizeof(T))),
+        static_cast<size_t>(CACHE_LINE_SIZE / sizeof(T))
+    );
+
+    // Perform cache blocking matrix multiplication
+    for (size_t i = 0; i < rows; i += BLOCK_SIZE) {
+        for (size_t j = 0; j < other.cols; j += BLOCK_SIZE) {
+            for (size_t k = 0; k < cols; k += BLOCK_SIZE) {
+                // Multiply the current blocks
+                for (size_t ii = i; ii < std::min(i + BLOCK_SIZE, rows); ++ii) {
+                    for (size_t jj = j; jj < std::min(j + BLOCK_SIZE, other.cols); ++jj) {
+                        T sum = static_cast<T>(0);
+                        for (size_t kk = k; kk < std::min(k + BLOCK_SIZE, cols); ++kk) {
+                            sum += data[ii][kk] * other(kk, jj);
+                        }
+                        product(ii, jj) += sum;
+                    }
+                }
             }
-            product(i, j) = sum;
         }
     }
 
     return product;
 }
 
-/* Matrix properties */
+// Matrix properties
 
 template <typename T>
 bool Matrix<T>::is_diagonal() const {
