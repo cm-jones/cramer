@@ -15,8 +15,8 @@
  * lincpp. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __LINCPP_MATRIX_H__
-#define __LINCPP_MATRIX_H__
+#ifndef LINCPP_MATRIX_H
+#define LINCPP_MATRIX_H
 
 #include <vector>
 #include <complex>
@@ -499,4 +499,4 @@ public:
 
 } // namespace lincpp
 
-#endif // __LINCPP_MATRIX_H__
+#endif // LINCPP_MATRIX_H

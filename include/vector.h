@@ -15,8 +15,8 @@
  * libdsc. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __NUMCPP_VECTOR_H__
-#define __NUMCPP_VECTOR_H__
+#ifndef LINCPP_VECTOR_H
+#define LINCPP_VECTOR_H
 
 #include <vector>
 
@@ -129,4 +129,4 @@ public:
 
 }  // namespace numcpp
 
-#endif  // __NUMCPP_VECTOR_H__
+#endif  // LINCPP_VECTOR_H
