@@ -29,10 +29,11 @@ namespace numcpp {
  */
 template <typename T>
 class Vector {
-private:
-    std::vector<T> data; /**< The underlying container storing the vector elements. */
+   private:
+    std::vector<T>
+        data; /**< The underlying container storing the vector elements. */
 
-public:
+   public:
     /**
      * @brief Default constructor. Creates an empty vector.
      */
@@ -46,7 +47,8 @@ public:
     Vector(size_t size);
 
     /**
-     * @brief Constructor that creates a vector of a specified size and initializes all elements with a given value.
+     * @brief Constructor that creates a vector of a specified size and
+     * initializes all elements with a given value.
      *
      * @param size The size of the vector.
      * @param value The value to initialize all elements with.
@@ -54,7 +56,8 @@ public:
     Vector(size_t size, const T& value);
 
     /**
-     * @brief Constructor that creates a vector from an initializer list or another vector.
+     * @brief Constructor that creates a vector from an initializer list or
+     * another vector.
      *
      * @param values The initializer list or vector to create the vector from.
      */
@@ -76,7 +79,8 @@ public:
     T& operator[](size_t index);
 
     /**
-     * @brief Overloads the [] operator to access elements of the vector (const version).
+     * @brief Overloads the [] operator to access elements of the vector (const
+     * version).
      *
      * @param index The index of the element to access.
      * @return A const reference to the element at the specified index.
@@ -87,12 +91,14 @@ public:
      * @brief Overloads the + operator to perform vector addition.
      *
      * @param other The vector to add to the current vector.
-     * @return A new vector that is the result of adding the current vector and the other vector.
+     * @return A new vector that is the result of adding the current vector and
+     * the other vector.
      */
     Vector<T> operator+(const Vector<T>& other) const;
 
     /**
-     * @brief Overloads the += operator to perform vector addition and assignment.
+     * @brief Overloads the += operator to perform vector addition and
+     * assignment.
      *
      * @param other The vector to add to the current vector.
      * @return A reference to the updated current vector.
@@ -103,12 +109,14 @@ public:
      * @brief Overloads the - operator to perform vector subtraction.
      *
      * @param other The vector to subtract from the current vector.
-     * @return A new vector that is the result of subtracting the other vector from the current vector.
+     * @return A new vector that is the result of subtracting the other vector
+     * from the current vector.
      */
     Vector<T> operator-(const Vector<T>& other) const;
 
     /**
-     * @brief Overloads the -= operator to perform vector subtraction and assignment.
+     * @brief Overloads the -= operator to perform vector subtraction and
+     * assignment.
      *
      * @param other The vector to subtract from the current vector.
      * @return A reference to the updated current vector.
@@ -116,7 +124,8 @@ public:
     Vector<T>& operator-=(const Vector<T>& other);
 
     /**
-     * @brief Calculates the dot product of the current vector and another vector.
+     * @brief Calculates the dot product of the current vector and another
+     * vector.
      *
      * @param other The vector to calculate the dot product with.
      * @return The dot product of the current vector and the other vector.

@@ -18,8 +18,8 @@
 #ifndef LINCPP_MATRIX_H
 #define LINCPP_MATRIX_H
 
-#include <vector>
 #include <complex>
+#include <vector>
 
 #include "vector.h"
 
@@ -32,22 +32,24 @@ namespace lincpp {
  */
 template <typename T>
 class Matrix {
-private:
-    std::vector<std::vector<T>> data; /**< The underlying container storing the matrix elements. */
+   private:
+    std::vector<std::vector<T>>
+        data;    /**< The underlying container storing the matrix elements. */
     size_t rows; /**< The number of rows in the matrix. */
     size_t cols; /**< The number of columns in the matrix. */
 
     /**
      * @brief Calculates the maximum norm of the matrix.
      *
-     * The maximum norm of a matrix is the maximum absolute row sum of the matrix.
-     * It is defined as the maximum of the sums of the absolute values of the elements in each row.
+     * The maximum norm of a matrix is the maximum absolute row sum of the
+     * matrix. It is defined as the maximum of the sums of the absolute values
+     * of the elements in each row.
      *
      * @return The maximum norm of the matrix.
      */
     T max_norm() const;
 
-public:
+   public:
     /**
      * @brief Default constructor. Creates an empty matrix.
      */
@@ -62,7 +64,8 @@ public:
     Matrix(size_t rows, size_t cols);
 
     /**
-     * @brief Constructor that creates a matrix of a specified size and initializes all elements with a given value.
+     * @brief Constructor that creates a matrix of a specified size and
+     * initializes all elements with a given value.
      *
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
@@ -94,8 +97,9 @@ public:
     /**
      * @brief Generates an identity matrix of a specified size.
      *
-     * An identity matrix is a square matrix with ones on the main diagonal and zeros elsewhere.
-     * It has the property that when multiplied with another matrix, it leaves the other matrix unchanged.
+     * An identity matrix is a square matrix with ones on the main diagonal and
+     * zeros elsewhere. It has the property that when multiplied with another
+     * matrix, it leaves the other matrix unchanged.
      *
      * @param size The size of the identity matrix.
      * @return An identity matrix of the specified size.
@@ -103,7 +107,8 @@ public:
     static Matrix<T> identity(size_t size);
 
     /**
-     * @brief Creates a matrix of the specified size with all elements initialized to zero.
+     * @brief Creates a matrix of the specified size with all elements
+     * initialized to zero.
      *
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
@@ -112,7 +117,8 @@ public:
     static Matrix<T> zeros(size_t rows, size_t cols);
 
     /**
-     * @brief Creates a matrix of the specified size with all elements initialized to one.
+     * @brief Creates a matrix of the specified size with all elements
+     * initialized to one.
      *
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
@@ -121,13 +127,16 @@ public:
     static Matrix<T> ones(size_t rows, size_t cols);
 
     /**
-     * @brief Creates a matrix of the specified size with elements initialized to random values.
+     * @brief Creates a matrix of the specified size with elements initialized
+     * to random values.
      *
-     * The random values are generated using a uniform distribution between 0 and 1.
+     * The random values are generated using a uniform distribution between 0
+     * and 1.
      *
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
-     * @return A matrix of the specified size with elements initialized to random values.
+     * @return A matrix of the specified size with elements initialized to
+     * random values.
      */
     static Matrix<T> random(size_t rows, size_t cols);
 
@@ -141,7 +150,8 @@ public:
     T& operator()(size_t row, size_t col);
 
     /**
-     * @brief Overloads the () operator to access elements of the matrix (const version).
+     * @brief Overloads the () operator to access elements of the matrix (const
+     * version).
      *
      * @param row The row index of the element to access.
      * @param col The column index of the element to access.
@@ -152,7 +162,8 @@ public:
     /**
      * @brief Overloads the == operator to compare two matrices for equality.
      *
-     * Two matrices are considered equal if they have the same dimensions and all corresponding elements are equal.
+     * Two matrices are considered equal if they have the same dimensions and
+     * all corresponding elements are equal.
      *
      * @param other The matrix to compare with.
      * @return True if the matrices are equal, false otherwise.
@@ -162,8 +173,9 @@ public:
     /**
      * @brief Overloads the + operator to perform matrix addition.
      *
-     * Matrix addition is an elementwise operation where corresponding elements of two matrices are added together.
-     * The matrices must have the same dimensions for addition to be valid.
+     * Matrix addition is an elementwise operation where corresponding elements
+     * of two matrices are added together. The matrices must have the same
+     * dimensions for addition to be valid.
      *
      * @param other The matrix to add to the current matrix.
      * @return The result of matrix addition.
@@ -171,7 +183,8 @@ public:
     Matrix<T> operator+(const Matrix<T>& other) const;
 
     /**
-     * @brief Overloads the += operator to perform matrix addition and assignment.
+     * @brief Overloads the += operator to perform matrix addition and
+     * assignment.
      *
      * @param other The matrix to add to the current matrix.
      * @return A reference to the updated matrix.
@@ -181,8 +194,9 @@ public:
     /**
      * @brief Overloads the - operator to perform matrix subtraction.
      *
-     * Matrix subtraction is an elementwise operation where corresponding elements of two matrices are subtracted.
-     * The matrices must have the same dimensions for subtraction to be valid.
+     * Matrix subtraction is an elementwise operation where corresponding
+     * elements of two matrices are subtracted. The matrices must have the same
+     * dimensions for subtraction to be valid.
      *
      * @param other The matrix to subtract from the current matrix.
      * @return The result of matrix subtraction.
@@ -190,7 +204,8 @@ public:
     Matrix<T> operator-(const Matrix<T>& other) const;
 
     /**
-     * @brief Overloads the -= operator to perform matrix subtraction and assignment.
+     * @brief Overloads the -= operator to perform matrix subtraction and
+     * assignment.
      *
      * @param other The matrix to subtract from the current matrix.
      * @return A reference to the updated matrix.
@@ -200,7 +215,8 @@ public:
     /**
      * @brief Overloads the * operator to perform scalar multiplication.
      *
-     * Scalar multiplication is an operation where each element of a matrix is multiplied by a scalar value.
+     * Scalar multiplication is an operation where each element of a matrix is
+     * multiplied by a scalar value.
      *
      * @param scalar The scalar value to multiply the matrix by.
      * @return The result of scalar multiplication.
@@ -208,7 +224,8 @@ public:
     Matrix<T> operator*(const T& scalar) const;
 
     /**
-     * @brief Overloads the *= operator to perform scalar multiplication and assignment.
+     * @brief Overloads the *= operator to perform scalar multiplication and
+     * assignment.
      *
      * @param scalar The scalar value to multiply the matrix by.
      * @return A reference to the updated matrix.
@@ -218,9 +235,11 @@ public:
     /**
      * @brief Overloads the * operator to perform matrix multiplication.
      *
-     * Matrix multiplication is a binary operation that produces a matrix from two matrices.
-     * For matrix multiplication to be valid, the number of columns in the first matrix must be equal to the number of rows in the second matrix.
-     * The resulting matrix has the same number of rows as the first matrix and the same number of columns as the second matrix.
+     * Matrix multiplication is a binary operation that produces a matrix from
+     * two matrices. For matrix multiplication to be valid, the number of
+     * columns in the first matrix must be equal to the number of rows in the
+     * second matrix. The resulting matrix has the same number of rows as the
+     * first matrix and the same number of columns as the second matrix.
      *
      * @param other The matrix to multiply with.
      * @return The result of matrix multiplication.
@@ -229,7 +248,7 @@ public:
 
     /**
      * @brief Determines if the matrix is square.
-     * 
+     *
      * @return true if the matrix is square
      * @return false if the matrix is not square
      */
@@ -259,7 +278,7 @@ public:
 
     /**
      * @brief Determines if the matrix is invertible.
-     * 
+     *
      * @return true if the matrix is invertible
      * @return false if the matrix is not invertible
      */
@@ -293,8 +312,9 @@ public:
     /**
      * @brief Calculates the trace of the matrix.
      *
-     * The trace of a matrix is the sum of the elements on the main diagonal (from the upper left to the lower right).
-     * The matrix must be square for the trace to be defined.
+     * The trace of a matrix is the sum of the elements on the main diagonal
+     * (from the upper left to the lower right). The matrix must be square for
+     * the trace to be defined.
      *
      * @return The trace of the matrix.
      */
@@ -392,8 +412,9 @@ public:
     /**
      * @brief Calculates the integer power of a matrix.
      *
-     * This function calculates the integer power of a matrix using the exponentiation by squaring algorithm.
-     * It supports both positive and negative integer exponents.
+     * This function calculates the integer power of a matrix using the
+     * exponentiation by squaring algorithm. It supports both positive and
+     * negative integer exponents.
      *
      * @param n The integer exponent.
      * @return The matrix raised to the power of n.
@@ -404,8 +425,9 @@ public:
     /**
      * @brief Calculates the logarithm of a matrix.
      *
-     * This function calculates the logarithm of a matrix using the inverse scaling and squaring method.
-     * It uses Padé approximation to compute the logarithm of the scaled matrix.
+     * This function calculates the logarithm of a matrix using the inverse
+     * scaling and squaring method. It uses Padé approximation to compute the
+     * logarithm of the scaled matrix.
      *
      * @return The logarithm of the matrix.
      * @throws std::invalid_argument If the matrix is not square or is singular.
@@ -469,20 +491,25 @@ public:
     /**
      * @brief Calculates the eigenvectors of the matrix.
      *
-     * Eigenvectors are non-zero vectors that, when the matrix is multiplied by them, result in a scalar multiple of themselves.
-     * For a square matrix A, if there exists a vector v and a scalar lambda such that Av = lambda * v, then v is an eigenvector corresponding to the eigenvalue lambda.
-     * This method computes the eigenvectors using the power iteration method.
+     * Eigenvectors are non-zero vectors that, when the matrix is multiplied by
+     * them, result in a scalar multiple of themselves. For a square matrix A,
+     * if there exists a vector v and a scalar lambda such that Av = lambda * v,
+     * then v is an eigenvector corresponding to the eigenvalue lambda. This
+     * method computes the eigenvectors using the power iteration method.
      *
-     * @return A matrix where each column represents an eigenvector of the matrix.
+     * @return A matrix where each column represents an eigenvector of the
+     * matrix.
      */
     Matrix<T> eigenvectors() const;
 
     /**
      * @brief Calculates the rank of the matrix.
      *
-     * The rank of a matrix is the maximum number of linearly independent rows or columns in the matrix.
-     * It represents the dimension of the vector space spanned by the rows or columns of the matrix.
-     * The rank is computed by performing singular value decomposition (SVD) and counting the number of non-zero singular values.
+     * The rank of a matrix is the maximum number of linearly independent rows
+     * or columns in the matrix. It represents the dimension of the vector space
+     * spanned by the rows or columns of the matrix. The rank is computed by
+     * performing singular value decomposition (SVD) and counting the number of
+     * non-zero singular values.
      *
      * @return The rank of the matrix.
      */
@@ -497,6 +524,6 @@ public:
     Vector<T> solve(const Vector<T>& b) const;
 };
 
-} // namespace lincpp
+}  // namespace lincpp
 
-#endif // LINCPP_MATRIX_H
+#endif  // LINCPP_MATRIX_H
