@@ -15,14 +15,15 @@
  * lincpp. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cmath>
-#include <algorithm>
-#include <random>
-#include <limits>
+#include "../include/matrix.h"
+#include "../include/vector.h"
+
 #include <unistd.h>
 
-#include "../include/vector.h"
-#include "../include/matrix.h"
+#include <algorithm>
+#include <cmath>
+#include <limits>
+#include <random>
 
 namespace lincpp {
 
@@ -49,13 +50,16 @@ template <typename T>
 Matrix<T>::Matrix() : rows(0), cols(0), data() {}
 
 template <typename T>
-Matrix<T>::Matrix(size_t rows, size_t cols) : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {}
+Matrix<T>::Matrix(size_t rows, size_t cols)
+    : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {}
 
 template <typename T>
-Matrix<T>::Matrix(size_t rows, size_t cols, const T& value) : rows(rows), cols(cols), data(rows, std::vector<T>(cols, value)) {}
+Matrix<T>::Matrix(size_t rows, size_t cols, const T& value)
+    : rows(rows), cols(cols), data(rows, std::vector<T>(cols, value)) {}
 
 template <typename T>
-Matrix<T>::Matrix(const std::vector<std::vector<T>>& values) : rows(values.size()), cols(values[0].size()), data(values) {}
+Matrix<T>::Matrix(const std::vector<std::vector<T>>& values)
+    : rows(values.size()), cols(values[0].size()), data(values) {}
 
 // Getters
 
@@ -127,7 +131,8 @@ bool Matrix<T>::operator==(const Matrix<T>& other) const {
     }
 
     for (size_t i = 0; i < rows; ++i) {
-        if (!std::equal(data[i].begin(), data[i].end(), other.data[i].begin())) {
+        if (!std::equal(data[i].begin(), data[i].end(),
+                        other.data[i].begin())) {
             return false;
         }
     }
@@ -138,7 +143,8 @@ bool Matrix<T>::operator==(const Matrix<T>& other) const {
 template <typename T>
 Matrix<T> Matrix<T>::operator+(const Matrix<T>& other) const {
     if (rows != other.rows || cols != other.cols) {
-        throw std::invalid_argument("Matrix dimensions must agree for addition.");
+        throw std::invalid_argument(
+            "Matrix dimensions must agree for addition.");
     }
 
     Matrix<T> sum(rows, cols);
@@ -155,7 +161,8 @@ Matrix<T> Matrix<T>::operator+(const Matrix<T>& other) const {
 template <typename T>
 Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& other) {
     if (rows != other.rows || cols != other.cols) {
-        throw std::invalid_argument("Matrix dimensions must agree for addition.");
+        throw std::invalid_argument(
+            "Matrix dimensions must agree for addition.");
     }
 
     for (size_t i = 0; i < rows; ++i) {
@@ -170,7 +177,8 @@ Matrix<T>& Matrix<T>::operator+=(const Matrix<T>& other) {
 template <typename T>
 Matrix<T> Matrix<T>::operator-(const Matrix<T>& other) const {
     if (rows != other.rows || cols != other.cols) {
-        throw std::invalid_argument("Matrix dimensions must agree for subtraction.");
+        throw std::invalid_argument(
+            "Matrix dimensions must agree for subtraction.");
     }
 
     Matrix<T> diff(rows, cols);
@@ -187,7 +195,8 @@ Matrix<T> Matrix<T>::operator-(const Matrix<T>& other) const {
 template <typename T>
 Matrix<T>& Matrix<T>::operator-=(const Matrix<T>& other) {
     if (rows != other.rows || cols != other.cols) {
-        throw std::invalid_argument("Matrix dimensions must agree for subtraction.");
+        throw std::invalid_argument(
+            "Matrix dimensions must agree for subtraction.");
     }
 
     for (size_t i = 0; i < rows; ++i) {
@@ -228,7 +237,8 @@ Matrix<T>& Matrix<T>::operator*=(const T& scalar) {
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
     if (cols != other.rows) {
-        throw std::invalid_argument("Matrix dimensions must agree for multiplication.");
+        throw std::invalid_argument(
+            "Matrix dimensions must agree for multiplication.");
     }
 
     Matrix<T> product(rows, other.cols);
@@ -244,7 +254,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
     const long CACHE_SIZE = sysconf(_SC_LEVEL1_DCACHE_SIZE);
     if (CACHE_SIZE == -1) {
         // Default to a reasonable cache size if sysconf fails
-        CACHE_SIZE = 32768; // 32 KB
+        CACHE_SIZE = 32768;  // 32 KB
     }
 
     // Get the cache associativity using sysconf
@@ -254,11 +264,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
         CACHE_ASSOCIATIVITY = 8;
     }
 
-    // Calculate the optimum block size based on cache parameters and matrix sizes
-    const size_t BLOCK_SIZE = std::min(
-        static_cast<size_t>(std::sqrt(CACHE_SIZE / CACHE_ASSOCIATIVITY / sizeof(T))),
-        static_cast<size_t>(CACHE_LINE_SIZE / sizeof(T))
-    );
+    // Calculate the optimum block size based on cache parameters and matrix
+    // sizes
+    const size_t BLOCK_SIZE =
+        std::min(static_cast<size_t>(
+                     std::sqrt(CACHE_SIZE / CACHE_ASSOCIATIVITY / sizeof(T))),
+                 static_cast<size_t>(CACHE_LINE_SIZE / sizeof(T)));
 
     // Perform cache blocking matrix multiplication
     for (size_t i = 0; i < rows; i += BLOCK_SIZE) {
@@ -266,10 +277,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
             for (size_t k = 0; k < cols; k += BLOCK_SIZE) {
                 // Multiply the current blocks
                 for (size_t ii = i; ii < std::min(i + BLOCK_SIZE, rows); ++ii) {
-                    for (size_t jj = j; jj < std::min(j + BLOCK_SIZE, other.cols); ++jj) {
+                    for (size_t jj = j;
+                         jj < std::min(j + BLOCK_SIZE, other.cols); ++jj) {
                         T sum = static_cast<T>(0);
 
-                        for (size_t kk = k; kk < std::min(k + BLOCK_SIZE, cols); ++kk) {
+                        for (size_t kk = k; kk < std::min(k + BLOCK_SIZE, cols);
+                             ++kk) {
                             sum += data[ii][kk] * other(kk, jj);
                         }
 
@@ -375,7 +388,8 @@ inline T Matrix<T>::trace() const {
 template <typename T>
 T Matrix<T>::det() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the determinant.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the determinant.");
     }
 
     // If the matrix is 1x1, return the single element
@@ -414,7 +428,9 @@ T Matrix<T>::det() const {
 template <typename T>
 T Matrix<T>::det_via_lu() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the determinant via LU decomposition.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the determinant via LU "
+            "decomposition.");
     }
 
     auto [L, U] = lu();
@@ -444,13 +460,15 @@ Matrix<T> Matrix<T>::transpose() const {
 template <typename T>
 Matrix<T> Matrix<T>::inverse() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the inverse.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the inverse.");
     }
 
     T det = this->det();
 
     if (!is_invertible()) {
-        throw std::invalid_argument("Matrix must be non-singular to calculate the inverse.");
+        throw std::invalid_argument(
+            "Matrix must be non-singular to calculate the inverse.");
     }
 
     Matrix<T> adj = adjoint();
@@ -461,7 +479,8 @@ Matrix<T> Matrix<T>::inverse() const {
 template <typename T>
 Matrix<T> Matrix<T>::adjoint() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the adjoint.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the adjoint.");
     }
 
     Matrix<T> adj(rows, cols);
@@ -477,7 +496,8 @@ Matrix<T> Matrix<T>::adjoint() const {
 
                 size_t sub_i = k < i ? k : k - 1;
                 for (size_t l = 0; l < cols; ++l) {
-                    if (l == j) {continue;
+                    if (l == j) {
+                        continue;
                     }
 
                     size_t sub_j = l < j ? l : l - 1;
@@ -510,7 +530,8 @@ Matrix<T> Matrix<T>::conjugate() const {
 template <typename T>
 Matrix<T> Matrix<T>::exp() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the exponential.");
     }
 
     const int q = 6;
@@ -540,7 +561,8 @@ Matrix<T> Matrix<T>::exp() const {
 template <typename T>
 Matrix<T> Matrix<T>::pow(int n) const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate its integer power.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate its integer power.");
     }
 
     if (n == 0) {
@@ -566,7 +588,8 @@ Matrix<T> Matrix<T>::pow(int n) const {
 template <typename T>
 Matrix<T> Matrix<T>::log() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate its logarithm.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate its logarithm.");
     }
 
     const int q = 6;
@@ -586,8 +609,10 @@ Matrix<T> Matrix<T>::log() const {
     Matrix<T> Q = I;
 
     for (int k = 1; k <= q; ++k) {
-        P *= static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) * Z;
-        Q *= -static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) * Z;
+        P *=
+            static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) * Z;
+        Q *= -static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) *
+             Z;
         X += P + Q;
     }
 
@@ -603,7 +628,8 @@ Matrix<T> Matrix<T>::log() const {
 template <typename T>
 std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to perform LU decomposition.");
+        throw std::invalid_argument(
+            "Matrix must be square to perform LU decomposition.");
     }
 
     Matrix<T> L(rows, cols);
@@ -651,7 +677,8 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
         norm = std::sqrt(norm);
 
         T s = R(i, i) < static_cast<T>(0) ? norm : -norm;
-        T alpha = static_cast<T>(1) / std::sqrt(static_cast<T>(2) * norm * (norm - R(i, i)));
+        T alpha = static_cast<T>(1) /
+                  std::sqrt(static_cast<T>(2) * norm * (norm - R(i, i)));
 
         Vector<T> v(rows);
         v[i] = R(i, i) - s;
@@ -695,7 +722,8 @@ std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> Matrix<T>::svd() const {
 template <typename T>
 std::vector<std::complex<T>> Matrix<T>::eigenvalues() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate its eigenvalues.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate its eigenvalues.");
     }
 
     const size_t max_iterations = 100;
@@ -713,7 +741,8 @@ std::vector<std::complex<T>> Matrix<T>::eigenvalues() const {
             x = y * (static_cast<T>(1) / y.max_norm());
 
             Matrix<T> z = A * x;
-            T eigenvalue = (z.transpose() * x)(0, 0) / (x.transpose() * x)(0, 0);
+            T eigenvalue =
+                (z.transpose() * x)(0, 0) / (x.transpose() * x)(0, 0);
 
             if ((z - x * eigenvalue).max_norm() < tolerance) {
                 break;
@@ -735,7 +764,8 @@ std::vector<std::complex<T>> Matrix<T>::eigenvalues() const {
 template <typename T>
 Matrix<T> Matrix<T>::eigenvectors() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate its eigenvectors.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate its eigenvectors.");
     }
 
     const size_t max_iterations = 100;
@@ -770,7 +800,8 @@ Matrix<T> Matrix<T>::eigenvectors() const {
 template <typename T>
 size_t Matrix<T>::rank() const {
     auto [U, S, V] = svd();
-    const T tolerance = std::numeric_limits<T>::epsilon() * std::max(rows, cols) * S(0, 0);
+    const T tolerance =
+        std::numeric_limits<T>::epsilon() * std::max(rows, cols) * S(0, 0);
     size_t rank = 0;
 
     for (size_t i = 0; i < std::min(rows, cols); ++i) {
@@ -785,10 +816,13 @@ size_t Matrix<T>::rank() const {
 template <typename T>
 Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to solve a linear system.");
+        throw std::invalid_argument(
+            "Matrix must be square to solve a linear system.");
     }
     if (rows != b.size()) {
-        throw std::invalid_argument("Matrix and vector dimensions must agree for solving a linear system.");
+        throw std::invalid_argument(
+            "Matrix and vector dimensions must agree for solving a linear "
+            "system.");
     }
 
     auto [L, U] = lu();
@@ -816,4 +850,4 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
     return x;
 }
 
-} // namespace lincpp
+}  // namespace lincpp

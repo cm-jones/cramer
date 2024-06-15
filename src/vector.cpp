@@ -15,10 +15,10 @@
  * libdsc. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <stdexcept>
-#include <cmath>
-
 #include "../include/vector.h"
+
+#include <cmath>
+#include <stdexcept>
 
 namespace numcpp {
 
@@ -52,7 +52,8 @@ const T& Vector<T>::operator[](size_t index) const {
 template <typename T>
 Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for addition.");
+        throw std::invalid_argument(
+            "Vectors must have the same size for addition.");
     }
 
     Vector<T> result(size());
@@ -65,7 +66,8 @@ Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
 template <typename T>
 Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for addition.");
+        throw std::invalid_argument(
+            "Vectors must have the same size for addition.");
     }
 
     for (size_t i = 0; i < size(); ++i) {
@@ -77,7 +79,8 @@ Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
 template <typename T>
 Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for subtraction.");
+        throw std::invalid_argument(
+            "Vectors must have the same size for subtraction.");
     }
 
     Vector<T> result(size());
@@ -90,7 +93,8 @@ Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
 template <typename T>
 Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for subtraction.");
+        throw std::invalid_argument(
+            "Vectors must have the same size for subtraction.");
     }
 
     for (size_t i = 0; i < size(); ++i) {
@@ -102,7 +106,8 @@ Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
 template <typename T>
 T Vector<T>::dot(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for dot product.");
+        throw std::invalid_argument(
+            "Vectors must have the same size for dot product.");
     }
 
     T result = 0;
@@ -112,4 +117,4 @@ T Vector<T>::dot(const Vector<T>& other) const {
     return result;
 }
 
-} // namespace numcpp
+}  // namespace numcpp
