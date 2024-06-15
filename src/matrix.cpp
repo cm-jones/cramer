@@ -268,9 +268,11 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
                 for (size_t ii = i; ii < std::min(i + BLOCK_SIZE, rows); ++ii) {
                     for (size_t jj = j; jj < std::min(j + BLOCK_SIZE, other.cols); ++jj) {
                         T sum = static_cast<T>(0);
+
                         for (size_t kk = k; kk < std::min(k + BLOCK_SIZE, cols); ++kk) {
                             sum += data[ii][kk] * other(kk, jj);
                         }
+
                         product(ii, jj) += sum;
                     }
                 }
@@ -475,8 +477,7 @@ Matrix<T> Matrix<T>::adjoint() const {
 
                 size_t sub_i = k < i ? k : k - 1;
                 for (size_t l = 0; l < cols; ++l) {
-                    if (l == j) {
-                        continue;
+                    if (l == j) {continue;
                     }
 
                     size_t sub_j = l < j ? l : l - 1;
@@ -521,10 +522,9 @@ Matrix<T> Matrix<T>::exp() const {
     Matrix<T> P = identity(rows);
     Matrix<T> Q = identity(rows);
 
-    const int num_terms = q;
     T c = static_cast<T>(1);
 
-    for (int k = 1; k <= num_terms; ++k) {
+    for (int k = 1; k <= q; ++k) {
         c *= static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1));
         Q = A * Q;
         P += c * Q;
@@ -568,12 +568,8 @@ Matrix<T> Matrix<T>::log() const {
     if (!is_square()) {
         throw std::invalid_argument("Matrix must be square to calculate its logarithm.");
     }
-    if (det() == static_cast<T>(0)) {
-        throw std::invalid_argument("Matrix must be non-singular to calculate its logarithm.");
-    }
 
     const int q = 6;
-    const T tolerance = std::numeric_limits<T>::epsilon();
 
     Matrix<T> A = *this;
     int s = 0;
@@ -702,10 +698,6 @@ std::vector<std::complex<T>> Matrix<T>::eigenvalues() const {
         throw std::invalid_argument("Matrix must be square to calculate its eigenvalues.");
     }
 
-    if (!is_invertible()) {
-        throw std::invalid_argument("Matrix must be non-singular to calculate its eigenvalues.");
-    }
-
     const size_t max_iterations = 100;
     const T tolerance = std::numeric_limits<T>::epsilon();
 
@@ -744,9 +736,6 @@ template <typename T>
 Matrix<T> Matrix<T>::eigenvectors() const {
     if (!is_square()) {
         throw std::invalid_argument("Matrix must be square to calculate its eigenvectors.");
-    }
-    if (det() == static_cast<T>(0)) {
-        throw std::invalid_argument("Matrix must be non-singular to calculate its eigenvectors.");
     }
 
     const size_t max_iterations = 100;
@@ -816,12 +805,12 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
 
     // Backward substitution
     Vector<T> x(rows);
-    for (int i = rows - 1; i >= 0; --i) {
-        x[i] = y[i];
-        for (size_t j = i + 1; j < rows; ++j) {
-            x[i] -= U(i, j) * x[j];
+    for (size_t i = rows; i > 0; --i) {
+        x[i - 1] = y[i - 1];
+        for (size_t j = i; j < rows; ++j) {
+            x[i - 1] -= U(i - 1, j) * x[j];
         }
-        x[i] /= U(i, i);
+        x[i - 1] /= U(i - 1, i - 1);
     }
 
     return x;
