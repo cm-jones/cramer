@@ -1,12 +1,12 @@
-# cramer: Numerical Linear Algebra for C++
+# Cramer: Numerical Linear Algebra for C++
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-cramer is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
+Cramer is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
 
 ## Features
 
-cramer supports the following computations:
+Cramer supports the following computations:
 
 - For any two vectors $x$ and $y$,
   - $\lVert x \rVert$, the norm,
