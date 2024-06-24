@@ -1,29 +1,28 @@
 /*
- * This file is part of cramer.
+ * This file is part of Cramer.
  *
- * cramer is free software: you can redistribute it and/or modify it under the
+ * Cramer is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * cramer is distributed in the hope that it will be useful, but WITHOUT ANY
+ * Cramer is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  *
  * You should have received a copy of the GNU General Public License along with
- * cramer. If not, see <https://www.gnu.org/licenses/>.
+ * Cramer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "../include/matrix.h"
-#include "../include/vector.h"
-
-#include <unistd.h>
+#include <matrix.h>
+#include <vector.h>
 
 #include <algorithm>
 #include <cmath>
 #include <limits>
 #include <random>
+#include <complex>
 
 namespace cramer {
 
@@ -243,29 +242,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
 
     Matrix<T> product(rows, other.cols);
 
-    // Get the cache line size using sysconf
-    const long CACHE_LINE_SIZE = sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
-    if (CACHE_LINE_SIZE == -1) {
-        // Default to a reasonable block size if sysconf fails
-        CACHE_LINE_SIZE = 64;
-    }
+    // Cache parameters
+    const long CACHE_LINE_SIZE = 64;  // Typical cache line size
+    const long CACHE_SIZE = 32768;    // 32 KB L1 cache
+    const long CACHE_ASSOCIATIVITY = 8;  // 8-way set associative
 
-    // Get the cache size using sysconf
-    const long CACHE_SIZE = sysconf(_SC_LEVEL1_DCACHE_SIZE);
-    if (CACHE_SIZE == -1) {
-        // Default to a reasonable cache size if sysconf fails
-        CACHE_SIZE = 32768;  // 32 KB
-    }
-
-    // Get the cache associativity using sysconf
-    const long CACHE_ASSOCIATIVITY = sysconf(_SC_LEVEL1_DCACHE_ASSOC);
-    if (CACHE_ASSOCIATIVITY == -1) {
-        // Default to a reasonable cache associativity if sysconf fails
-        CACHE_ASSOCIATIVITY = 8;
-    }
-
-    // Calculate the optimum block size based on cache parameters and matrix
-    // sizes
+    // Calculate the optimum block size based on cache parameters and matrix sizes
     const size_t BLOCK_SIZE =
         std::min(static_cast<size_t>(
                      std::sqrt(CACHE_SIZE / CACHE_ASSOCIATIVITY / sizeof(T))),
@@ -518,7 +500,7 @@ Matrix<T> Matrix<T>::conjugate() const {
 
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
-            conjugate(i, j) = std::conj(data[i][j]);
+            conjugate(i, j) = std::conj(static_cast<std::complex<T>>(data[i][j])).real();
         }
     }
 
@@ -548,7 +530,7 @@ Matrix<T> Matrix<T>::exp() const {
     for (int k = 1; k <= q; ++k) {
         c *= static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1));
         Q = A * Q;
-        P += c * Q;
+        P = P + Q * c;  // Changed order of multiplication
     }
 
     for (int k = 0; k < s; ++k) {
@@ -576,13 +558,42 @@ Matrix<T> Matrix<T>::pow(int n) const {
 
     while (n > 0) {
         if (n % 2 == 1) {
-            result *= base;
+            result = result * base;  // Use matrix multiplication instead of *=
         }
-        base *= base;
+        base = base * base;  // Use matrix multiplication instead of *=
         n /= 2;
     }
 
     return negative ? result.inverse() : result;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::sqrt() const {
+    if (!is_square()) {
+        throw std::invalid_argument(
+            "Matrix must be square to calculate its square root.");
+    }
+
+    // This is a placeholder implementation using Denman-Beavers iteration
+    // For a more robust implementation, consider using Schur decomposition or other methods
+    Matrix<T> X = *this;
+    Matrix<T> Y = identity(rows);
+    const int max_iterations = 20;
+    const T tolerance = std::numeric_limits<T>::epsilon();
+
+    for (int i = 0; i < max_iterations; ++i) {
+        Matrix<T> X_next = (X + Y.inverse()) * static_cast<T>(0.5);
+        Matrix<T> Y_next = (Y + X.inverse()) * static_cast<T>(0.5);
+
+        if ((X_next - X).max_norm() < tolerance) {
+            return X_next;
+        }
+
+        X = X_next;
+        Y = Y_next;
+    }
+
+    throw std::runtime_error("Square root iteration did not converge.");
 }
 
 template <typename T>
@@ -609,15 +620,13 @@ Matrix<T> Matrix<T>::log() const {
     Matrix<T> Q = I;
 
     for (int k = 1; k <= q; ++k) {
-        P *=
-            static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) * Z;
-        Q *= -static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1)) *
-             Z;
-        X += P + Q;
+        P = P * (Z * (static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1))));
+        Q = Q * (Z * (-static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1))));
+        X = X + P + Q;
     }
 
     for (int k = 0; k < s; ++k) {
-        X += X;
+        X = X + X;
     }
 
     return X;
@@ -668,10 +677,12 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
     Matrix<T> R = *this;
 
     for (size_t i = 0; i < std::min(rows, cols); ++i) {
+        Vector<T> v(rows);
         T norm = static_cast<T>(0);
 
         for (size_t j = i; j < rows; ++j) {
-            norm += R(j, i) * R(j, i);
+            v[j] = R(j, i);
+            norm += v[j] * v[j];
         }
 
         norm = std::sqrt(norm);
@@ -680,15 +691,17 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
         T alpha = static_cast<T>(1) /
                   std::sqrt(static_cast<T>(2) * norm * (norm - R(i, i)));
 
-        Vector<T> v(rows);
         v[i] = R(i, i) - s;
 
-        for (size_t j = i + 1; j < rows; ++j) {
-            v[j] = R(j, i);
+        Matrix<T> vvT(rows, cols);
+        for (size_t j = 0; j < rows; ++j) {
+            for (size_t k = 0; k < cols; ++k) {
+                vvT(j, k) = v[j] * v[k];
+            }
         }
 
-        R -= (v * v.transpose()) * (static_cast<T>(2) * alpha);
-        Q -= (Q * v) * (v.transpose() * Q) * (static_cast<T>(2) * alpha);
+        R = R - vvT * (static_cast<T>(2) * alpha);
+        Q = Q - (Q * vvT) * (static_cast<T>(2) * alpha);
     }
 
     return std::make_pair(Q, R);
@@ -706,8 +719,8 @@ std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> Matrix<T>::svd() const {
     for (size_t i = 0; i < max_iterations; ++i) {
         auto [Q, R] = A.qr();
         A = R * Q;
-        U *= Q;
-        V *= Q;
+        U = U * Q;
+        V = V * Q;
 
         if (A.max_norm() < tolerance) {
             break;
@@ -851,3 +864,7 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
 }
 
 }  // namespace cramer
+
+// Explicit template instantiations
+template class cramer::Matrix<float>;
+template class cramer::Matrix<double>;

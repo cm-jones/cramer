@@ -23,4 +23,4 @@ target_include_directories(cramer PUBLIC include)
 
 # Installation rules
 install(TARGETS cramer DESTINATION lib)
-install(DIRECTORY include/cramer DESTINATION include)
+install(DIRECTORY include DESTINATION include)
