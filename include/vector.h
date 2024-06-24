@@ -15,12 +15,11 @@
  * libdsc. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef cramer_VECTOR_H
-#define cramer_VECTOR_H
+#pragma once
 
 #include <vector>
 
-namespace numcpp {
+namespace cramer {
 
 /**
  * @brief Represents a vector of elements of type T.
@@ -131,11 +130,7 @@ class Vector {
      * @return The dot product of the current vector and the other vector.
      */
     T dot(const Vector<T>& other) const;
-
-    // Other vector operations and methods
-    // ...
 };
 
-}  // namespace numcpp
+}  // namespace cramer
 
-#endif  // cramer_VECTOR_H
