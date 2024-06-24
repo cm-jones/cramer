@@ -15,8 +15,7 @@
  * cramer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef cramer_MATRIX_H
-#define cramer_MATRIX_H
+#pragma once
 
 #include <complex>
 #include <vector>
@@ -525,5 +524,3 @@ class Matrix {
 };
 
 }  // namespace cramer
-
-#endif  // cramer_MATRIX_H
