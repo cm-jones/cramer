@@ -15,8 +15,8 @@
  * libdsc. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef LINCPP_VECTOR_H
-#define LINCPP_VECTOR_H
+#ifndef cramer_VECTOR_H
+#define cramer_VECTOR_H
 
 #include <vector>
 
@@ -138,4 +138,4 @@ class Vector {
 
 }  // namespace numcpp
 
-#endif  // LINCPP_VECTOR_H
+#endif  // cramer_VECTOR_H

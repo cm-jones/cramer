@@ -1,29 +1,29 @@
 /*
- * This file is part of lincpp.
+ * This file is part of cramer.
  *
- * lincpp is free software: you can redistribute it and/or modify it under the
+ * cramer is free software: you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
  *
- * lincpp is distributed in the hope that it will be useful, but WITHOUT ANY
+ * cramer is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  *
  * You should have received a copy of the GNU General Public License along with
- * lincpp. If not, see <https://www.gnu.org/licenses/>.
+ * cramer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef LINCPP_MATRIX_H
-#define LINCPP_MATRIX_H
+#ifndef cramer_MATRIX_H
+#define cramer_MATRIX_H
 
 #include <complex>
 #include <vector>
 
 #include "vector.h"
 
-namespace lincpp {
+namespace cramer {
 
 /**
  * @brief Represents a matrix of elements of type T.
@@ -524,6 +524,6 @@ class Matrix {
     Vector<T> solve(const Vector<T>& b) const;
 };
 
-}  // namespace lincpp
+}  // namespace cramer
 
-#endif  // LINCPP_MATRIX_H
+#endif  // cramer_MATRIX_H

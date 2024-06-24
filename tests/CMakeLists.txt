@@ -17,7 +17,7 @@ file(GLOB TEST_SOURCES *.cpp)
 add_executable(runTests ${TEST_SOURCES})
 
 # Link Google Test and your library
-target_link_libraries(runTests gtest gtest_main lincpp)
+target_link_libraries(runTests gtest gtest_main cramer)
 
 # Register tests
 include(GoogleTest)

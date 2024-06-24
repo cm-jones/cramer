@@ -1,12 +1,12 @@
-# lincpp: Numerical Linear Algebra for C++
+# cramer: Numerical Linear Algebra for C++
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-lincpp is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
+cramer is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
 
 ## Features
 
-lincpp supports the following computations:
+cramer supports the following computations:
 
 - For any two vectors $x$ and $y$,
   - $\lVert x \rVert$, the norm,
@@ -36,12 +36,12 @@ lincpp supports the following computations:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/cm-jones/lincpp.git
+   git clone https://github.com/cm-jones/cramer.git
    ```
 
 2. Create a build directory and navigate to it:
    ```
-   cd lincpp
+   cd cramer
    mkdir build
    cd build
    ```
@@ -66,14 +66,14 @@ lincpp supports the following computations:
 Include the necessary headers in your C++ source files:
 
 ```cpp
-#include <lincpp/vector.h>
-#include <lincpp/matrix.h>
+#include <cramer/vector.h>
+#include <cramer/matrix.h>
 ```
 
 Create vectors and matrices, and perform operations on them:
 
 ```cpp
-using namespace lincpp;
+using namespace cramer;
 
 Matrix<double> A(2, 2);
 A(0, 0) = 1.0;
@@ -90,11 +90,11 @@ Vector<double> x = solve(A, b);
 
 ## Documentation
 
-Detailed documentation for LinCPP can be found under [docs/](docs/).
+Detailed documentation for cramer can be found under [docs/](docs/).
 
 ## Contributing
 
-If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/cm-jones/lincpp/issues/new) or submit a [pull request](https://github.com/cm-jones/lincpp/compare).
+If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/cm-jones/cramer/issues/new) or submit a [pull request](https://github.com/cm-jones/cramer/compare).
 
 ## License
 

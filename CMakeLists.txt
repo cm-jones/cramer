@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(lincpp)
+project(cramer)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -10,15 +10,15 @@ include_directories(include)
 file(GLOB SOURCES src/*.cpp)
 
 # Create a static library
-add_library(lincpp STATIC ${SOURCES})
+add_library(cramer STATIC ${SOURCES})
 
 # Specify the include directory for the library target
-target_include_directories(lincpp PUBLIC include)
+target_include_directories(cramer PUBLIC include)
 
 # Optionally, you can add an executable target
 # add_executable(main main.cpp)
-# target_link_libraries(main lincpp)
+# target_link_libraries(main cramer)
 
 # Installation rules
-install(TARGETS lincpp DESTINATION lib)
+install(TARGETS cramer DESTINATION lib)
 install(DIRECTORY include/numcpp DESTINATION include)
