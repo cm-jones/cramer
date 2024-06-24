@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(cramer)
 
-set(CMAKE_CXX_STANDARD 14)
+# Set C++ standard to C++17
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Include directories
 include_directories(include)
@@ -21,4 +23,4 @@ target_include_directories(cramer PUBLIC include)
 
 # Installation rules
 install(TARGETS cramer DESTINATION lib)
-install(DIRECTORY include/numcpp DESTINATION include)
+install(DIRECTORY include/cramer DESTINATION include)
