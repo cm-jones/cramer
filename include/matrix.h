@@ -1,9 +1,12 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 #pragma once
 
 #include <vector>
 #include <complex>
 #include <utility>
 #include <tuple>
+#include <initializer_list>
 
 namespace cramer {
 
@@ -49,6 +52,15 @@ public:
      * @param values The 2D vector to create the matrix from.
      */
     Matrix(const std::vector<std::vector<T>>& values);
+
+    /**
+     * @brief Constructor that creates a matrix from an initializer list.
+     * @param rows Number of rows.
+     * @param cols Number of columns.
+     * @param values The initializer list of values to populate the matrix.
+     * @throws std::invalid_argument if the size of values doesn't match rows * cols.
+     */
+    Matrix(size_t rows, size_t cols, std::initializer_list<T> values);
 
     /**
      * @brief Gets the number of rows in the matrix.
@@ -312,4 +324,4 @@ public:
     Vector<T> solve(const Vector<T>& b) const;
 };
 
-}  // namespace cramer
+} // namespace cramer
