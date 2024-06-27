@@ -343,5 +343,3 @@ static void BM_VectorLog(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_VectorLog)->Range(8, 8<<10);
-
-BENCHMARK_MAIN();
