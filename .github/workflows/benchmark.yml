@@ -1,0 +1,27 @@
+name: Benchmark
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: sudo apt-get install -y cmake g++
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build --config Release
+    - name: Run benchmarks
+      working-directory: ${{github.workspace}}/build
+      run: ./benchmark_vector --benchmark_format=console --benchmark_out=benchmark_results.txt
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v2
+      with:
+        name: benchmark-results
+        path: ${{github.workspace}}/build/benchmark_results.txt
