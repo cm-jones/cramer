@@ -1,24 +1,36 @@
-include(FetchContent)
+# Minimum CMake version
+cmake_minimum_required(VERSION 3.12)
 
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/release-1.10.0.tar.gz
+# Find Google Test
+find_package(GTest REQUIRED)
+
+# Include directories
+include_directories(${GTEST_INCLUDE_DIRS})
+
+# Add test executable
+add_executable(test_matrix test_matrix.cpp)
+
+# Link libraries
+target_link_libraries(test_matrix
+    PRIVATE
+        cramer
+        GTest::GTest
+        GTest::Main
 )
 
-# For Windows: Prevent overriding the parent project's compiler/linker settings
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+# Add the test to CTest
+add_test(NAME MatrixTest COMMAND test_matrix)
 
-FetchContent_MakeAvailable(googletest)
+# Set C++ standard for the test
+set_target_properties(test_matrix PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+)
 
-# Test sources
-file(GLOB TEST_SOURCES *.cpp)
-
-# Create the test executable
-add_executable(runTests ${TEST_SOURCES})
-
-# Link Google Test and your library
-target_link_libraries(runTests gtest gtest_main cramer)
-
-# Register tests
-include(GoogleTest)
-gtest_discover_tests(runTests)
+# Apply address sanitizer flags
+if(CMAKE_CXX_FLAGS MATCHES "-fsanitize=address")
+    set_target_properties(test_matrix PROPERTIES
+        COMPILE_FLAGS "${CMAKE_CXX_FLAGS}"
+        LINK_FLAGS "-fsanitize=address"
+    )
+endif()
