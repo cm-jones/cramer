@@ -6,27 +6,64 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++ that implements operations on vectors and matrices. It can also compute eigenvalues and eigenvectors and solve systems of linear equations. Here's an incomplete list of features:
+Cramer is an open-source, numerical linear algebra library for C++ that supports common operations on vectors and matrices. For example, it can efficiently calculate the eigenvalues and eigenvectors of a matrix and solve a system of linear equations.
 
-- Vector operations:
-  - norm
-  - inner (dot) product
-  - cross product
-  - projections
-  - reflections
+## Features
 
-- Matrix operations:
-  - trace
-  - determinant
-  - transpose
-  - inverse
-  - LU, QR, and SVD decompositions
-  - eigenvalues and eigenvectors
+Vector operations:
+
+- norm (length)
+- addition
+- inner (dot) product
+- outer product
+- cross product
+- projections
+- reflections
+- rotations
+
+Matrix operations:
+
+- trace
+- determinant
+- rank
+- transpose
+- Hermitian adjoint
+- inverse (if it exists)
+- LU, QR, and SVD decompositions
+- eigenvalues and eigenvectors
 
 ## Requirements
 
-- C++17 or later
-- CMake 3.10 or later
+- C++17 compiler (e.g., GCC, Clang)
+- CMake
+- Google Test for [unit testing](#unit-testing)
+- Google Benchmark for [benchmarking](#benchmarking)
+
+## Usage
+
+Include the header in your C++ source files:
+
+```cpp
+#include <cramer.h>
+```
+
+Create vectors and matrices, and perform operations on them:
+
+```cpp
+using namespace cramer;
+
+Matrix<double> A(2, 2);
+A(0, 0) = 1.0;
+A(0, 1) = 2.0;
+A(1, 0) = 3.0;
+A(1, 1) = 4.0;
+
+Vector<double> b(2);
+b(0) = 5.0;
+b(1) = 6.0;
+
+Vector<double> x = solve(A, b);
+```
 
 ## Build and Install
 
@@ -57,31 +94,33 @@ Cramer is an open-source, numerical linear algebra library for C++ that implemen
    sudo make install
    ```
 
-## Usage
+## Unit Testing
 
-Include the header in your C++ source files:
+Thales uses [Google Test](https://github.com/google/googletest) for unit testing. To run the unit tests, first [build](#build-and-install) the project, and then execute the following command inside the `build` directory:
 
-```cpp
-#include <cramer.h>
+```sh
+ctest
 ```
 
-Create vectors and matrices, and perform operations on them:
+This will run all the registered unit tests and display the results.
 
-```cpp
-using namespace cramer;
+## Benchmarking
 
-Matrix<double> A(2, 2);
-A(0, 0) = 1.0;
-A(0, 1) = 2.0;
-A(1, 0) = 3.0;
-A(1, 1) = 4.0;
+Thales uses [Google Benchmark](https://github.com/google/benchmark) for benchmarking. To run the benchmarks, follow these steps:
 
-Vector<double> b(2);
-b(0) = 5.0;
-b(1) = 6.0;
+1. Build the benchmarks (if not already built):
+   ```
+   cmake --build build --target thales_benchmarks
+   ```
 
-Vector<double> x = solve(A, b);
-```
+2. Run the benchmarks:
+   ```
+   cd build
+   make thales_benchmarks
+   ./thales_benchmarks
+   ```
+
+This will execute all the registered benchmarks and display the results.
 
 ## Documentation
 
