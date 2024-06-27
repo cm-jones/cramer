@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(cramer VERSION 0.1.0 LANGUAGES CXX)
+project(cramer VERSION 1.0.0 LANGUAGES CXX)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -15,8 +15,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_options(-g -O0)
     
     if(ENABLE_COVERAGE)
-        add_compile_options(--coverage)
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+        add_compile_options(--coverage -fprofile-arcs -ftest-coverage)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
     endif()
 endif()
 
@@ -30,6 +30,7 @@ find_package(GTest REQUIRED)
 
 # Include directories
 include_directories(
+    ${GTEST_INCLUDE_DIRS}
     include
 )
 
@@ -45,11 +46,6 @@ target_include_directories(cramer PUBLIC
 target_link_libraries(cramer PRIVATE
     Threads::Threads
 )
-
-if(ENABLE_COVERAGE)
-    target_compile_options(cramer PRIVATE --coverage)
-    target_link_libraries(cramer PRIVATE --coverage)
-endif()
 
 # Enable testing
 enable_testing()
