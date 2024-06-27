@@ -96,7 +96,7 @@ Vector<double> x = solve(A, b);
 
 ## Unit Testing
 
-Thales uses [Google Test](https://github.com/google/googletest) for unit testing. To run the unit tests, first [build](#build-and-install) the project, and then execute the following command inside the `build` directory:
+Cramer uses [Google Test](https://github.com/google/googletest) for unit testing. To run the unit tests, first [build](#build-and-install) the project, and then execute the following command inside the `build` directory:
 
 ```sh
 ctest
@@ -106,18 +106,18 @@ This will run all the registered unit tests and display the results.
 
 ## Benchmarking
 
-Thales uses [Google Benchmark](https://github.com/google/benchmark) for benchmarking. To run the benchmarks, follow these steps:
+Cramer uses [Google Benchmark](https://github.com/google/benchmark) for benchmarking. To run the benchmarks, follow these steps:
 
 1. Build the benchmarks (if not already built):
    ```
-   cmake --build build --target thales_benchmarks
+   cmake --build build --target benchmark_all
    ```
 
 2. Run the benchmarks:
    ```
    cd build
-   make thales_benchmarks
-   ./thales_benchmarks
+   make benchmark_all
+   ./benchmark_all
    ```
 
 This will execute all the registered benchmarks and display the results.
