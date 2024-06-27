@@ -4,6 +4,8 @@
 [![Test Coverage](https://codecov.io/gh/cm-jones/cramer/branch/main/graph/badge.svg?token=fc9ee083-78b6-4e43-bf23-bfa85832df85)](https://codecov.io/gh/cm-jones/cramer)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+## Description
+
 Cramer is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
 
 ## Features
@@ -27,14 +29,12 @@ Cramer supports the following computations:
   - the LU, QR, and SVD factorizations of $A$, and
   - solving a system of linear equations, such that $Ax = b$.
 
-## Installation
+## Requirements
 
-### Requirements
-
-- C++14 or later
+- C++17 or later
 - CMake 3.10 or later
 
-### Build and Install
+## Build and Install
 
 1. Clone the repository:
    ```
@@ -65,11 +65,10 @@ Cramer supports the following computations:
 
 ## Usage
 
-Include the necessary headers in your C++ source files:
+Include the header in your C++ source files:
 
 ```cpp
-#include <cramer/vector.h>
-#include <cramer/matrix.h>
+#include <cramer.h>
 ```
 
 Create vectors and matrices, and perform operations on them:
@@ -92,7 +91,7 @@ Vector<double> x = solve(A, b);
 
 ## Documentation
 
-Detailed documentation for cramer can be found under [docs/](docs/).
+Detailed documentation for cramer can be found at https://cm-jones.github.io/cramer/docs/.
 
 ## Contributing
 
