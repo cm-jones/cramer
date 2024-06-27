@@ -15,8 +15,8 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_options(-g -O0)
     
     if(ENABLE_COVERAGE)
-        add_compile_options(--coverage -fprofile-arcs -ftest-coverage)
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
+        add_compile_options(--coverage)
+        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
     endif()
 endif()
 
@@ -46,6 +46,11 @@ target_link_libraries(cramer PRIVATE
     Threads::Threads
 )
 
+if(ENABLE_COVERAGE)
+    target_compile_options(cramer PRIVATE --coverage)
+    target_link_libraries(cramer PRIVATE --coverage)
+endif()
+
 # Enable testing
 enable_testing()
 
@@ -53,7 +58,6 @@ enable_testing()
 add_subdirectory(tests)
 
 # Benchmarking
-# Fetch and build Google Benchmark
 include(FetchContent)
 FetchContent_Declare(
     benchmark
