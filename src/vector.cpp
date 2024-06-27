@@ -1,31 +1,15 @@
-/*
- * This file is part of libdsc.
- *
- * libdsc is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * libdsc is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * libdsc. If not, see <https://www.gnu.org/licenses/>.
- */
+// SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <vector.h>
-
-#include <cmath>
-#include <stdexcept>
+#include "vector.h"
 #include <algorithm>
+#include <cmath>
 #include <numeric>
+#include <stdexcept>
 
 namespace cramer {
 
 template <typename T>
-Vector<T>::Vector() {}
+Vector<T>::Vector() : data() {}
 
 template <typename T>
 Vector<T>::Vector(size_t size) : data(size) {}
@@ -54,10 +38,8 @@ const T& Vector<T>::operator[](size_t index) const {
 template <typename T>
 Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument(
-            "Vectors must have the same size for addition.");
+        throw std::invalid_argument("Vectors must have the same size for addition");
     }
-
     Vector<T> result(size());
     for (size_t i = 0; i < size(); ++i) {
         result[i] = data[i] + other[i];
@@ -68,10 +50,8 @@ Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
 template <typename T>
 Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
     if (size() != other.size()) {
-        throw std::invalid_argument(
-            "Vectors must have the same size for addition.");
+        throw std::invalid_argument("Vectors must have the same size for addition");
     }
-
     for (size_t i = 0; i < size(); ++i) {
         data[i] += other[i];
     }
@@ -81,10 +61,8 @@ Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
 template <typename T>
 Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument(
-            "Vectors must have the same size for subtraction.");
+        throw std::invalid_argument("Vectors must have the same size for subtraction");
     }
-
     Vector<T> result(size());
     for (size_t i = 0; i < size(); ++i) {
         result[i] = data[i] - other[i];
@@ -95,10 +73,8 @@ Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
 template <typename T>
 Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
     if (size() != other.size()) {
-        throw std::invalid_argument(
-            "Vectors must have the same size for subtraction.");
+        throw std::invalid_argument("Vectors must have the same size for subtraction");
     }
-
     for (size_t i = 0; i < size(); ++i) {
         data[i] -= other[i];
     }
@@ -125,37 +101,30 @@ Vector<T>& Vector<T>::operator*=(const T& scalar) {
 template <typename T>
 T Vector<T>::dot(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument(
-            "Vectors must have the same size for dot product.");
+        throw std::invalid_argument("Vectors must have the same size for dot product");
     }
-
-    T result = 0;
-    for (size_t i = 0; i < size(); ++i) {
-        result += data[i] * other[i];
-    }
-    return result;
+    return std::inner_product(data.begin(), data.end(), other.data.begin(), T());
 }
 
 template <typename T>
 T Vector<T>::norm() const {
-    return std::sqrt(dot(*this));
+    return std::sqrt(std::inner_product(data.begin(), data.end(), data.begin(), T()));
 }
 
 template <typename T>
 Vector<T> Vector<T>::normalize() const {
-    T n = norm();
-    if (n == 0) {
-        throw std::runtime_error("Cannot normalize a zero vector.");
+    T magnitude = this->norm();
+    if (magnitude == T()) {
+        throw std::runtime_error("Cannot normalize zero vector");
     }
-    return *this * (1 / n);
+    return *this * (T(1) / magnitude);
 }
 
 template <typename T>
 Vector<T> Vector<T>::cross(const Vector<T>& other) const {
     if (size() != 3 || other.size() != 3) {
-        throw std::invalid_argument("Cross product is only defined for 3D vectors.");
+        throw std::invalid_argument("Cross product is only defined for 3D vectors");
     }
-
     Vector<T> result(3);
     result[0] = data[1] * other[2] - data[2] * other[1];
     result[1] = data[2] * other[0] - data[0] * other[2];
@@ -165,20 +134,18 @@ Vector<T> Vector<T>::cross(const Vector<T>& other) const {
 
 template <typename T>
 T Vector<T>::angle(const Vector<T>& other) const {
-    T dot_product = dot(other);
-    T magnitudes = norm() * other.norm();
-    
-    if (magnitudes == 0) {
-        throw std::runtime_error("Cannot calculate angle with a zero vector.");
+    T magnitude1 = this->norm();
+    T magnitude2 = other.norm();
+    if (magnitude1 == T() || magnitude2 == T()) {
+        throw std::runtime_error("Cannot compute angle with zero vector");
     }
-    
-    return std::acos(dot_product / magnitudes);
+    return std::acos(dot(other) / (magnitude1 * magnitude2));
 }
 
 template <typename T>
 Vector<T> Vector<T>::project(const Vector<T>& onto) const {
-    T scalar = dot(onto) / onto.dot(onto);
-    return onto * scalar;
+    T scaleFactor = dot(onto) / onto.dot(onto);
+    return onto * scaleFactor;
 }
 
 template <typename T>
@@ -188,25 +155,12 @@ Vector<T> Vector<T>::reject(const Vector<T>& from) const {
 
 template <typename T>
 Vector<T> Vector<T>::reflect(const Vector<T>& normal) const {
-    return *this - normal * (2 * dot(normal));
-}
-
-template <typename T>
-Vector<T> Vector<T>::lerp(const Vector<T>& other, T t) const {
-    return *this * (1 - t) + other * t;
+    return *this - normal * (T(2) * dot(normal));
 }
 
 template <typename T>
 bool Vector<T>::operator==(const Vector<T>& other) const {
-    if (size() != other.size()) {
-        return false;
-    }
-    for (size_t i = 0; i < size(); ++i) {
-        if (data[i] != other[i]) {
-            return false;
-        }
-    }
-    return true;
+    return data == other.data;
 }
 
 template <typename T>
@@ -217,9 +171,8 @@ bool Vector<T>::operator!=(const Vector<T>& other) const {
 template <typename T>
 Vector<T> Vector<T>::elementwise_multiply(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for elementwise multiplication.");
+        throw std::invalid_argument("Vectors must have the same size for element-wise multiplication");
     }
-
     Vector<T> result(size());
     for (size_t i = 0; i < size(); ++i) {
         result[i] = data[i] * other[i];
@@ -230,13 +183,12 @@ Vector<T> Vector<T>::elementwise_multiply(const Vector<T>& other) const {
 template <typename T>
 Vector<T> Vector<T>::elementwise_divide(const Vector<T>& other) const {
     if (size() != other.size()) {
-        throw std::invalid_argument("Vectors must have the same size for elementwise division.");
+        throw std::invalid_argument("Vectors must have the same size for element-wise division");
     }
-
     Vector<T> result(size());
     for (size_t i = 0; i < size(); ++i) {
-        if (other[i] == 0) {
-            throw std::runtime_error("Division by zero in elementwise division.");
+        if (other[i] == T()) {
+            throw std::runtime_error("Division by zero in element-wise division");
         }
         result[i] = data[i] / other[i];
     }
@@ -245,7 +197,7 @@ Vector<T> Vector<T>::elementwise_divide(const Vector<T>& other) const {
 
 template <typename T>
 T Vector<T>::sum() const {
-    return std::accumulate(data.begin(), data.end(), T(0));
+    return std::accumulate(data.begin(), data.end(), T());
 }
 
 template <typename T>
@@ -256,7 +208,7 @@ T Vector<T>::product() const {
 template <typename T>
 T Vector<T>::min() const {
     if (size() == 0) {
-        throw std::runtime_error("Cannot find minimum of an empty vector.");
+        throw std::runtime_error("Cannot find minimum of empty vector");
     }
     return *std::min_element(data.begin(), data.end());
 }
@@ -264,7 +216,7 @@ T Vector<T>::min() const {
 template <typename T>
 T Vector<T>::max() const {
     if (size() == 0) {
-        throw std::runtime_error("Cannot find maximum of an empty vector.");
+        throw std::runtime_error("Cannot find maximum of empty vector");
     }
     return *std::max_element(data.begin(), data.end());
 }
@@ -272,14 +224,15 @@ T Vector<T>::max() const {
 template <typename T>
 Vector<T> Vector<T>::abs() const {
     Vector<T> result(size());
-    std::transform(data.begin(), data.end(), result.data.begin(), [](const T& x) { return std::abs(x); });
+    std::transform(data.begin(), data.end(), result.data.begin(),
+                   [](const T& x) { return std::abs(x); });
     return result;
 }
 
 template <typename T>
 Vector<T> Vector<T>::pow(T exponent) const {
     Vector<T> result(size());
-    std::transform(data.begin(), data.end(), result.data.begin(), 
+    std::transform(data.begin(), data.end(), result.data.begin(),
                    [exponent](const T& x) { return std::pow(x, exponent); });
     return result;
 }
@@ -287,34 +240,38 @@ Vector<T> Vector<T>::pow(T exponent) const {
 template <typename T>
 Vector<T> Vector<T>::sqrt() const {
     Vector<T> result(size());
-    std::transform(data.begin(), data.end(), result.data.begin(), 
-                   [](const T& x) { 
-                       if (x < 0) throw std::runtime_error("Cannot calculate square root of negative number.");
-                       return std::sqrt(x); 
-                   });
+    for (size_t i = 0; i < size(); ++i) {
+        if (data[i] < T()) {
+            throw std::runtime_error("Cannot compute square root of negative number");
+        }
+        result[i] = std::sqrt(data[i]);
+    }
     return result;
 }
 
 template <typename T>
 Vector<T> Vector<T>::exp() const {
     Vector<T> result(size());
-    std::transform(data.begin(), data.end(), result.data.begin(), [](const T& x) { return std::exp(x); });
+    std::transform(data.begin(), data.end(), result.data.begin(),
+                   [](const T& x) { return std::exp(x); });
     return result;
 }
 
 template <typename T>
 Vector<T> Vector<T>::log() const {
     Vector<T> result(size());
-    std::transform(data.begin(), data.end(), result.data.begin(), 
-                   [](const T& x) { 
-                       if (x <= 0) throw std::runtime_error("Cannot calculate logarithm of non-positive number.");
-                       return std::log(x); 
-                   });
+    for (size_t i = 0; i < size(); ++i) {
+        if (data[i] <= T()) {
+            throw std::runtime_error("Cannot compute logarithm of non-positive number");
+        }
+        result[i] = std::log(data[i]);
+    }
     return result;
 }
 
-}  // namespace cramer
+// Explicit instantiation for common types
+template class Vector<float>;
+template class Vector<double>;
+template class Vector<int>;
 
-// Explicit template instantiations
-template class cramer::Vector<float>;
-template class cramer::Vector<double>;
+} // namespace cramer
