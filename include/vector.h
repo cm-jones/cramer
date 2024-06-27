@@ -190,15 +190,6 @@ class Vector {
     Vector<T> reflect(const Vector<T>& normal) const;
 
     /**
-     * @brief Performs linear interpolation between the current vector and another vector.
-     *
-     * @param other The vector to interpolate to.
-     * @param t The interpolation parameter (0 <= t <= 1).
-     * @return A new vector that is the result of the linear interpolation.
-     */
-    Vector<T> lerp(const Vector<T>& other, T t) const;
-
-    /**
      * @brief Overloads the == operator to check for vector equality.
      *
      * @param other The vector to compare with.
