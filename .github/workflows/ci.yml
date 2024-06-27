@@ -16,23 +16,42 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake g++ libgtest-dev lcov
+        sudo apt-get install -y cmake g++ libgtest-dev
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build
+      run: cmake --build ${{github.workspace}}/build --config Release
 
     - name: Test
       working-directory: ${{github.workspace}}/build
-      run: |
-        ctest --output-on-failure
-        lcov --capture --directory . --output-file coverage.info
-        lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
+      run: ctest --output-on-failure
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Run benchmarks
+      working-directory: ${{github.workspace}}/build
+      run: ./benchmark_vector --benchmark_format=console --benchmark_out=benchmark_results.txt
+
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v2
       with:
-        files: ${{github.workspace}}/build/coverage.info
-        fail_ci_if_error: true
+        name: benchmark-results
+        path: ${{github.workspace}}/build/benchmark_results.txt
+
+    - name: Display benchmark results
+      run: cat ${{github.workspace}}/build/benchmark_results.txt
+
+    - name: Comment PR
+      uses: actions/github-script@v6
+      if: github.event_name == 'pull_request'
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const fs = require('fs')
+          const benchmarkResults = fs.readFileSync('${{github.workspace}}/build/benchmark_results.txt', 'utf8')
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '## Benchmark Results\n```\n' + benchmarkResults + '\n```'
+          })
