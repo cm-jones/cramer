@@ -6,28 +6,22 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++ that implements basic operations on vectors (e.g., norm, inner product, and outer product) and matrices (e.g., trace, determinant, transpose) as well as important algorithms in linear algebra (e.g., computing eigenvectors and eigenvalues, solving systems of linear equations).
+Cramer is an open-source, numerical linear algebra library for C++ that implements operations on vectors and matrices. It can also compute eigenvalues and eigenvectors and solve systems of linear equations. Here's an incomplete list of features:
 
-## Features
+- Vector operations:
+  - norm
+  - inner (dot) product
+  - cross product
+  - projections
+  - reflections
 
-Cramer supports the following computations:
-
-- For any two vectors $x$ and $y$,
-  - $\lVert x \rVert$, the norm,
-  - $x \cdot y$, the inner product, and
-  - $x \otimes y$, the outer product.
-
-- For a square matrix $A_{n \times n}$,
-  - $tr(A)$, the trace of A,
-  - $det(A)$, the determinate of A,
-  - $A^T$, the transpose of A,
-  - $A^{-1}$, the inverse of A (if it exists),
-  - $A^n$, the integer powers of A, and
-  - the eigenvalues and eigenvectors of $A$, such that $Ax = \lambda x$.
-
-- For any matrix $A_{m \times n}$,
-  - the LU, QR, and SVD factorizations of $A$, and
-  - solving a system of linear equations, such that $Ax = b$.
+- Matrix operations:
+  - trace
+  - determinant
+  - transpose
+  - inverse
+  - LU, QR, and SVD decompositions
+  - eigenvalues and eigenvectors
 
 ## Requirements
 
