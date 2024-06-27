@@ -6,19 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Option for enabling code coverage
-option(ENABLE_COVERAGE "Enable coverage reporting" OFF)
-
-# Configure compiler flags
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    # Add debug-specific options here
-    add_compile_options(-g -O0)
-    
-    if(ENABLE_COVERAGE)
-        add_compile_options(--coverage -fprofile-arcs -ftest-coverage)
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage -fprofile-arcs -ftest-coverage")
-    endif()
-endif()
+# Always enable code coverage
+add_compile_options(--coverage -g -O0)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 
 # Enable AddressSanitizer
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
@@ -63,12 +53,19 @@ FetchContent_Declare(
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(benchmark)
 
-# Add benchmark executable
-add_executable(benchmark_vector benchmarks/benchmark_vector.cpp)
-target_link_libraries(benchmark_vector PRIVATE
-    cramer
-    benchmark::benchmark
+# Add combined benchmark executable
+add_executable(benchmark_all 
+    benchmarks/benchmark_main.cpp
+    benchmarks/benchmark_vector.cpp
+    benchmarks/benchmark_matrix.cpp
+)
+target_include_directories(benchmark_all PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}/benchmarks
+)
+target_link_libraries(benchmark_all PRIVATE 
+    cramer 
+    benchmark::benchmark 
 )
 
 # Make sure benchmarks are built by default
-add_custom_target(build_all ALL DEPENDS cramer benchmark_vector)
+add_custom_target(build_all ALL DEPENDS cramer benchmark_all)
