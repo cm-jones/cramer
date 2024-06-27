@@ -159,11 +159,6 @@ Vector<T> Vector<T>::reflect(const Vector<T>& normal) const {
 }
 
 template <typename T>
-Vector<T> Vector<T>::lerp(const Vector<T>& other, T interpolationFactor) const {
-    return *this * (T(1) - interpolationFactor) + other * interpolationFactor;
-}
-
-template <typename T>
 bool Vector<T>::operator==(const Vector<T>& other) const {
     return data == other.data;
 }
