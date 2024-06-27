@@ -37,11 +37,11 @@ const T& Vector<T>::operator[](size_t index) const {
 
 template <typename T>
 Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for addition");
     }
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] + other[i];
     }
     return result;
@@ -49,10 +49,10 @@ Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
 
 template <typename T>
 Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for addition");
     }
-    for (size_t i = 0; i < size(); ++i) {
+    for (size_t i = 0; i < this->size(); ++i) {
         data[i] += other[i];
     }
     return *this;
@@ -60,11 +60,11 @@ Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
 
 template <typename T>
 Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for subtraction");
     }
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] - other[i];
     }
     return result;
@@ -72,10 +72,10 @@ Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
 
 template <typename T>
 Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for subtraction");
     }
-    for (size_t i = 0; i < size(); ++i) {
+    for (size_t i = 0; i < this->size(); ++i) {
         data[i] -= other[i];
     }
     return *this;
@@ -83,8 +83,8 @@ Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
 
 template <typename T>
 Vector<T> Vector<T>::operator*(const T& scalar) const {
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] * scalar;
     }
     return result;
@@ -92,7 +92,7 @@ Vector<T> Vector<T>::operator*(const T& scalar) const {
 
 template <typename T>
 Vector<T>& Vector<T>::operator*=(const T& scalar) {
-    for (size_t i = 0; i < size(); ++i) {
+    for (size_t i = 0; i < this->size(); ++i) {
         data[i] *= scalar;
     }
     return *this;
@@ -100,7 +100,7 @@ Vector<T>& Vector<T>::operator*=(const T& scalar) {
 
 template <typename T>
 T Vector<T>::dot(const Vector<T>& other) const {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for dot product");
     }
     return std::inner_product(data.begin(), data.end(), other.data.begin(), T());
@@ -122,7 +122,7 @@ Vector<T> Vector<T>::normalize() const {
 
 template <typename T>
 Vector<T> Vector<T>::cross(const Vector<T>& other) const {
-    if (size() != 3 || other.size() != 3) {
+    if (this->size() != 3 || other.size() != 3) {
         throw std::invalid_argument("Cross product is only defined for 3D vectors");
     }
     Vector<T> result(3);
@@ -159,6 +159,11 @@ Vector<T> Vector<T>::reflect(const Vector<T>& normal) const {
 }
 
 template <typename T>
+Vector<T> Vector<T>::lerp(const Vector<T>& other, T interpolationFactor) const {
+    return *this * (T(1) - interpolationFactor) + other * interpolationFactor;
+}
+
+template <typename T>
 bool Vector<T>::operator==(const Vector<T>& other) const {
     return data == other.data;
 }
@@ -170,11 +175,11 @@ bool Vector<T>::operator!=(const Vector<T>& other) const {
 
 template <typename T>
 Vector<T> Vector<T>::elementwise_multiply(const Vector<T>& other) const {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for element-wise multiplication");
     }
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] * other[i];
     }
     return result;
@@ -182,11 +187,11 @@ Vector<T> Vector<T>::elementwise_multiply(const Vector<T>& other) const {
 
 template <typename T>
 Vector<T> Vector<T>::elementwise_divide(const Vector<T>& other) const {
-    if (size() != other.size()) {
+    if (this->size() != other.size()) {
         throw std::invalid_argument("Vectors must have the same size for element-wise division");
     }
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         if (other[i] == T()) {
             throw std::runtime_error("Division by zero in element-wise division");
         }
@@ -207,7 +212,7 @@ T Vector<T>::product() const {
 
 template <typename T>
 T Vector<T>::min() const {
-    if (size() == 0) {
+    if (this->size() == 0) {
         throw std::runtime_error("Cannot find minimum of empty vector");
     }
     return *std::min_element(data.begin(), data.end());
@@ -215,7 +220,7 @@ T Vector<T>::min() const {
 
 template <typename T>
 T Vector<T>::max() const {
-    if (size() == 0) {
+    if (this->size() == 0) {
         throw std::runtime_error("Cannot find maximum of empty vector");
     }
     return *std::max_element(data.begin(), data.end());
@@ -223,7 +228,7 @@ T Vector<T>::max() const {
 
 template <typename T>
 Vector<T> Vector<T>::abs() const {
-    Vector<T> result(size());
+    Vector<T> result(this->size());
     std::transform(data.begin(), data.end(), result.data.begin(),
                    [](const T& x) { return std::abs(x); });
     return result;
@@ -231,7 +236,7 @@ Vector<T> Vector<T>::abs() const {
 
 template <typename T>
 Vector<T> Vector<T>::pow(T exponent) const {
-    Vector<T> result(size());
+    Vector<T> result(this->size());
     std::transform(data.begin(), data.end(), result.data.begin(),
                    [exponent](const T& x) { return std::pow(x, exponent); });
     return result;
@@ -239,8 +244,8 @@ Vector<T> Vector<T>::pow(T exponent) const {
 
 template <typename T>
 Vector<T> Vector<T>::sqrt() const {
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         if (data[i] < T()) {
             throw std::runtime_error("Cannot compute square root of negative number");
         }
@@ -251,7 +256,7 @@ Vector<T> Vector<T>::sqrt() const {
 
 template <typename T>
 Vector<T> Vector<T>::exp() const {
-    Vector<T> result(size());
+    Vector<T> result(this->size());
     std::transform(data.begin(), data.end(), result.data.begin(),
                    [](const T& x) { return std::exp(x); });
     return result;
@@ -259,8 +264,8 @@ Vector<T> Vector<T>::exp() const {
 
 template <typename T>
 Vector<T> Vector<T>::log() const {
-    Vector<T> result(size());
-    for (size_t i = 0; i < size(); ++i) {
+    Vector<T> result(this->size());
+    for (size_t i = 0; i < this->size(); ++i) {
         if (data[i] <= T()) {
             throw std::runtime_error("Cannot compute logarithm of non-positive number");
         }
