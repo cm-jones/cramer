@@ -1,51 +1,38 @@
-name: build
+name: CI
+
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
     - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y cmake g++ lcov
-
-    - name: Build Google Test
       run: |
-        git clone https://github.com/google/googletest.git
-        cd googletest
-        mkdir build
-        cd build
-        cmake ..
-        make
-        sudo make install
+        sudo apt-get update
+        sudo apt-get install -y cmake g++ libgtest-dev lcov
 
-    - name: Build Google Benchmark
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build
       run: |
-        git clone https://github.com/google/benchmark.git
-        cd benchmark
-        git clone https://github.com/google/googletest.git
-        mkdir build
-        cd build
-        cmake -DCMAKE_BUILD_TYPE=Release ..
-        make
-        sudo make install
+        ctest --output-on-failure
+        lcov --capture --directory . --output-file coverage.info
+        lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
 
-    - name: Create build directory
-      run: cmake -S . -B build
-
-    - name: Build project
-      run: cmake --build build
-
-    - name: Run tests
-      run: cd build && ctest --output-on-failure
-
-    - name: Run benchmarks
-      run: cd build && ./cramer_benchmarks
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ${{github.workspace}}/build/coverage.info
+        fail_ci_if_error: true
