@@ -6,7 +6,7 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++ that supports common operations on vectors and matrices. For example, it can efficiently calculate the eigenvalues and eigenvectors of a matrix and solve a system of linear equations.
+Cramer is an open-source, numerical linear algebra library for C++ that supports a variety of computations with vectors and matrices. For example, it can efficiently calculate the eigenvalues and eigenvectors of a matrix and solve a system of linear equations.
 
 ## Features
 
