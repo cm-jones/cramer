@@ -6,45 +6,41 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++ that supports a variety of computations with vectors and matrices. For example, it can efficiently calculate the eigenvalues and eigenvectors of a matrix and solve a system of linear equations.
+Cramer is an open-source, numerical linear algebra library for C++ that supports a large collection of computations with vectors and matrices. For a full list of features, see below.
 
 ## Features
 
 Vector operations:
 
 - norm (length)
-- addition
-- inner (dot) product
-- outer product
-- cross product
-- projections
-- reflections
-- rotations
+- inner (dot) and cross product
+- projections, reflections, and rotations
 
 Matrix operations:
 
-- trace
-- determinant
-- rank
-- transpose
-- Hermitian adjoint
-- inverse (if it exists)
+- rank, trace, and determinant
+- transpose, adjoint, and inverse (if it exists)
 - LU, QR, and SVD decompositions
 - eigenvalues and eigenvectors
 
 ## Requirements
 
-- C++17 compiler (e.g., GCC, Clang)
-- CMake
-- Google Test for [unit testing](#unit-testing)
-- Google Benchmark for [benchmarking](#benchmarking)
+- C++17 compiler (e.g., GCC 7.0+, Clang 5.0+)
+- CMake 3.12+
+- Google Test 1.10.0+ for [unit testing](#unit-testing)
+- Google Benchmark 1.6.1+ for [benchmarking](#benchmarking)
+
+Optional:
+
+- clang-format 10.0+ for code formatting
+- clang-tidy 10.0+ for static analysis
 
 ## Usage
 
-Include the header in your C++ source files:
+Include the header in your source files:
 
 ```cpp
-#include <cramer.h>
+#include <cramer>
 ```
 
 Create vectors and matrices, and perform operations on them:
@@ -63,6 +59,7 @@ b(0) = 5.0;
 b(1) = 6.0;
 
 Vector<double> x = solve(A, b);
+vector<Vector<double>> lambdas = A.eigenvalues();
 ```
 
 ## Build and Install
@@ -102,8 +99,6 @@ Cramer uses [Google Test](https://github.com/google/googletest) for unit testing
 ctest
 ```
 
-This will run all the registered unit tests and display the results.
-
 ## Benchmarking
 
 Cramer uses [Google Benchmark](https://github.com/google/benchmark) for benchmarking. To run the benchmarks, follow these steps:
@@ -120,8 +115,6 @@ Cramer uses [Google Benchmark](https://github.com/google/benchmark) for benchmar
    ./benchmark_all
    ```
 
-This will execute all the registered benchmarks and display the results.
-
 ## Documentation
 
 Documentation is generated automatically via doxygen and GitHub Actions by the `.github/workflows/document.yml` workflow. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
@@ -130,7 +123,7 @@ Documentation is generated automatically via doxygen and GitHub Actions by the `
 
 If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/cm-jones/cramer/issues/new) or submit a [pull request](https://github.com/cm-jones/cramer/compare).
 
-To make contributions, the standard rules apply (see [])
+To make contributions, the standard rules apply (see [Contributing to a Project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) on GitHub):
 
 1. Fork the repository.
 
