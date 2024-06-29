@@ -64,7 +64,7 @@ Vector<double> b(2);
 b(0) = 5.0;
 b(1) = 6.0;
 
-Vector<double> x = solve(A, b);
+Vector<double> x = A.solve(b);
 std::vector<double> lambdas = A.eigenvalues();
 ```
 
