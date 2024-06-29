@@ -10,7 +10,7 @@ Cramer is an open-source, numerical linear algebra library for C++ that supports
 
 While I'm aware that there are other (and better) linear algebra libraries out there, I wanted to create one that was simple, easy to understand, and that doesn't try to do too much. The codebase is small, readable, and maintainable. Think of it as a slimed down version of [Eigen](https://gitlab.com/libeigen/eigen).
 
-If you're looking for a good (proof-based, non-computational) book on linear algebra, I highly recommend Sheldon Axler's [Linear Algebra Done Right](https://linear.axler.net/). This book will help you understand the essence of linear algebra from a mathematician's perspective.
+If you're looking for a good (proof-based, non-computational) book on linear algebra, I highly recommend Sheldon Axler's [Linear Algebra Done Right](https://linear.axler.net/). This book will help you understand the essence of linear algebra from a mathematician's perspective, i.e. viewing matrices as merely representations of linear transformations in a certain basis.
 
 ## Features
 
