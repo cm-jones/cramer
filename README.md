@@ -127,27 +127,7 @@ Documentation is generated automatically via doxygen and GitHub Actions by the `
 
 ## Contributing
 
-If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/cm-jones/cramer/issues/new) or submit a [pull request](https://github.com/cm-jones/cramer/compare).
-
-To make contributions, the standard rules apply (see [Contributing to a Project](https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project) on GitHub):
-
-1. Fork the repository.
-
-2. Clone the fork.
-
-3. Create a new branch with a descriptive name.
-
-4. Commit and push your changes.
-
-5. Create a pull request.
-
-Before you start making changes, I recommend that you install a pre-commit hook via the `scripts/install_hooks.sh` script. This will ensure that each commit is properly built, tested, linted, and formatted.
-
-To install the hook, you will first need to make all of the scripts executable by running the following command in the project's root directory:
-
-```sh
-chmod +x scripts/*.sh
-```
+See [CONTRIBUTING.md](https://github.com/cm-jones/CONTRIBUTING.md) for information on how to contribute.
 
 ## License
 
