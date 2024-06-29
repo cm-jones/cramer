@@ -124,7 +124,7 @@ This will execute all the registered benchmarks and display the results.
 
 ## Documentation
 
-Detailed documentation for cramer can be found at https://cm-jones.github.io/cramer/docs/.
+Documentation is generated via doxygen automatically by the .github/workflows/document.yml workflow. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
 
 ## Contributing
 
