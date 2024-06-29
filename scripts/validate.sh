@@ -4,8 +4,7 @@
 export PATH="/opt/homebrew/opt/llvm/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
 
 # Navigate to the project root directory
-PROJECT_ROOT=$(git rev-parse --show-toplevel)
-cd "$PROJECT_ROOT"
+cd "$(git rev-parse --show-toplevel)"
 
 # Run clang-format and clang-tidy in parallel
 ./scripts/format.sh &

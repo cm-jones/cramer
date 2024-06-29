@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Navigate to the project root directory
-cd "$(dirname "$0")/.."
+cd "$(git rev-parse --show-toplevel)"
 
 # Find changed files (staged in git)
 CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.cpp$|\.h$')

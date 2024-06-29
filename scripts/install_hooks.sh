@@ -2,7 +2,7 @@
 set -e
 
 # Navigate to the project root directory
-cd "$(dirname "$0")/.."
+cd "$(git rev-parse --show-toplevel)"
 
 # Create the pre-commit hook in the .git/hooks directory
 HOOKS_DIR=".git/hooks"

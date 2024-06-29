@@ -2,7 +2,7 @@
 set -e
 
 # Navigate to the project root directory
-cd "$(dirname "$0")/.."
+cd "$(git rev-parse --show-toplevel)"
 
 # Create and navigate to the build directory
 mkdir -p build

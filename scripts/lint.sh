@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Navigate to the project root directory
-cd "$(dirname "$0")/.."
+cd "$(git rev-parse --show-toplevel)"
 
 # Directory where the compilation database is located
 BUILD_DIR=build
