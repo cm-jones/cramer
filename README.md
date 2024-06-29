@@ -48,18 +48,20 @@ Create vectors and matrices, and perform operations on them:
 ```cpp
 #include <vector> // Not to be confused with cramer::Vector!
 
-cramer::Matrix<double> A(2, 2);
+using namespace cramer;
+
+Matrix<double> A(2, 2);
 A(0, 0) = 1.0;
 A(0, 1) = 2.0;
 A(1, 0) = 3.0;
 A(1, 1) = 4.0;
 
-cramer::Vector<double> b(2);
+Vector<double> b(2);
 b(0) = 5.0;
 b(1) = 6.0;
 
-cramer::Vector<double> x = solve(A, b);
-vector<double> lambdas = A.eigenvalues();
+Vector<double> x = solve(A, b);
+std::vector<double> lambdas = A.eigenvalues();
 ```
 
 ## Build and Install
