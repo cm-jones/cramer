@@ -6,11 +6,11 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++ that supports a large collection of computations with vectors and matrices. It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most famous for Cramer's rule: an explicit formula for a linear system of the form Ax = b (if and only if there is a unique solution, i.e., the kernel of A is the zero vector) For a full list of features, see [below](#features).
+Cramer is an open-source, numerical linear algebra library for C++ that supports a wide variety of computations with vectors and matrices. For a full list of features, see [below](#features).
 
-While I'm aware that there are other (and better) linear algebra libraries out there, I wanted to create one that was simple, easy to understand, and that doesn't try to do too much. The codebase is small, readable, and maintainable. Think of it as a slimmed down version of [Eigen](https://gitlab.com/libeigen/eigen).
+It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most well-known for his discovery of Cramer's rule: a formula to solve a system of linear equations of the form $Ax = b$ using determinants (if and only if there is a unique solution, i.e., A is invertible).
 
-If you're looking for a good (proof-based, non-computational) book on linear algebra, I highly recommend Sheldon Axler's [Linear Algebra Done Right](https://linear.axler.net/). This book will help you understand the essence of linear algebra from a mathematician's perspective, i.e. viewing matrices as merely representations of linear transformations in a certain basis.
+While I'm aware that there are better linear algebra libraries out there, I wanted to create one that was simple, easy to understand, and that doesn't try to do too much. Cramer's codebase is small, readable, and maintainable. Think of it as a slimmed down version of [Eigen](https://gitlab.com/libeigen/eigen).
 
 ## Features
 
@@ -123,11 +123,11 @@ Cramer uses [Google Benchmark](https://github.com/google/benchmark) for benchmar
 
 ## Documentation
 
-Documentation is generated automatically via doxygen and GitHub Actions by the `.github/workflows/document.yml` workflow. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
+Detailed documentation is generated automatically via [Doxygen](https://www.doxygen.nl/) when there's a push or pull request on the main branch. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
 
 ## Contributing
 
-See [CONTRIBUTING.md](https://github.com/cm-jones/CONTRIBUTING.md) for information on how to contribute.
+See [CONTRIBUTING.md](https://github.com/cm-jones/CONTRIBUTING.md) for guidelines on how to contribute.
 
 ## License
 
