@@ -901,5 +901,9 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
 }  // namespace cramer
 
 // Explicit template instantiations
+template class cramer::Matrix<int>;
 template class cramer::Matrix<float>;
 template class cramer::Matrix<double>;
+template class cramer::Matrix<std::complex<int>>;
+template class cramer::Matrix<std::complex<float>>;
+template class cramer::Matrix<std::complex<double>>;
