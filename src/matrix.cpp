@@ -60,6 +60,20 @@ template <typename T>
 Matrix<T>::Matrix(const std::vector<std::vector<T>>& values)
     : rows(values.size()), cols(values[0].size()), data(values) {}
 
+template <typename T>
+Matrix<T>::Matrix(size_t rows, size_t cols, std::initializer_list<T> values)
+    : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {
+    if (values.size() != rows * cols) {
+        throw std::invalid_argument("Initializer list size does not match matrix dimensions");
+    }
+    auto it = values.begin();
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            data[i][j] = *it++;
+        }
+    }
+}
+
 // Getters
 
 template <typename T>
