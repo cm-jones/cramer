@@ -178,6 +178,13 @@ public:
     Matrix<T> operator*(const Matrix<T>& other) const;
 
     /**
+     * @brief Multiplies the matrix with a vector.
+     * @param vec The vector to multiply with.
+     * @return The resulting vector.
+     */
+    Vector<T> multiply_vector(const Vector<T>& vec) const;
+
+    /**
      * @brief Checks if the matrix is square.
      * @return True if the matrix is square, false otherwise.
      */

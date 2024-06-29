@@ -5,7 +5,7 @@
 #include <complex>
 #include <random>
 
-#include "matrix.h"
+#include "matrix.hpp"
 
 using namespace cramer;
 

@@ -4,7 +4,7 @@
 
 #include <random>
 
-#include "vector.h"
+#include "vector.hpp"
 
 using namespace cramer;
 

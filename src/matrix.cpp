@@ -15,8 +15,8 @@
  * Cramer. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <matrix.h>
-#include <vector.h>
+#include "matrix.hpp"
+#include "vector.hpp"
 
 #include <algorithm>
 #include <cmath>
@@ -278,6 +278,22 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
 
     return product;
 }
+
+template <typename T>
+    Vector<T> multiply_vector(const Vector<T>& vec) const {
+        if (this->get_cols() != vec.size()) {
+            throw std::invalid_argument("Matrix and vector dimensions do not match for multiplication");
+        }
+        Vector<T> result(this->get_rows());
+        for (size_t row = 0; row < this->get_rows(); ++row) {
+            T sum = T();
+            for (size_t col = 0; col < this->get_cols(); ++col) {
+                sum += (*this)(row, col) * vec[col];
+            }
+            result[row] = sum;
+        }
+        return result;
+    }
 
 // Matrix properties
 
