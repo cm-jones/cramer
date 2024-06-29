@@ -142,7 +142,7 @@ To make contributions, the standard rules apply:
 
 5. Create a pull request.
 
-Note: Before you start making changes, we recommend that you install a pre-commit hook via the `scripts/install_hooks.sh` script. This will ensure that each commit is properly built, tested, linted, and formatted.
+Before you start making changes, we recommend that you install a pre-commit hook via the `scripts/install_hooks.sh` script. This will ensure that each commit is properly built, tested, linted, and formatted.
 
 To install the hook, you will first need to make all of the scripts executable by running the following command in the project's root directory:
 
