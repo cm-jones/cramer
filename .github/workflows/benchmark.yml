@@ -8,34 +8,64 @@ on:
 
 jobs:
   benchmark:
+    name: Run benchmarks
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake g++ libgtest-dev
-    
-    - name: Build and Install GTest
-      run: |
-        cd /usr/src/gtest
-        sudo cmake CMakeLists.txt
-        sudo make
-        sudo cp lib/*.a /usr/lib
-    
+        sudo apt-get install -y cmake g++
+
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
-    
+
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config Release
-    
-    - name: Run benchmarks
-      working-directory: ${{github.workspace}}/build
-      run: ./benchmark_vector --benchmark_format=console --benchmark_out=benchmark_results.txt
-    
-    - name: Upload benchmark results
-      uses: actions/upload-artifact@v2
+
+    - name: Run matrix benchmark
+      run: ${{github.workspace}}/build/benchmark_matrix --benchmark_format=json --benchmark_out=matrix_benchmark_result.json
+
+    - name: Run vector benchmark
+      run: ${{github.workspace}}/build/benchmark_vector --benchmark_format=json --benchmark_out=vector_benchmark_result.json
+
+    - name: Store matrix benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
       with:
-        name: benchmark-results
-        path: ${{github.workspace}}/build/benchmark_results.txt
+        name: Matrix Benchmark
+        tool: 'googlecpp'
+        output-file-path: matrix_benchmark_result.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        # Show alert with commit comment on detecting possible performance regression
+        alert-threshold: '200%'
+        comment-on-alert: true
+        fail-on-alert: true
+
+    - name: Store vector benchmark result
+      uses: benchmark-action/github-action-benchmark@v1
+      with:
+        name: Vector Benchmark
+        tool: 'googlecpp'
+        output-file-path: vector_benchmark_result.json
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        # Show alert with commit comment on detecting possible performance regression
+        alert-threshold: '200%'
+        comment-on-alert: true
+        fail-on-alert: true
+
+    - name: Copy latest benchmark results
+      run: |
+        mkdir -p ./public/dev/bench
+        cp matrix_benchmark_result.json ./public/dev/bench/latest-matrix-result.json
+        cp vector_benchmark_result.json ./public/dev/bench/latest-vector-result.json
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        destination_dir: dev/bench

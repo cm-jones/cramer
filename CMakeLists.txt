@@ -44,7 +44,6 @@ enable_testing()
 add_executable(cramer_tests
     tests/test_vector.cpp
     tests/test_matrix.cpp
-    # Add other test files here
 )
 target_link_libraries(cramer_tests
     PRIVATE
@@ -64,19 +63,23 @@ FetchContent_Declare(
 set(BENCHMARK_ENABLE_TESTING OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(benchmark)
 
-# Add combined benchmark executable
-add_executable(benchmark_all 
-    benchmarks/benchmark_main.cpp
-    benchmarks/benchmark_vector.cpp
+# Add matrix benchmark executable
+add_executable(benchmark_matrix 
     benchmarks/benchmark_matrix.cpp
 )
-target_include_directories(benchmark_all PRIVATE 
-    ${CMAKE_CURRENT_SOURCE_DIR}/benchmarks
+target_link_libraries(benchmark_matrix PRIVATE 
+    cramer 
+    benchmark::benchmark 
 )
-target_link_libraries(benchmark_all PRIVATE 
+
+# Add vector benchmark executable
+add_executable(benchmark_vector
+    benchmarks/benchmark_vector.cpp
+)
+target_link_libraries(benchmark_vector PRIVATE 
     cramer 
     benchmark::benchmark 
 )
 
 # Make sure all targets are built by default
-add_custom_target(build_all ALL DEPENDS cramer cramer_tests benchmark_all)
+add_custom_target(build_all ALL DEPENDS cramer cramer_tests benchmark_matrix benchmark_vector)
