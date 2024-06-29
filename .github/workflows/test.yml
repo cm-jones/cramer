@@ -28,7 +28,7 @@ jobs:
       run: |
         ctest --output-on-failure
         # Run the test executable directly to ensure coverage data is generated
-        ./tests/cramer_tests
+        ./tests/test_all
 
     - name: Generate coverage report
       working-directory: ${{github.workspace}}/build
@@ -37,8 +37,7 @@ jobs:
         lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
         lcov --list coverage.info
 
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
       with:
-        files: ${{github.workspace}}/build/coverage.info
-        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}

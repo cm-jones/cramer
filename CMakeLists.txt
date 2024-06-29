@@ -41,17 +41,17 @@ target_link_libraries(cramer PRIVATE
 enable_testing()
 
 # Add test executable
-add_executable(cramer_tests
+add_executable(test_all
     tests/test_vector.cpp
     tests/test_matrix.cpp
 )
-target_link_libraries(cramer_tests
+target_link_libraries(test_all
     PRIVATE
     cramer
     GTest::GTest
     GTest::Main
 )
-add_test(NAME cramer_tests COMMAND cramer_tests)
+add_test(NAME test_all COMMAND test_all)
 
 # Benchmarking
 include(FetchContent)
@@ -82,4 +82,4 @@ target_link_libraries(benchmark_vector PRIVATE
 )
 
 # Make sure all targets are built by default
-add_custom_target(build_all ALL DEPENDS cramer cramer_tests benchmark_matrix benchmark_vector)
+add_custom_target(build_all ALL DEPENDS cramer test_all benchmark_matrix benchmark_vector)
