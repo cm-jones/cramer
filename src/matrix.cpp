@@ -20,9 +20,9 @@
 
 #include <algorithm>
 #include <cmath>
+#include <complex>
 #include <limits>
 #include <random>
-#include <complex>
 
 namespace cramer {
 
@@ -243,11 +243,12 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
     Matrix<T> product(rows, other.cols);
 
     // Cache parameters
-    const long CACHE_LINE_SIZE = 64;  // Typical cache line size
-    const long CACHE_SIZE = 32768;    // 32 KB L1 cache
+    const long CACHE_LINE_SIZE = 64;     // Typical cache line size
+    const long CACHE_SIZE = 32768;       // 32 KB L1 cache
     const long CACHE_ASSOCIATIVITY = 8;  // 8-way set associative
 
-    // Calculate the optimum block size based on cache parameters and matrix sizes
+    // Calculate the optimum block size based on cache parameters and matrix
+    // sizes
     const size_t BLOCK_SIZE =
         std::min(static_cast<size_t>(
                      std::sqrt(CACHE_SIZE / CACHE_ASSOCIATIVITY / sizeof(T))),
@@ -500,7 +501,8 @@ Matrix<T> Matrix<T>::conjugate() const {
 
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
-            conjugate(i, j) = std::conj(static_cast<std::complex<T>>(data[i][j])).real();
+            conjugate(i, j) =
+                std::conj(static_cast<std::complex<T>>(data[i][j])).real();
         }
     }
 
@@ -575,7 +577,8 @@ Matrix<T> Matrix<T>::sqrt() const {
     }
 
     // This is a placeholder implementation using Denman-Beavers iteration
-    // For a more robust implementation, consider using Schur decomposition or other methods
+    // For a more robust implementation, consider using Schur decomposition or
+    // other methods
     Matrix<T> X = *this;
     Matrix<T> Y = identity(rows);
     const int max_iterations = 20;
@@ -620,8 +623,10 @@ Matrix<T> Matrix<T>::log() const {
     Matrix<T> Q = I;
 
     for (int k = 1; k <= q; ++k) {
-        P = P * (Z * (static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1))));
-        Q = Q * (Z * (-static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1))));
+        P = P * (Z * (static_cast<T>(q - k + 1) /
+                      static_cast<T>(k * (2 * q - k + 1))));
+        Q = Q * (Z * (-static_cast<T>(q - k + 1) /
+                      static_cast<T>(k * (2 * q - k + 1))));
         X = X + P + Q;
     }
 

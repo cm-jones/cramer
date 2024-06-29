@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <benchmark/benchmark.h>
-#include "matrix.h"
-#include <random>
+
 #include <complex>
+#include <random>
+
+#include "matrix.h"
 
 using namespace cramer;
 
 // Helper function to create a random matrix
-template<typename T>
+template <typename T>
 Matrix<T> createRandomMatrix(size_t rows, size_t cols) {
     static std::random_device rd;
     static std::mt19937 gen(rd());
