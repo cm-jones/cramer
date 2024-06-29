@@ -46,20 +46,20 @@ Include the header in your source files:
 Create vectors and matrices, and perform operations on them:
 
 ```cpp
-using namespace cramer;
+#include <vector> // Not to be confused with cramer::Vector!
 
-Matrix<double> A(2, 2);
+cramer::Matrix<double> A(2, 2);
 A(0, 0) = 1.0;
 A(0, 1) = 2.0;
 A(1, 0) = 3.0;
 A(1, 1) = 4.0;
 
-Vector<double> b(2);
+cramer::Vector<double> b(2);
 b(0) = 5.0;
 b(1) = 6.0;
 
-Vector<double> x = solve(A, b);
-vector<Vector<double>> lambdas = A.eigenvalues();
+cramer::Vector<double> x = solve(A, b);
+vector<double> lambdas = A.eigenvalues();
 ```
 
 ## Build and Install
