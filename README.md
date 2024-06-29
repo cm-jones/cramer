@@ -124,13 +124,13 @@ This will execute all the registered benchmarks and display the results.
 
 ## Documentation
 
-Documentation is generated via doxygen automatically by the .github/workflows/document.yml workflow. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
+Documentation is generated automatically via doxygen and GitHub Actions by the `.github/workflows/document.yml` workflow. It can be viewed at https://cm-jones.github.io/cramer/docs/html.
 
 ## Contributing
 
 If you find any issues or have suggestions for improvements, feel free to [open an issue](https://github.com/cm-jones/cramer/issues/new) or submit a [pull request](https://github.com/cm-jones/cramer/compare).
 
-To make contributions, the standard rules apply:
+To make contributions, the standard rules apply (see [])
 
 1. Fork the repository.
 
