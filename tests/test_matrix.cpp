@@ -496,15 +496,14 @@ TEST_F(MatrixTest, Solve) {
     Matrix<double> mat(3, 3, {3, 2, -1, 2, -2, 4, -1, 0.5, -1});
     Vector<double> vec({1, -2, 0});
     Vector<double> solution = mat.solve(vec);
-
+    
     // Check Ax = b
-    Vector<double> result = mat * solution;
+    Vector<double> result = mat.multiply_vector(solution);
     EXPECT_NEAR(result[0], vec[0], 1e-9);
     EXPECT_NEAR(result[1], vec[1], 1e-9);
     EXPECT_NEAR(result[2], vec[2], 1e-9);
 }
 
-// Main function to run the tests
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
