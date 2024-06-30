@@ -377,9 +377,12 @@ bool Matrix<T>::is_hermitian() const {
     }
 
     for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = i + 1; j < cols; ++j) {
-            if (std::real(data[i][j]) != std::real(std::conj(data[j][i])) ||
-                std::imag(data[i][j]) != -std::imag(std::conj(data[j][i]))) {
+        for (size_t j = i; j < cols; ++j) {
+            if (i == j) {
+                if (std::imag(data[i][j]) != 0) {
+                    return false;
+                }
+            } else if (data[i][j] != std::conj(data[j][i])) {
                 return false;
             }
         }
