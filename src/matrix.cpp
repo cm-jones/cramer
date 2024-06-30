@@ -577,21 +577,31 @@ Matrix<T> Matrix<T>::exp() const {
     }
 
     const int q = 6;
-    const T norm = max_norm();
-    const int s = std::max(0, static_cast<int>(std::ceil(std::log2(norm)) + 1));
-    const T scale = std::pow(T(2), -s);
+    T norm = max_norm();
+    int s = 0;
+
+    if constexpr (std::is_arithmetic<T>::value) {
+        s = std::max(0, static_cast<int>(std::ceil(std::log2(norm)) + 1));
+    } else if constexpr (std::is_same<T, std::complex<float>>::value || std::is_same<T, std::complex<double>>::value) {
+        s = std::max(0, static_cast<int>(std::ceil(std::log2(std::abs(norm))) + 1));
+    }
+
+    T scale = T(1);
+    for (int i = 0; i < s; ++i) {
+        scale /= T(2);
+    }
 
     Matrix<T> A = *this * scale;
     Matrix<T> X = A;
     Matrix<T> N = identity(rows);
     Matrix<T> D = identity(rows);
-    T c = 1;
+    T c = T(1);
 
     for (int k = 1; k <= q; ++k) {
-        c *= static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1));
+        c *= T(q - k + 1) / T(k * (2 * q - k + 1));
         X = A * X;
         N += X * c;
-        D += X * (c * (k % 2 ? -1 : 1));
+        D += X * (c * T(k % 2 ? -1 : 1));
     }
 
     Matrix<T> F = N * D.inverse();
