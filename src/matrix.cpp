@@ -17,12 +17,16 @@ namespace cramer {
 
 template <typename T>
 T Matrix<T>::max_norm() const {
-    T norm = static_cast<T>(0);
+    T norm = T(0);
 
     for (size_t i = 0; i < rows; ++i) {
-        T row_sum = static_cast<T>(0);
+        T row_sum = T(0);
         for (size_t j = 0; j < cols; ++j) {
-            row_sum += std::abs(data[i][j]);
+            if constexpr (std::is_arithmetic<T>::value) {
+                row_sum += std::abs(data[i][j]);
+            } else if constexpr (std::is_same<T, std::complex<float>>::value || std::is_same<T, std::complex<double>>::value) {
+                row_sum += std::abs(data[i][j]);
+            }
         }
         norm = (std::abs(row_sum) > std::abs(norm)) ? row_sum : norm;
     }
