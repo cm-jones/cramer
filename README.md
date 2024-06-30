@@ -123,7 +123,7 @@ Cramer uses [Google Benchmark](https://github.com/google/benchmark) for benchmar
 
 ## Documentation
 
-Detailed documentation is generated automatically via [Doxygen](https://www.doxygen.nl/) whenever there's a push or pull request on the main branch. It can be viewed [here](https://cm-jones.github.io/cramer/docs/html).
+Detailed documentation is generated automatically via [Doxygen](https://www.doxygen.nl/) every time there's a push or a pull request on the main branch. It can be viewed [here](https://cm-jones.github.io/cramer/docs/html).
 
 ## Contributing
 
