@@ -573,33 +573,34 @@ Matrix<T> Matrix<T>::conjugate() const {
 template <typename T>
 Matrix<T> Matrix<T>::exp() const {
     if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate the exponential.");
+        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
     }
 
     const int q = 6;
     const T norm = max_norm();
-    const int s =
-        std::max(0, static_cast<int>(std::ceil(std::log2(std::abs(norm) / q))));
-    const T scale = std::pow(static_cast<T>(2), static_cast<T>(-s));
+    const int s = std::max(0, static_cast<int>(std::ceil(std::log2(norm)) + 1));
+    const T scale = std::pow(T(2), -s);
 
     Matrix<T> A = *this * scale;
-    Matrix<T> P = identity(rows);
-    Matrix<T> Q = identity(rows);
-
-    T c = static_cast<T>(1);
+    Matrix<T> X = A;
+    Matrix<T> N = identity(rows);
+    Matrix<T> D = identity(rows);
+    T c = 1;
 
     for (int k = 1; k <= q; ++k) {
         c *= static_cast<T>(q - k + 1) / static_cast<T>(k * (2 * q - k + 1));
-        Q = A * Q;
-        P = P + Q * c;  // Changed order of multiplication
+        X = A * X;
+        N += X * c;
+        D += X * (c * (k % 2 ? -1 : 1));
     }
+
+    Matrix<T> F = N * D.inverse();
 
     for (int k = 0; k < s; ++k) {
-        P = P * P;
+        F = F * F;
     }
 
-    return P;
+    return F;
 }
 
 template <typename T>
