@@ -2,3 +2,6 @@ Checks: '-*,bugprone-*,performance-*,readability-*'
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 FormatStyle: file
+CheckOptions:
+- key: readability-identifier-length.MinLength
+  value: '1'
