@@ -1,66 +1,16 @@
-# Doxyfile 1.8.17
-
-# Project related configuration options
 PROJECT_NAME           = "Cramer"
-OUTPUT_DIRECTORY       = "docs"
-INPUT                  = "include src"
+OUTPUT_DIRECTORY       = docs
+INPUT                  = include src
+FILE_PATTERNS          = *.cpp *.hpp
 RECURSIVE              = YES
-GENERATE_LATEX         = NO
 EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+GENERATE_LATEX         = NO
 GENERATE_HTML          = YES
-HTML_OUTPUT            = "html"
-
-# Example of other useful settings
-# STRIP_FROM_PATH        = ../src
-# EXCLUDE_PATTERNS       = */test/*
-
-# Enable source browsing
-SOURCE_BROWSER         = YES
-INLINE_SOURCES         = YES
-REFERENCED_BY_RELATION = YES
-REFERENCES_RELATION    = YES
-
-# Enable generation of class diagrams
-HAVE_DOT               = YES
-DOT_IMAGE_FORMAT       = svg
-CALL_GRAPH             = YES
-CALLER_GRAPH           = YES
-UML_LOOK               = YES
-
-# Enable file versioning
-USE_MDFILE_AS_MAINPAGE = README.md
-
-# Optimize output
-OPTIMIZE_OUTPUT_FOR_C  = NO
-OPTIMIZE_OUTPUT_JAVA   = NO
-OPTIMIZE_OUTPUT_FOR_CSHARP = NO
-
-# Set the tab size
-TAB_SIZE               = 4
-
-# Enable all warnings
-WARNINGS               = YES
-WARN_IF_UNDOCUMENTED   = YES
-WARN_IF_DOC_ERROR      = YES
-
-# Additional settings
-ALIASES                += "bug=\bug"
-ALIASES                += "todo=\todo"
-ALIASES                += "test=\test"
-
-# Example for custom page
-# INPUT                  += "docs/pages"
-# GENERATE_DOCSET        = YES
-# DOCSET_FEEDNAME        = "Doxygen generated docs"
-# DOCSET_BUNDLE_ID       = "org.doxygen.Project"
-
-# Example for math support
-# ENABLE_PREPROCESSING   = YES
-# MACRO_EXPANSION        = YES
-# EXPAND_ONLY_PREDEF     = NO
-# SEARCH_INCLUDES        = YES
-# INCLUDE_PATH           = 
-# PREDEFINED             += "FOO=1"
-
-# Example for image support
-# IMAGE_PATH             = images
+HTML_OUTPUT            = html
+HAVE_DOT               = NO
+UML_LOOK               = NO
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
