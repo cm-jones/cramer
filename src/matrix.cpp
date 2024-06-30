@@ -1,35 +1,22 @@
-/*
- * This file is part of Cramer.
- *
- * Cramer is free software: you can redistribute it and/or modify it under the
- * terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * Cramer is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Cramer. If not, see <https://www.gnu.org/licenses/>.
- */
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "matrix.hpp"
-#include "vector.hpp"
 
 #include <algorithm>
 #include <cmath>
 #include <complex>
 #include <limits>
 #include <random>
+#include <type_traits>
+
+#include "vector.hpp"
 
 namespace cramer {
 
 // Helper methods
 
 template <typename T>
-inline T Matrix<T>::max_norm() const {
+T Matrix<T>::max_norm() const {
     T norm = static_cast<T>(0);
 
     for (size_t i = 0; i < rows; ++i) {
@@ -37,7 +24,7 @@ inline T Matrix<T>::max_norm() const {
         for (size_t j = 0; j < cols; ++j) {
             row_sum += std::abs(data[i][j]);
         }
-        norm = std::max(norm, row_sum);
+        norm = (std::abs(row_sum) > std::abs(norm)) ? row_sum : norm;
     }
 
     return norm;
@@ -64,12 +51,13 @@ template <typename T>
 Matrix<T>::Matrix(size_t rows, size_t cols, std::initializer_list<T> values)
     : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {
     if (values.size() != rows * cols) {
-        throw std::invalid_argument("Initializer list size does not match matrix dimensions");
+        throw std::invalid_argument(
+            "Initializer list size does not match matrix dimensions");
     }
-    auto it = values.begin();
+    auto iter = values.begin();
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
-            data[i][j] = *it++;
+            data[i][j] = *iter++;
         }
     }
 }
@@ -90,13 +78,13 @@ inline size_t Matrix<T>::get_cols() const {
 
 template <typename T>
 Matrix<T> Matrix<T>::identity(size_t size) {
-    Matrix<T> I(size, size);
+    Matrix<T> result(size, size);
 
     for (size_t i = 0; i < size; ++i) {
-        I(i, i) = static_cast<T>(1);
+        result(i, i) = static_cast<T>(1);
     }
 
-    return I;
+    return result;
 }
 
 template <typename T>
@@ -111,18 +99,36 @@ Matrix<T> Matrix<T>::ones(size_t rows, size_t cols) {
 
 template <typename T>
 Matrix<T> Matrix<T>::random(size_t rows, size_t cols) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<T> dist(0, 1);
+    static_assert(std::is_floating_point<T>::value ||
+                      std::is_same<T, std::complex<float>>::value ||
+                      std::is_same<T, std::complex<double>>::value,
+                  "random() is only supported for floating-point types and "
+                  "complex types");
 
-    Matrix<T> result(rows, cols);
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < cols; ++j) {
-            result(i, j) = dist(gen);
+    std::random_device rand;
+    std::mt19937 gen(rand());
+
+    if constexpr (std::is_floating_point<T>::value) {
+        std::uniform_real_distribution<T> dis(0, 1);
+        Matrix<T> result(rows, cols);
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; ++j) {
+                result(i, j) = dis(gen);
+            }
         }
+        return result;
+    } else if constexpr (std::is_same<T, std::complex<float>>::value ||
+                         std::is_same<T, std::complex<double>>::value) {
+        using value_type = typename T::value_type;
+        std::uniform_real_distribution<value_type> dis(0, 1);
+        Matrix<T> result(rows, cols);
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; ++j) {
+                result(i, j) = T(dis(gen), dis(gen));
+            }
+        }
+        return result;
     }
-
-    return result;
 }
 
 // Operators
@@ -296,7 +302,8 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& other) const {
 template <typename T>
 Vector<T> Matrix<T>::multiply_vector(const Vector<T>& vec) const {
     if (this->get_cols() != vec.size()) {
-        throw std::invalid_argument("Matrix and vector dimensions do not match for multiplication");
+        throw std::invalid_argument(
+            "Matrix and vector dimensions do not match for multiplication");
     }
     Vector<T> result(this->get_rows());
     for (size_t row = 0; row < this->get_rows(); ++row) {
@@ -356,7 +363,11 @@ bool Matrix<T>::is_invertible() const {
         return false;
     }
 
-    return det() != static_cast<T>(0);
+    if constexpr (std::is_floating_point<T>::value) {
+        return std::abs(det()) > std::numeric_limits<T>::epsilon();
+    } else {
+        return det() != static_cast<T>(0);
+    }
 }
 
 template <typename T>
@@ -367,7 +378,8 @@ bool Matrix<T>::is_hermitian() const {
 
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = i + 1; j < cols; ++j) {
-            if (data[i][j] != std::conj(data[j][i])) {
+            if (std::real(data[i][j]) != std::real(std::conj(data[j][i])) ||
+                std::imag(data[i][j]) != -std::imag(std::conj(data[j][i]))) {
                 return false;
             }
         }
@@ -432,7 +444,8 @@ T Matrix<T>::det() const {
             }
         }
 
-        det += (j % 2 == 0 ? 1 : -1) * data[0][j] * submatrix.det();
+        T factor = (j % 2 == 0) ? static_cast<T>(1) : static_cast<T>(-1);
+        det += factor * data[0][j] * submatrix.det();
     }
 
     return det;
@@ -479,9 +492,16 @@ Matrix<T> Matrix<T>::inverse() const {
 
     T det = this->det();
 
-    if (!is_invertible()) {
-        throw std::invalid_argument(
-            "Matrix must be non-singular to calculate the inverse.");
+    if constexpr (std::is_floating_point<T>::value) {
+        if (std::abs(det) < std::numeric_limits<T>::epsilon()) {
+            throw std::invalid_argument(
+                "Matrix must be non-singular to calculate the inverse.");
+        }
+    } else {
+        if (det == static_cast<T>(0)) {
+            throw std::invalid_argument(
+                "Matrix must be non-singular to calculate the inverse.");
+        }
     }
 
     Matrix<T> adj = adjoint();
@@ -518,7 +538,8 @@ Matrix<T> Matrix<T>::adjoint() const {
                 }
             }
 
-            adj(j, i) = ((i + j) % 2 == 0 ? 1 : -1) * submatrix.det();
+            adj(j, i) =
+                static_cast<T>(((i + j) % 2 == 0 ? 1 : -1)) * submatrix.det();
         }
     }
 
@@ -527,16 +548,21 @@ Matrix<T> Matrix<T>::adjoint() const {
 
 template <typename T>
 Matrix<T> Matrix<T>::conjugate() const {
-    Matrix<T> conjugate(rows, cols);
+    Matrix<T> result(rows, cols);
 
-    for (size_t i = 0; i < rows; ++i) {
-        for (size_t j = 0; j < cols; ++j) {
-            conjugate(i, j) =
-                std::conj(static_cast<std::complex<T>>(data[i][j])).real();
+    if constexpr (std::is_same_v<T, std::complex<float>> ||
+                  std::is_same_v<T, std::complex<double>>) {
+        for (size_t i = 0; i < rows; ++i) {
+            for (size_t j = 0; j < cols; ++j) {
+                result(i, j) = std::conj(data[i][j]);
+            }
         }
+    } else {
+        // For non-complex types, conjugate is the same as the original value
+        result = *this;
     }
 
-    return conjugate;
+    return result;
 }
 
 // Matrix functions
@@ -550,8 +576,9 @@ Matrix<T> Matrix<T>::exp() const {
 
     const int q = 6;
     const T norm = max_norm();
-    const int s = std::max(0, static_cast<int>(std::ceil(std::log2(norm / q))));
-    const T scale = std::pow(static_cast<T>(2), -s);
+    const int s =
+        std::max(0, static_cast<int>(std::ceil(std::log2(std::abs(norm) / q))));
+    const T scale = std::pow(static_cast<T>(2), static_cast<T>(-s));
 
     Matrix<T> A = *this * scale;
     Matrix<T> P = identity(rows);
@@ -618,7 +645,7 @@ Matrix<T> Matrix<T>::sqrt() const {
         Matrix<T> X_next = (X + Y.inverse()) * static_cast<T>(0.5);
         Matrix<T> Y_next = (Y + X.inverse()) * static_cast<T>(0.5);
 
-        if ((X_next - X).max_norm() < tolerance) {
+        if (std::abs((X_next - X).max_norm()) < std::abs(tolerance)) {
             return X_next;
         }
 
@@ -641,7 +668,7 @@ Matrix<T> Matrix<T>::log() const {
     Matrix<T> A = *this;
     int s = 0;
 
-    while (A.max_norm() > 0.5) {
+    while (std::abs(A.max_norm()) > 0.5) {
         A = A.sqrt();
         ++s;
     }
@@ -722,7 +749,7 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
 
         norm = std::sqrt(norm);
 
-        T s = R(i, i) < static_cast<T>(0) ? norm : -norm;
+        T s = (std::real(R(i, i)) < 0) ? norm : -norm;
         T alpha = static_cast<T>(1) /
                   std::sqrt(static_cast<T>(2) * norm * (norm - R(i, i)));
 
@@ -757,7 +784,7 @@ std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> Matrix<T>::svd() const {
         U = U * Q;
         V = V * Q;
 
-        if (A.max_norm() < tolerance) {
+        if (std::abs(A.max_norm()) < std::abs(tolerance)) {
             break;
         }
     }
@@ -792,12 +819,13 @@ std::vector<std::complex<T>> Matrix<T>::eigenvalues() const {
             T eigenvalue =
                 (z.transpose() * x)(0, 0) / (x.transpose() * x)(0, 0);
 
-            if ((z - x * eigenvalue).max_norm() < tolerance) {
+            if (std::abs((z - x * eigenvalue).max_norm()) <
+                std::abs(tolerance)) {
                 break;
             }
         }
 
-        eigvals.emplace_back(A(i, i), static_cast<T>(0));
+        eigvals.emplace_back(A(i, i));
 
         for (size_t j = i; j < rows; ++j) {
             A(j, i) = A(i, j) = static_cast<T>(0);
@@ -848,12 +876,13 @@ Matrix<T> Matrix<T>::eigenvectors() const {
 template <typename T>
 size_t Matrix<T>::rank() const {
     auto [U, S, V] = svd();
-    const T tolerance =
-        std::numeric_limits<T>::epsilon() * std::max(rows, cols) * S(0, 0);
+    const T tolerance = std::numeric_limits<T>::epsilon() *
+                        static_cast<T>(std::max(rows, cols)) *
+                        std::abs(S(0, 0));
     size_t rank = 0;
 
     for (size_t i = 0; i < std::min(rows, cols); ++i) {
-        if (S(i, i) > tolerance) {
+        if (std::abs(S(i, i)) > std::abs(tolerance)) {
             ++rank;
         }
     }
@@ -867,6 +896,7 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
         throw std::invalid_argument(
             "Matrix must be square to solve a linear system.");
     }
+
     if (rows != b.size()) {
         throw std::invalid_argument(
             "Matrix and vector dimensions must agree for solving a linear "
@@ -898,12 +928,10 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
     return x;
 }
 
-}  // namespace cramer
-
 // Explicit template instantiations
-template class cramer::Matrix<int>;
 template class cramer::Matrix<float>;
 template class cramer::Matrix<double>;
-template class cramer::Matrix<std::complex<int>>;
 template class cramer::Matrix<std::complex<float>>;
 template class cramer::Matrix<std::complex<double>>;
+
+}  // namespace cramer

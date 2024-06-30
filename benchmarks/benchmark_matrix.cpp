@@ -196,3 +196,5 @@ static void BM_MatrixTrace(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_MatrixTrace)->Range(8, 1024);
+
+BENCHMARK_MAIN();

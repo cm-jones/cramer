@@ -3,6 +3,7 @@
 #pragma once
 
 #include <vector>
+#include <complex>
 #include <cstddef>
 
 namespace cramer {
@@ -15,8 +16,7 @@ namespace cramer {
 template <typename T>
 class Vector {
    private:
-    std::vector<T>
-        data; /**< The underlying container storing the vector elements. */
+    std::vector<T> data; /**< The underlying container storing the vector elements. */
 
    public:
     /**
@@ -125,8 +125,7 @@ class Vector {
     Vector<T>& operator*=(const T& scalar);
 
     /**
-     * @brief Calculates the dot product of the current vector and another
-     * vector.
+     * @brief Calculates the dot product of the current vector and another vector.
      *
      * @param other The vector to calculate the dot product with.
      * @return The dot product of the current vector and the other vector.
@@ -274,7 +273,7 @@ class Vector {
      * @brief Computes the square root of each element in the vector.
      *
      * @return A new vector with the square root of each element of the current vector.
-     * @throw std::runtime_error if any element is negative.
+     * @throw std::runtime_error if any element is negative (for non-complex types).
      */
     Vector<T> sqrt() const;
 
@@ -289,7 +288,7 @@ class Vector {
      * @brief Computes the natural logarithm of each element in the vector.
      *
      * @return A new vector with the natural logarithm of each element of the current vector.
-     * @throw std::runtime_error if any element is non-positive.
+     * @throw std::runtime_error if any element is non-positive (for non-complex types).
      */
     Vector<T> log() const;
 };
