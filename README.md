@@ -10,7 +10,7 @@ Cramer is an open-source, numerical linear algebra library for C++ that supports
 
 It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most well-known for his discovery of Cramer's rule: a formula to solve a system of linear equations of the form $Ax = b$ using determinants (if and only if there is a unique solution, i.e., A is invertible).
 
-While I'm aware that there are better linear algebra libraries out there, I wanted to create one that was simple, easy to understand, and that doesn't try to do too much. Cramer's codebase is small, readable, and maintainable. Think of it as a slimmed down version of [Eigen](https://gitlab.com/libeigen/eigen).
+I realize that there are other (and much better) linear algebra libraries out there, but I wanted to create one that was easy to understand, maintain, and use. Think of it as a slimmed down version of [Eigen](https://gitlab.com/libeigen/eigen).
 
 ## Features
 
