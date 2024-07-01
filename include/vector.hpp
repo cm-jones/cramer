@@ -2,9 +2,9 @@
 
 #pragma once
 
-#include <vector>
 #include <complex>
 #include <cstddef>
+#include <vector>
 
 namespace cramer {
 
@@ -16,7 +16,8 @@ namespace cramer {
 template <typename T>
 class Vector {
    private:
-    std::vector<T> data; /**< The underlying container storing the vector elements. */
+    std::vector<T>
+        data; /**< The underlying container storing the vector elements. */
 
    public:
     /**
@@ -112,12 +113,14 @@ class Vector {
      * @brief Overloads the * operator to perform scalar multiplication.
      *
      * @param scalar The scalar to multiply the vector by.
-     * @return A new vector that is the result of multiplying the current vector by the scalar.
+     * @return A new vector that is the result of multiplying the current vector
+     * by the scalar.
      */
     Vector<T> operator*(const T& scalar) const;
 
     /**
-     * @brief Overloads the *= operator to perform scalar multiplication and assignment.
+     * @brief Overloads the *= operator to perform scalar multiplication and
+     * assignment.
      *
      * @param scalar The scalar to multiply the vector by.
      * @return A reference to the updated current vector.
@@ -125,7 +128,8 @@ class Vector {
     Vector<T>& operator*=(const T& scalar);
 
     /**
-     * @brief Calculates the dot product of the current vector and another vector.
+     * @brief Calculates the dot product of the current vector and another
+     * vector.
      *
      * @param other The vector to calculate the dot product with.
      * @return The dot product of the current vector and the other vector.
@@ -142,22 +146,26 @@ class Vector {
     /**
      * @brief Returns a normalized version of the vector.
      *
-     * @return A new vector that is the normalized version of the current vector.
+     * @return A new vector that is the normalized version of the current
+     * vector.
      * @throw std::runtime_error if the vector is a zero vector.
      */
     Vector<T> normalize() const;
 
     /**
-     * @brief Calculates the cross product of the current vector and another vector.
+     * @brief Calculates the cross product of the current vector and another
+     * vector.
      *
      * @param other The vector to calculate the cross product with.
-     * @return A new vector that is the cross product of the current vector and the other vector.
+     * @return A new vector that is the cross product of the current vector and
+     * the other vector.
      * @throw std::invalid_argument if either vector is not 3-dimensional.
      */
     Vector<T> cross(const Vector<T>& other) const;
 
     /**
-     * @brief Calculates the angle between the current vector and another vector.
+     * @brief Calculates the angle between the current vector and another
+     * vector.
      *
      * @param other The vector to calculate the angle with.
      * @return The angle between the vectors in radians.
@@ -169,15 +177,18 @@ class Vector {
      * @brief Projects the current vector onto another vector.
      *
      * @param onto The vector to project onto.
-     * @return A new vector that is the projection of the current vector onto the other vector.
+     * @return A new vector that is the projection of the current vector onto
+     * the other vector.
      */
     Vector<T> project(const Vector<T>& onto) const;
 
     /**
-     * @brief Calculates the rejection of the current vector from another vector.
+     * @brief Calculates the rejection of the current vector from another
+     * vector.
      *
      * @param from The vector to reject from.
-     * @return A new vector that is the rejection of the current vector from the other vector.
+     * @return A new vector that is the rejection of the current vector from the
+     * other vector.
      */
     Vector<T> reject(const Vector<T>& from) const;
 
@@ -257,7 +268,8 @@ class Vector {
     /**
      * @brief Computes the absolute value of each element in the vector.
      *
-     * @return A new vector with the absolute values of the current vector's elements.
+     * @return A new vector with the absolute values of the current vector's
+     * elements.
      */
     Vector<T> abs() const;
 
@@ -272,23 +284,28 @@ class Vector {
     /**
      * @brief Computes the square root of each element in the vector.
      *
-     * @return A new vector with the square root of each element of the current vector.
-     * @throw std::runtime_error if any element is negative (for non-complex types).
+     * @return A new vector with the square root of each element of the current
+     * vector.
+     * @throw std::runtime_error if any element is negative (for non-complex
+     * types).
      */
     Vector<T> sqrt() const;
 
     /**
      * @brief Computes the exponential of each element in the vector.
      *
-     * @return A new vector with the exponential of each element of the current vector.
+     * @return A new vector with the exponential of each element of the current
+     * vector.
      */
     Vector<T> exp() const;
 
     /**
      * @brief Computes the natural logarithm of each element in the vector.
      *
-     * @return A new vector with the natural logarithm of each element of the current vector.
-     * @throw std::runtime_error if any element is non-positive (for non-complex types).
+     * @return A new vector with the natural logarithm of each element of the
+     * current vector.
+     * @throw std::runtime_error if any element is non-positive (for non-complex
+     * types).
      */
     Vector<T> log() const;
 };
