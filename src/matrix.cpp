@@ -24,7 +24,8 @@ T Matrix<T>::max_norm() const {
         for (size_t j = 0; j < cols; ++j) {
             if constexpr (std::is_arithmetic<T>::value) {
                 row_sum += std::abs(data[i][j]);
-            } else if constexpr (std::is_same<T, std::complex<float>>::value || std::is_same<T, std::complex<double>>::value) {
+            } else if constexpr (std::is_same<T, std::complex<float>>::value ||
+                                 std::is_same<T, std::complex<double>>::value) {
                 row_sum += std::abs(data[i][j]);
             }
         }
@@ -577,7 +578,8 @@ Matrix<T> Matrix<T>::conjugate() const {
 template <typename T>
 Matrix<T> Matrix<T>::exp() const {
     if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
+        throw std::invalid_argument(
+            "Matrix must be square to calculate the exponential.");
     }
 
     const int q = 6;
@@ -586,8 +588,10 @@ Matrix<T> Matrix<T>::exp() const {
 
     if constexpr (std::is_arithmetic<T>::value) {
         s = std::max(0, static_cast<int>(std::ceil(std::log2(norm)) + 1));
-    } else if constexpr (std::is_same<T, std::complex<float>>::value || std::is_same<T, std::complex<double>>::value) {
-        s = std::max(0, static_cast<int>(std::ceil(std::log2(std::abs(norm))) + 1));
+    } else if constexpr (std::is_same<T, std::complex<float>>::value ||
+                         std::is_same<T, std::complex<double>>::value) {
+        s = std::max(
+            0, static_cast<int>(std::ceil(std::log2(std::abs(norm))) + 1));
     }
 
     T scale = T(1);
@@ -678,38 +682,32 @@ template <typename T>
 Matrix<T> Matrix<T>::log() const {
     if (!is_square()) {
         throw std::invalid_argument(
-            "Matrix must be square to calculate its logarithm.");
+            "Matrix must be square to calculate the logarithm.");
     }
 
-    const int q = 6;
-
-    Matrix<T> A = *this;
-    int s = 0;
-
-    while (std::abs(A.max_norm()) > 0.5) {
-        A = A.sqrt();
-        ++s;
+    // Check if the matrix is close to identity
+    if ((*this - identity(rows)).max_norm() <
+        std::numeric_limits<T>::epsilon()) {
+        return zeros(rows, cols);
     }
 
-    Matrix<T> I = identity(rows);
-    Matrix<T> Z = A - I;
+    const int max_iterations = 100;
+    const T tolerance = std::numeric_limits<T>::epsilon();
+
+    Matrix<T> Z = *this - identity(rows);
     Matrix<T> X = Z;
-    Matrix<T> P = I;
-    Matrix<T> Q = I;
+    Matrix<T> P = Z;
 
-    for (int k = 1; k <= q; ++k) {
-        P = P * (Z * (static_cast<T>(q - k + 1) /
-                      static_cast<T>(k * (2 * q - k + 1))));
-        Q = Q * (Z * (-static_cast<T>(q - k + 1) /
-                      static_cast<T>(k * (2 * q - k + 1))));
-        X = X + P + Q;
+    for (int k = 2; k <= max_iterations; ++k) {
+        P = P * Z * (T(-1) / T(k));
+        X += P;
+
+        if (P.max_norm() < tolerance) {
+            return X;
+        }
     }
 
-    for (int k = 0; k < s; ++k) {
-        X = X + X;
-    }
-
-    return X;
+    throw std::runtime_error("Matrix logarithm did not converge.");
 }
 
 // Matrix decompositions
