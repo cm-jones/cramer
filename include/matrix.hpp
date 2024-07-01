@@ -2,11 +2,11 @@
 
 #pragma once
 
-#include <vector>
 #include <complex>
-#include <utility>
-#include <tuple>
 #include <initializer_list>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 namespace cramer {
 
@@ -15,7 +15,7 @@ class Vector;
 
 template <typename T>
 class Matrix {
-private:
+   private:
     size_t rows;
     size_t cols;
     std::vector<std::vector<T>> data;
@@ -26,7 +26,7 @@ private:
      */
     T max_norm() const;
 
-public:
+   public:
     /**
      * @brief Default constructor. Creates an empty matrix.
      */
@@ -40,7 +40,8 @@ public:
     Matrix(size_t rows, size_t cols);
 
     /**
-     * @brief Constructor that creates a matrix with specified dimensions and fills it with a value.
+     * @brief Constructor that creates a matrix with specified dimensions and
+     * fills it with a value.
      * @param rows Number of rows.
      * @param cols Number of columns.
      * @param value The value to fill the matrix with.
@@ -58,7 +59,8 @@ public:
      * @param rows Number of rows.
      * @param cols Number of columns.
      * @param values The initializer list of values to populate the matrix.
-     * @throws std::invalid_argument if the size of values doesn't match rows * cols.
+     * @throws std::invalid_argument if the size of values doesn't match rows *
+     * cols.
      */
     Matrix(size_t rows, size_t cols, std::initializer_list<T> values);
 
@@ -289,19 +291,22 @@ public:
 
     /**
      * @brief Performs LU decomposition of the matrix.
-     * @return A pair of matrices (L, U) where L is lower triangular and U is upper triangular.
+     * @return A pair of matrices (L, U) where L is lower triangular and U is
+     * upper triangular.
      */
     std::pair<Matrix<T>, Matrix<T>> lu() const;
 
     /**
      * @brief Performs QR decomposition of the matrix.
-     * @return A pair of matrices (Q, R) where Q is orthogonal and R is upper triangular.
+     * @return A pair of matrices (Q, R) where Q is orthogonal and R is upper
+     * triangular.
      */
     std::pair<Matrix<T>, Matrix<T>> qr() const;
 
     /**
      * @brief Performs Singular Value Decomposition (SVD) of the matrix.
-     * @return A tuple of matrices (U, S, V) where U and V are orthogonal and S is diagonal.
+     * @return A tuple of matrices (U, S, V) where U and V are orthogonal and S
+     * is diagonal.
      */
     std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> svd() const;
 
@@ -331,4 +336,4 @@ public:
     Vector<T> solve(const Vector<T>& b) const;
 };
 
-} // namespace cramer
+}  // namespace cramer
