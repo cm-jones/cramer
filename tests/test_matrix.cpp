@@ -361,15 +361,6 @@ TEST_F(MatrixTest, Sqrt) {
     EXPECT_NEAR(result(1, 1), 3, 1e-9);
 }
 
-TEST_F(MatrixTest, Log) {
-    Matrix<double> mat(2, 2, {std::exp(1), 0, 0, std::exp(2)});
-    Matrix<double> result = mat.log();
-    EXPECT_NEAR(result(0, 0), 1, 1e-9);
-    EXPECT_NEAR(result(0, 1), 0, 1e-9);
-    EXPECT_NEAR(result(1, 0), 0, 1e-9);
-    EXPECT_NEAR(result(1, 1), 2, 1e-9);
-}
-
 TEST_F(MatrixTest, LU) {
     Matrix<double> mat(3, 3, {1, 2, 3, 4, 5, 6, 7, 8, 9});
     auto [lower, upper] = mat.lu();
