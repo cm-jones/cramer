@@ -284,12 +284,6 @@ class Matrix {
     Matrix<T> sqrt() const;
 
     /**
-     * @brief Calculates the matrix logarithm.
-     * @return The logarithm of the matrix.
-     */
-    Matrix<T> log() const;
-
-    /**
      * @brief Performs LU decomposition of the matrix.
      * @return A pair of matrices (L, U) where L is lower triangular and U is
      * upper triangular.

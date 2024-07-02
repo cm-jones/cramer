@@ -678,38 +678,6 @@ Matrix<T> Matrix<T>::sqrt() const {
     throw std::runtime_error("Square root iteration did not converge.");
 }
 
-template <typename T>
-Matrix<T> Matrix<T>::log() const {
-    if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate the logarithm.");
-    }
-
-    // Check if the matrix is close to identity
-    if ((*this - identity(rows)).max_norm() <
-        std::numeric_limits<T>::epsilon()) {
-        return zeros(rows, cols);
-    }
-
-    const int max_iterations = 100;
-    const T tolerance = std::numeric_limits<T>::epsilon();
-
-    Matrix<T> Z = *this - identity(rows);
-    Matrix<T> X = Z;
-    Matrix<T> P = Z;
-
-    for (int k = 2; k <= max_iterations; ++k) {
-        P = P * Z * (T(-1) / T(k));
-        X += P;
-
-        if (P.max_norm() < tolerance) {
-            return X;
-        }
-    }
-
-    throw std::runtime_error("Matrix logarithm did not converge.");
-}
-
 // Matrix decompositions
 
 template <typename T>
