@@ -25,19 +25,28 @@ jobs:
 
     - name: Run tests
       working-directory: ${{github.workspace}}/build
-      run: |
-        ctest --output-on-failure
-        # Run the test executable directly to ensure coverage data is generated
-        ./tests/test_all
+      run: ctest --output-on-failure
+      id: run_tests
 
     - name: Generate coverage report
+      if: always()
       working-directory: ${{github.workspace}}/build
       run: |
+        ./tests/test_all || true
         lcov --capture --directory . --output-file coverage.info
         lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
         lcov --list coverage.info
 
-    - name: Upload coverage reports to Codecov
+    - name: Upload coverage report as artifact
+      if: always()
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: ${{github.workspace}}/build/coverage.info
+
+    - name: Upload coverage to Codecov
+      if: success()
       uses: codecov/codecov-action@v4.0.1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
