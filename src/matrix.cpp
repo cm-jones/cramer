@@ -718,62 +718,161 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
 }
 
 template <typename T>
-std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
-    Matrix<T> Q = identity(rows);
-    Matrix<T> R = *this;
-
-    for (size_t i = 0; i < std::min(rows, cols); ++i) {
-        Vector<T> v(rows);
-        T norm = static_cast<T>(0);
-
-        for (size_t j = i; j < rows; ++j) {
-            v[j] = R(j, i);
-            norm += v[j] * v[j];
-        }
-
-        norm = std::sqrt(norm);
-
-        T s = (std::real(R(i, i)) < 0) ? norm : -norm;
-        T alpha = static_cast<T>(1) /
-                  std::sqrt(static_cast<T>(2) * norm * (norm - R(i, i)));
-
-        v[i] = R(i, i) - s;
-
-        Matrix<T> vvT(rows, cols);
-        for (size_t j = 0; j < rows; ++j) {
-            for (size_t k = 0; k < cols; ++k) {
-                vvT(j, k) = v[j] * v[k];
-            }
-        }
-
-        R = R - vvT * (static_cast<T>(2) * alpha);
-        Q = Q - (Q * vvT) * (static_cast<T>(2) * alpha);
+Matrix<T> Matrix<T>::exp() const {
+    if (!is_square()) {
+        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
     }
 
-    return std::make_pair(Q, R);
+    const int q = 6;
+    const int p = 1;
+    T norm = max_norm();
+    int s = std::max(0, static_cast<int>(std::ceil(std::log2(norm))));
+
+    Matrix<T> A = *this * (1.0 / std::pow(2.0, s));
+    Matrix<T> X = identity(rows) + A;
+    Matrix<T> cX = identity(rows) - A;
+    Matrix<T> A2 = A * A;
+
+    for (int k = 2; k <= q; ++k) {
+        T c = 1.0;
+        for (int j = 1; j <= std::min(k, p); ++j) {
+            c *= static_cast<T>(k - j + 1) / static_cast<T>(j * (2 * k - j + 1));
+        }
+        Matrix<T> Y = c * A2;
+        X += Y;
+        if (k % 2 == 0) {
+            cX += Y;
+        } else {
+            cX -= Y;
+        }
+        if (k < q) {
+            A2 *= A;
+        }
+    }
+
+    Matrix<T> E = X * cX.inverse();
+
+    for (int k = 0; k < s; ++k) {
+        E = E * E;
+    }
+
+    return E;
 }
 
 template <typename T>
 std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> Matrix<T>::svd() const {
+    const size_t m = rows;
+    const size_t n = cols;
+    Matrix<T> U(m, m, 0.0);
+    Matrix<T> S(m, n, 0.0);
+    Matrix<T> V(n, n, 0.0);
+
+    std::vector<T> superdiag(std::min(m, n), 0.0);
+    std::vector<T> singular_values(std::min(m, n), 0.0);
+
+    // Bidiagonalization
     Matrix<T> A = *this;
-    Matrix<T> U = identity(rows);
-    Matrix<T> V = identity(cols);
+    for (size_t k = 0; k < std::min(m - 1, n); ++k) {
+        // Column transformation
+        T norm = 0.0;
+        for (size_t i = k; i < m; ++i) {
+            norm += A(i, k) * A(i, k);
+        }
+        norm = std::sqrt(norm);
 
-    const size_t max_iterations = 100;
-    const T tolerance = std::numeric_limits<T>::epsilon();
+        if (norm > 0) {
+            if (A(k, k) < 0) norm = -norm;
+            for (size_t i = k; i < m; ++i) {
+                A(i, k) /= norm;
+            }
+            A(k, k) += 1.0;
+        }
+        singular_values[k] = -norm;
 
-    for (size_t i = 0; i < max_iterations; ++i) {
-        auto [Q, R] = A.qr();
-        A = R * Q;
-        U = U * Q;
-        V = V * Q;
+        // Row transformation
+        if (k < n - 1) {
+            norm = 0.0;
+            for (size_t j = k + 1; j < n; ++j) {
+                norm += A(k, j) * A(k, j);
+            }
+            norm = std::sqrt(norm);
 
-        if (std::abs(A.max_norm()) < std::abs(tolerance)) {
-            break;
+            if (norm > 0) {
+                if (A(k, k + 1) < 0) norm = -norm;
+                for (size_t j = k + 1; j < n; ++j) {
+                    A(k, j) /= norm;
+                }
+                A(k, k + 1) += 1.0;
+            }
+            superdiag[k] = -norm;
         }
     }
 
-    return std::make_tuple(U, A, V);
+    // Generate U
+    for (size_t i = 0; i < m; ++i) {
+        for (size_t j = 0; j < m; ++j) {
+            U(i, j) = (i == j) ? 1.0 : 0.0;
+        }
+    }
+
+    // Generate V
+    for (size_t i = 0; i < n; ++i) {
+        for (size_t j = 0; j < n; ++j) {
+            V(i, j) = (i == j) ? 1.0 : 0.0;
+        }
+    }
+
+    // Diagonalization
+    const size_t max_iterations = 100;
+    const T epsilon = std::numeric_limits<T>::epsilon();
+
+    for (size_t iteration = 0; iteration < max_iterations; ++iteration) {
+        bool converged = true;
+        for (size_t k = 0; k < std::min(m, n) - 1; ++k) {
+            if (std::abs(superdiag[k]) > epsilon * (std::abs(singular_values[k]) + std::abs(singular_values[k + 1]))) {
+                converged = false;
+                break;
+            }
+        }
+        if (converged) break;
+
+        // QR step
+        T c, s;
+        for (size_t k = 0; k < std::min(m, n) - 1; ++k) {
+            T f = singular_values[k];
+            T g = superdiag[k];
+            T h = singular_values[k + 1];
+
+            T x = (f * f + g * g - h * h) / (2 * f * h);
+            T t = (x > 0) ? 1 / (x + std::sqrt(1 + x * x)) : 1 / (x - std::sqrt(1 + x * x));
+            c = 1 / std::sqrt(1 + t * t);
+            s = t * c;
+
+            // Update singular values and superdiagonal
+            singular_values[k] = c * f - s * h;
+            superdiag[k] = s * f + c * h;
+            singular_values[k + 1] = c * h + s * f;
+
+            // Update U and V
+            for (size_t i = 0; i < m; ++i) {
+                T temp = U(i, k);
+                U(i, k) = c * temp - s * U(i, k + 1);
+                U(i, k + 1) = s * temp + c * U(i, k + 1);
+            }
+            for (size_t i = 0; i < n; ++i) {
+                T temp = V(k, i);
+                V(k, i) = c * temp - s * V(k + 1, i);
+                V(k + 1, i) = s * temp + c * V(k + 1, i);
+            }
+        }
+    }
+
+    // Construct S
+    for (size_t i = 0; i < std::min(m, n); ++i) {
+        S(i, i) = std::abs(singular_values[i]);
+    }
+
+    return std::make_tuple(U, S, V.transpose());
 }
 
 // Eigenvalues and eigenvectors
