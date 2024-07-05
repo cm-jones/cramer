@@ -573,54 +573,6 @@ Matrix<T> Matrix<T>::conjugate() const {
     return result;
 }
 
-// Matrix functions
-
-template <typename T>
-Matrix<T> Matrix<T>::exp() const {
-    if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate the exponential.");
-    }
-
-    const int q = 6;
-    T norm = max_norm();
-    int s = 0;
-
-    if constexpr (std::is_arithmetic<T>::value) {
-        s = std::max(0, static_cast<int>(std::ceil(std::log2(norm)) + 1));
-    } else if constexpr (std::is_same<T, std::complex<float>>::value ||
-                         std::is_same<T, std::complex<double>>::value) {
-        s = std::max(
-            0, static_cast<int>(std::ceil(std::log2(std::abs(norm))) + 1));
-    }
-
-    T scale = T(1);
-    for (int i = 0; i < s; ++i) {
-        scale /= T(2);
-    }
-
-    Matrix<T> A = *this * scale;
-    Matrix<T> X = A;
-    Matrix<T> N = identity(rows);
-    Matrix<T> D = identity(rows);
-    T c = T(1);
-
-    for (int k = 1; k <= q; ++k) {
-        c *= T(q - k + 1) / T(k * (2 * q - k + 1));
-        X = A * X;
-        N += X * c;
-        D += X * (c * T(k % 2 ? -1 : 1));
-    }
-
-    Matrix<T> F = N * D.inverse();
-
-    for (int k = 0; k < s; ++k) {
-        F = F * F;
-    }
-
-    return F;
-}
-
 // Matrix decompositions
 
 template <typename T>
@@ -630,34 +582,34 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
             "Matrix must be square to perform LU decomposition.");
     }
 
-    Matrix<T> L(rows, cols);
-    Matrix<T> U(rows, cols);
+    Matrix<T> lower(rows, cols);
+    Matrix<T> upper(rows, cols);
 
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
             if (i <= j) {
-                U(i, j) = data[i][j];
+                upper(i, j) = data[i][j];
 
                 for (size_t k = 0; k < i; ++k) {
-                    U(i, j) -= L(i, k) * U(k, j);
+                    upper(i, j) -= lower(i, k) * upper(k, j);
                 }
 
                 if (i == j) {
-                    L(i, j) = static_cast<T>(1);
+                    lower(i, j) = static_cast<T>(1);
                 }
             } else {
-                L(i, j) = data[i][j];
+                lower(i, j) = data[i][j];
 
                 for (size_t k = 0; k < j; ++k) {
-                    L(i, j) -= L(i, k) * U(k, j);
+                    lower(i, j) -= lower(i, k) * upper(k, j);
                 }
 
-                L(i, j) /= U(j, j);
+                lower(i, j) /= upper(j, j);
             }
         }
     }
 
-    return std::make_pair(L, U);
+    return std::make_pair(lower, upper);
 }
 
 template <typename T>
