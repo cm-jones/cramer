@@ -265,25 +265,6 @@ class Matrix {
     Matrix<T> conjugate() const;
 
     /**
-     * @brief Calculates the matrix exponential.
-     * @return The exponential of the matrix.
-     */
-    Matrix<T> exp() const;
-
-    /**
-     * @brief Calculates the matrix power.
-     * @param n The power to raise the matrix to.
-     * @return The matrix raised to the power n.
-     */
-    Matrix<T> pow(int n) const;
-
-    /**
-     * @brief Calculates the square root of the matrix.
-     * @return The square root of the matrix.
-     */
-    Matrix<T> sqrt() const;
-
-    /**
      * @brief Performs LU decomposition of the matrix.
      * @return A pair of matrices (L, U) where L is lower triangular and U is
      * upper triangular.

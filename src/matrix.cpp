@@ -621,63 +621,6 @@ Matrix<T> Matrix<T>::exp() const {
     return F;
 }
 
-template <typename T>
-Matrix<T> Matrix<T>::pow(int n) const {
-    if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate its integer power.");
-    }
-
-    if (n == 0) {
-        return identity(rows);
-    }
-
-    Matrix<T> result = identity(rows);
-    Matrix<T> base = *this;
-    bool negative = (n < 0);
-    n = std::abs(n);
-
-    while (n > 0) {
-        if (n % 2 == 1) {
-            result = result * base;  // Use matrix multiplication instead of *=
-        }
-        base = base * base;  // Use matrix multiplication instead of *=
-        n /= 2;
-    }
-
-    return negative ? result.inverse() : result;
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::sqrt() const {
-    if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate its square root.");
-    }
-
-    // This is a placeholder implementation using Denman-Beavers iteration
-    // For a more robust implementation, consider using Schur decomposition or
-    // other methods
-    Matrix<T> X = *this;
-    Matrix<T> Y = identity(rows);
-    const int max_iterations = 20;
-    const T tolerance = std::numeric_limits<T>::epsilon();
-
-    for (int i = 0; i < max_iterations; ++i) {
-        Matrix<T> X_next = (X + Y.inverse()) * static_cast<T>(0.5);
-        Matrix<T> Y_next = (Y + X.inverse()) * static_cast<T>(0.5);
-
-        if (std::abs((X_next - X).max_norm()) < std::abs(tolerance)) {
-            return X_next;
-        }
-
-        X = X_next;
-        Y = Y_next;
-    }
-
-    throw std::runtime_error("Square root iteration did not converge.");
-}
-
 // Matrix decompositions
 
 template <typename T>
@@ -715,48 +658,6 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
     }
 
     return std::make_pair(L, U);
-}
-
-template <typename T>
-Matrix<T> Matrix<T>::exp() const {
-    if (!is_square()) {
-        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
-    }
-
-    const int q = 6;
-    const int p = 1;
-    T norm = max_norm();
-    int s = std::max(0, static_cast<int>(std::ceil(std::log2(norm))));
-
-    Matrix<T> A = *this * (1.0 / std::pow(2.0, s));
-    Matrix<T> X = identity(rows) + A;
-    Matrix<T> cX = identity(rows) - A;
-    Matrix<T> A2 = A * A;
-
-    for (int k = 2; k <= q; ++k) {
-        T c = 1.0;
-        for (int j = 1; j <= std::min(k, p); ++j) {
-            c *= static_cast<T>(k - j + 1) / static_cast<T>(j * (2 * k - j + 1));
-        }
-        Matrix<T> Y = c * A2;
-        X += Y;
-        if (k % 2 == 0) {
-            cX += Y;
-        } else {
-            cX -= Y;
-        }
-        if (k < q) {
-            A2 *= A;
-        }
-    }
-
-    Matrix<T> E = X * cX.inverse();
-
-    for (int k = 0; k < s; ++k) {
-        E = E * E;
-    }
-
-    return E;
 }
 
 template <typename T>

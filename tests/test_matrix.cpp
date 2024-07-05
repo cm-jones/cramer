@@ -334,33 +334,6 @@ TEST_F(MatrixTest, Conjugate) {
     EXPECT_EQ(result(1, 1), std::complex<double>(4, -4));
 }
 
-TEST_F(MatrixTest, Exp) {
-    Matrix<double> mat(2, 2, {0, 1, -1, 0});
-    Matrix<double> result = mat.exp();
-    EXPECT_NEAR(result(0, 0), std::cos(1), 1e-9);
-    EXPECT_NEAR(result(0, 1), std::sin(1), 1e-9);
-    EXPECT_NEAR(result(1, 0), -std::sin(1), 1e-9);
-    EXPECT_NEAR(result(1, 1), std::cos(1), 1e-9);
-}
-
-TEST_F(MatrixTest, Pow) {
-    Matrix<double> mat(2, 2, {1, 1, 1, 0});
-    Matrix<double> result = mat.pow(3);
-    EXPECT_EQ(result(0, 0), 3);
-    EXPECT_EQ(result(0, 1), 2);
-    EXPECT_EQ(result(1, 0), 2);
-    EXPECT_EQ(result(1, 1), 1);
-}
-
-TEST_F(MatrixTest, Sqrt) {
-    Matrix<double> mat(2, 2, {4, 0, 0, 9});
-    Matrix<double> result = mat.sqrt();
-    EXPECT_NEAR(result(0, 0), 2, 1e-9);
-    EXPECT_NEAR(result(0, 1), 0, 1e-9);
-    EXPECT_NEAR(result(1, 0), 0, 1e-9);
-    EXPECT_NEAR(result(1, 1), 3, 1e-9);
-}
-
 TEST_F(MatrixTest, LU) {
     Matrix<double> mat(3, 3, {1, 2, 3, 4, 5, 6, 7, 8, 9});
     auto [lower, upper] = mat.lu();
