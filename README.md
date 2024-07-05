@@ -131,4 +131,4 @@ See [CONTRIBUTING.md](https://github.com/cm-jones/CONTRIBUTING.md) for details o
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](LICENSE).
+Cramer is licensed under the [GNU General Public License v3.0](LICENSE).
