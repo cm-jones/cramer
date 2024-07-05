@@ -321,7 +321,7 @@ Vector<T> Matrix<T>::multiply_vector(const Vector<T>& vec) const {
     return result;
 }
 
-// Matrix properties
+// Matrix properties/tests
 
 template <typename T>
 bool Matrix<T>::is_square() const {
@@ -556,24 +556,24 @@ Matrix<T> Matrix<T>::adjoint() const {
 
 template <typename T>
 Matrix<T> Matrix<T>::conjugate() const {
-    Matrix<T> result(rows, cols);
+    Matrix<T> conjugate(rows, cols);
 
-    if constexpr (std::is_same_v<T, std::complex<float>> ||
-                  std::is_same_v<T, std::complex<double>>) {
-        for (size_t i = 0; i < rows; ++i) {
-            for (size_t j = 0; j < cols; ++j) {
-                result(i, j) = std::conj(data[i][j]);
-            }
-        }
-    } else {
-        // For non-complex types, conjugate is the same as the original value
-        result = *this;
+    if constexpr (!(std::is_same_v<T, std::complex<float>> ||
+                  std::is_same_v<T, std::complex<double>>)) {
+        // For real matrices, conjugate is the same as the original matrix
+        conjugate = *this;
     }
 
-    return result;
+    for (size_t i = 0; i < rows; ++i) {
+        for (size_t j = 0; j < cols; ++j) {
+            conjugate(i, j) = std::conj(data[i][j]);
+        }
+    }
+
+    return conjugate;
 }
 
-// Matrix decompositions
+// Matrix decompositions/factorizations
 
 template <typename T>
 std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
@@ -807,23 +807,6 @@ Matrix<T> Matrix<T>::eigenvectors() const {
     }
 
     return eigvecs;
-}
-
-template <typename T>
-size_t Matrix<T>::rank() const {
-    auto [U, S, V] = svd();
-    const T tolerance = std::numeric_limits<T>::epsilon() *
-                        static_cast<T>(std::max(rows, cols)) *
-                        std::abs(S(0, 0));
-    size_t rank = 0;
-
-    for (size_t i = 0; i < std::min(rows, cols); ++i) {
-        if (std::abs(S(i, i)) > std::abs(tolerance)) {
-            ++rank;
-        }
-    }
-
-    return rank;
 }
 
 template <typename T>
