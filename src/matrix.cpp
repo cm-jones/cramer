@@ -556,13 +556,13 @@ Matrix<T> Matrix<T>::adjoint() const {
 
 template <typename T>
 Matrix<T> Matrix<T>::conjugate() const {
-    Matrix<T> conjugate(rows, cols);
-
+    // For real matrices, the conjugate is the original matrix
     if constexpr (!(std::is_same_v<T, std::complex<float>> ||
                   std::is_same_v<T, std::complex<double>>)) {
-        // For real matrices, conjugate is the same as the original matrix
-        conjugate = *this;
+        return *this;
     }
+
+    Matrix<T> conjugate(rows, cols);
 
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < cols; ++j) {
@@ -614,118 +614,60 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::lu() const {
 
 template <typename T>
 std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> Matrix<T>::svd() const {
-    const size_t m = rows;
-    const size_t n = cols;
-    Matrix<T> U(m, m, 0.0);
-    Matrix<T> S(m, n, 0.0);
-    Matrix<T> V(n, n, 0.0);
-
-    std::vector<T> superdiag(std::min(m, n), 0.0);
-    std::vector<T> singular_values(std::min(m, n), 0.0);
-
-    // Bidiagonalization
-    Matrix<T> A = *this;
-    for (size_t k = 0; k < std::min(m - 1, n); ++k) {
-        // Column transformation
-        T norm = 0.0;
-        for (size_t i = k; i < m; ++i) {
-            norm += A(i, k) * A(i, k);
-        }
-        norm = std::sqrt(norm);
-
-        if (norm > 0) {
-            if (A(k, k) < 0) norm = -norm;
-            for (size_t i = k; i < m; ++i) {
-                A(i, k) /= norm;
-            }
-            A(k, k) += 1.0;
-        }
-        singular_values[k] = -norm;
-
-        // Row transformation
-        if (k < n - 1) {
-            norm = 0.0;
-            for (size_t j = k + 1; j < n; ++j) {
-                norm += A(k, j) * A(k, j);
-            }
-            norm = std::sqrt(norm);
-
-            if (norm > 0) {
-                if (A(k, k + 1) < 0) norm = -norm;
-                for (size_t j = k + 1; j < n; ++j) {
-                    A(k, j) /= norm;
-                }
-                A(k, k + 1) += 1.0;
-            }
-            superdiag[k] = -norm;
-        }
-    }
-
-    // Generate U
-    for (size_t i = 0; i < m; ++i) {
-        for (size_t j = 0; j < m; ++j) {
-            U(i, j) = (i == j) ? 1.0 : 0.0;
-        }
-    }
-
-    // Generate V
-    for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j) {
-            V(i, j) = (i == j) ? 1.0 : 0.0;
-        }
-    }
-
-    // Diagonalization
+    const size_t row_count = rows;
+    const size_t col_count = cols;
+    const size_t sing_val_count = std::min(row_count, col_count);
+    
     const size_t max_iterations = 100;
-    const T epsilon = std::numeric_limits<T>::epsilon();
+    const T convergence_threshold = 1e-6;
+    const T initial_vector_value = 1.0;
 
-    for (size_t iteration = 0; iteration < max_iterations; ++iteration) {
-        bool converged = true;
-        for (size_t k = 0; k < std::min(m, n) - 1; ++k) {
-            if (std::abs(superdiag[k]) > epsilon * (std::abs(singular_values[k]) + std::abs(singular_values[k + 1]))) {
-                converged = false;
+    Matrix<T> left_sing_vecs(row_count, sing_val_count);
+    Matrix<T> sing_vals(sing_val_count, sing_val_count, 0.0);
+    Matrix<T> right_sing_vecs(col_count, sing_val_count);
+
+    Matrix<T> work_matrix = *this;
+    
+    for (size_t idx = 0; idx < sing_val_count; ++idx) {
+        Vector<T> right_vec(col_count, initial_vector_value);
+        
+        // Power iteration
+        for (size_t iter = 0; iter < max_iterations; ++iter) {
+            Vector<T> left_vec = work_matrix * right_vec;
+            T sigma = left_vec.norm();
+            left_vec = left_vec * (1.0 / sigma);
+            
+            Vector<T> new_right_vec = work_matrix.transpose() * left_vec;
+            T new_sigma = new_right_vec.norm();
+            new_right_vec = new_right_vec * (1.0 / new_sigma);
+            
+            if ((right_vec - new_right_vec).norm() < convergence_threshold) {
                 break;
             }
+
+            right_vec = new_right_vec;
         }
-        if (converged) break;
-
-        // QR step
-        T c, s;
-        for (size_t k = 0; k < std::min(m, n) - 1; ++k) {
-            T f = singular_values[k];
-            T g = superdiag[k];
-            T h = singular_values[k + 1];
-
-            T x = (f * f + g * g - h * h) / (2 * f * h);
-            T t = (x > 0) ? 1 / (x + std::sqrt(1 + x * x)) : 1 / (x - std::sqrt(1 + x * x));
-            c = 1 / std::sqrt(1 + t * t);
-            s = t * c;
-
-            // Update singular values and superdiagonal
-            singular_values[k] = c * f - s * h;
-            superdiag[k] = s * f + c * h;
-            singular_values[k + 1] = c * h + s * f;
-
-            // Update U and V
-            for (size_t i = 0; i < m; ++i) {
-                T temp = U(i, k);
-                U(i, k) = c * temp - s * U(i, k + 1);
-                U(i, k + 1) = s * temp + c * U(i, k + 1);
-            }
-            for (size_t i = 0; i < n; ++i) {
-                T temp = V(k, i);
-                V(k, i) = c * temp - s * V(k + 1, i);
-                V(k + 1, i) = s * temp + c * V(k + 1, i);
-            }
+        
+        Vector<T> left_vec = work_matrix * right_vec;
+        T sigma = left_vec.norm();
+        left_vec = left_vec * (1.0 / sigma);
+        
+        // Store the singular values and vectors
+        for (size_t row = 0; row < row_count; ++row) {
+            left_sing_vecs(row, idx) = left_vec[row];
         }
+
+        for (size_t col = 0; col < col_count; ++col) {
+            right_sing_vecs(col, idx) = right_vec[col];
+        }
+    
+        sing_vals(idx, idx) = sigma;
+        
+        // Deflate the matrix
+        work_matrix = work_matrix - left_vec * right_vec.transpose() * sigma;
     }
 
-    // Construct S
-    for (size_t i = 0; i < std::min(m, n); ++i) {
-        S(i, i) = std::abs(singular_values[i]);
-    }
-
-    return std::make_tuple(U, S, V.transpose());
+    return std::make_tuple(left_sing_vecs, sing_vals, right_sing_vecs.transpose());
 }
 
 // Eigenvalues and eigenvectors
