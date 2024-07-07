@@ -265,6 +265,18 @@ class Matrix {
     Matrix<T> conjugate() const;
 
     /**
+     * @brief Computes the outer product of two vectors.
+     *
+     * 
+     * @param u The first vector.
+     * @param v The second vector.
+     * @return Matrix<T> The resulting matrix from the outer product.
+     * 
+     * @throw std::invalid_argument If the vectors have incompatible sizes.
+     */
+    static Matrix<T> outer(const Vector<T>& u, const Vector<T>& v);
+
+    /**
      * @brief Performs LU decomposition of the matrix.
      * @return A pair of matrices (L, U) where L is lower triangular and U is
      * upper triangular.

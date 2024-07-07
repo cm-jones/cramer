@@ -573,6 +573,19 @@ Matrix<T> Matrix<T>::conjugate() const {
     return conjugate;
 }
 
+template <typename T>
+Matrix<T> Matrix<T>::outer(const Vector<T>& u, const Vector<T>& v) {
+    Matrix<T> result(u.size(), v.size());
+
+    for (size_t i = 0; i < u.size(); ++i) {
+        for (size_t j = 0; j < v.size(); ++j) {
+            result(i, j) = u[i] * v[j];
+        }
+    }
+
+    return result;
+}
+
 // Matrix decompositions/factorizations
 
 template <typename T>
