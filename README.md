@@ -6,7 +6,7 @@
 
 ## Description
 
-Cramer supports a large collection of computations with vectors and matrices. For a full list of features, see below.
+Cramer is an open-source, numerical linear algebra library for C++. It supports a wide variety of computations with vectors and matrices. For a full list of features, see below.
 
 It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most well-known for Cramer's rule: a formula to solve a system of linear equations using determinants.
 
