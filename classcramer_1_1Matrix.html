@@ -209,6 +209,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">random</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
 <tr class="memdesc:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix with random values between 0 and 1.  <a href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">More...</a><br /></td></tr>
 <tr class="separator:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a492059e4940b4c4d6656c54fea2bcded"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">outer</a> (const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;u, const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;v)</td></tr>
+<tr class="memdesc:a492059e4940b4c4d6656c54fea2bcded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the outer product of two vectors.  <a href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">More...</a><br /></td></tr>
+<tr class="separator:a492059e4940b4c4d6656c54fea2bcded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -1196,6 +1199,60 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if matrices are equal, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a492059e4940b4c4d6656c54fea2bcded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a492059e4940b4c4d6656c54fea2bcded">&#9670;&nbsp;</a></span>outer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::outer </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>u</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the outer product of two vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">u</td><td>The first vector. </td></tr>
+    <tr><td class="paramname">v</td><td>The second vector. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Matrix&lt;T&gt; The resulting matrix from the outer product.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the vectors have incompatible sizes. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
