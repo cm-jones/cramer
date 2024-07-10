@@ -76,6 +76,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a matrix of elements of type T.  
+ <a href="classcramer_1_1Matrix.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="matrix_8hpp_source.html">matrix.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -84,13 +87,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a80b264ac3b5a165d8ce0cc1b37834894"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. Creates an empty matrix.  <a href="classcramer_1_1Matrix.html#a80b264ac3b5a165d8ce0cc1b37834894">More...</a><br /></td></tr>
 <tr class="separator:a80b264ac3b5a165d8ce0cc1b37834894"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2cc8fdb997582d641918a61e7285329"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ad2cc8fdb997582d641918a61e7285329">Matrix</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
-<tr class="memdesc:ad2cc8fdb997582d641918a61e7285329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix with specified dimensions.  <a href="classcramer_1_1Matrix.html#ad2cc8fdb997582d641918a61e7285329">More...</a><br /></td></tr>
+<tr class="memdesc:ad2cc8fdb997582d641918a61e7285329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix of a specified size.  <a href="classcramer_1_1Matrix.html#ad2cc8fdb997582d641918a61e7285329">More...</a><br /></td></tr>
 <tr class="separator:ad2cc8fdb997582d641918a61e7285329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b3696b3735f01593f201267b2b0665d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a2b3696b3735f01593f201267b2b0665d">Matrix</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>, const T &amp;value)</td></tr>
-<tr class="memdesc:a2b3696b3735f01593f201267b2b0665d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix with specified dimensions and fills it with a value.  <a href="classcramer_1_1Matrix.html#a2b3696b3735f01593f201267b2b0665d">More...</a><br /></td></tr>
+<tr class="memdesc:a2b3696b3735f01593f201267b2b0665d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix of a specified size and initializes all elements with a given value.  <a href="classcramer_1_1Matrix.html#a2b3696b3735f01593f201267b2b0665d">More...</a><br /></td></tr>
 <tr class="separator:a2b3696b3735f01593f201267b2b0665d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fcc2f70529ac573688c419b6fe7fc77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a5fcc2f70529ac573688c419b6fe7fc77">Matrix</a> (const std::vector&lt; std::vector&lt; T &gt;&gt; &amp;values)</td></tr>
-<tr class="memdesc:a5fcc2f70529ac573688c419b6fe7fc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix from a 2D vector.  <a href="classcramer_1_1Matrix.html#a5fcc2f70529ac573688c419b6fe7fc77">More...</a><br /></td></tr>
+<tr class="memdesc:a5fcc2f70529ac573688c419b6fe7fc77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix from a vector of vectors.  <a href="classcramer_1_1Matrix.html#a5fcc2f70529ac573688c419b6fe7fc77">More...</a><br /></td></tr>
 <tr class="separator:a5fcc2f70529ac573688c419b6fe7fc77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3fec6432c1fad700183ff4f937c785ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a3fec6432c1fad700183ff4f937c785ce">Matrix</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>, std::initializer_list&lt; T &gt; values)</td></tr>
 <tr class="memdesc:a3fec6432c1fad700183ff4f937c785ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor that creates a matrix from an initializer list.  <a href="classcramer_1_1Matrix.html#a3fec6432c1fad700183ff4f937c785ce">More...</a><br /></td></tr>
@@ -102,37 +105,37 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5bb341c145b033aea9bf136a923becdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of columns in the matrix.  <a href="classcramer_1_1Matrix.html#a5bb341c145b033aea9bf136a923becdd">More...</a><br /></td></tr>
 <tr class="separator:a5bb341c145b033aea9bf136a923becdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9dd2f4cfe0ee5412fe01d6922c09629"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#af9dd2f4cfe0ee5412fe01d6922c09629">operator()</a> (size_t row, size_t col)</td></tr>
-<tr class="memdesc:af9dd2f4cfe0ee5412fe01d6922c09629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access operator for matrix elements.  <a href="classcramer_1_1Matrix.html#af9dd2f4cfe0ee5412fe01d6922c09629">More...</a><br /></td></tr>
+<tr class="memdesc:af9dd2f4cfe0ee5412fe01d6922c09629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the () operator to access elements of the matrix.  <a href="classcramer_1_1Matrix.html#af9dd2f4cfe0ee5412fe01d6922c09629">More...</a><br /></td></tr>
 <tr class="separator:af9dd2f4cfe0ee5412fe01d6922c09629"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5882f8d581169631a5f9b5ce67f051b9"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a5882f8d581169631a5f9b5ce67f051b9">operator()</a> (size_t row, size_t col) const</td></tr>
-<tr class="memdesc:a5882f8d581169631a5f9b5ce67f051b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Const access operator for matrix elements.  <a href="classcramer_1_1Matrix.html#a5882f8d581169631a5f9b5ce67f051b9">More...</a><br /></td></tr>
+<tr class="memdesc:a5882f8d581169631a5f9b5ce67f051b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the () operator to access elements of the matrix (const version).  <a href="classcramer_1_1Matrix.html#a5882f8d581169631a5f9b5ce67f051b9">More...</a><br /></td></tr>
 <tr class="separator:a5882f8d581169631a5f9b5ce67f051b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb8cefe1b3b6c8b10e76b3075f05e832"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#adb8cefe1b3b6c8b10e76b3075f05e832">operator==</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other) const</td></tr>
-<tr class="memdesc:adb8cefe1b3b6c8b10e76b3075f05e832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator.  <a href="classcramer_1_1Matrix.html#adb8cefe1b3b6c8b10e76b3075f05e832">More...</a><br /></td></tr>
+<tr class="memdesc:adb8cefe1b3b6c8b10e76b3075f05e832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the == operator to check for matrix equality.  <a href="classcramer_1_1Matrix.html#adb8cefe1b3b6c8b10e76b3075f05e832">More...</a><br /></td></tr>
 <tr class="separator:adb8cefe1b3b6c8b10e76b3075f05e832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa97770ff8e68da4a424319bd44c96609"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aa97770ff8e68da4a424319bd44c96609">operator+</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other) const</td></tr>
-<tr class="memdesc:aa97770ff8e68da4a424319bd44c96609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition operator.  <a href="classcramer_1_1Matrix.html#aa97770ff8e68da4a424319bd44c96609">More...</a><br /></td></tr>
+<tr class="memdesc:aa97770ff8e68da4a424319bd44c96609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the + operator to perform matrix addition.  <a href="classcramer_1_1Matrix.html#aa97770ff8e68da4a424319bd44c96609">More...</a><br /></td></tr>
 <tr class="separator:aa97770ff8e68da4a424319bd44c96609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b81812a20497d91fcfcb801254f5a03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a1b81812a20497d91fcfcb801254f5a03">operator+=</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other)</td></tr>
-<tr class="memdesc:a1b81812a20497d91fcfcb801254f5a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Addition assignment operator.  <a href="classcramer_1_1Matrix.html#a1b81812a20497d91fcfcb801254f5a03">More...</a><br /></td></tr>
+<tr class="memdesc:a1b81812a20497d91fcfcb801254f5a03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the += operator to perform matrix addition and assignment.  <a href="classcramer_1_1Matrix.html#a1b81812a20497d91fcfcb801254f5a03">More...</a><br /></td></tr>
 <tr class="separator:a1b81812a20497d91fcfcb801254f5a03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4caef2d76a5fa1fbc8e5af18a5f158ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a4caef2d76a5fa1fbc8e5af18a5f158ec">operator-</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other) const</td></tr>
-<tr class="memdesc:a4caef2d76a5fa1fbc8e5af18a5f158ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction operator.  <a href="classcramer_1_1Matrix.html#a4caef2d76a5fa1fbc8e5af18a5f158ec">More...</a><br /></td></tr>
+<tr class="memdesc:a4caef2d76a5fa1fbc8e5af18a5f158ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the - operator to perform matrix subtraction.  <a href="classcramer_1_1Matrix.html#a4caef2d76a5fa1fbc8e5af18a5f158ec">More...</a><br /></td></tr>
 <tr class="separator:a4caef2d76a5fa1fbc8e5af18a5f158ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d296e7598c5e274f418ddaead8bc145"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a6d296e7598c5e274f418ddaead8bc145">operator-=</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other)</td></tr>
-<tr class="memdesc:a6d296e7598c5e274f418ddaead8bc145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtraction assignment operator.  <a href="classcramer_1_1Matrix.html#a6d296e7598c5e274f418ddaead8bc145">More...</a><br /></td></tr>
+<tr class="memdesc:a6d296e7598c5e274f418ddaead8bc145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the -= operator to perform matrix subtraction and assignment.  <a href="classcramer_1_1Matrix.html#a6d296e7598c5e274f418ddaead8bc145">More...</a><br /></td></tr>
 <tr class="separator:a6d296e7598c5e274f418ddaead8bc145"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb1d3f380d7c8748d50fb31b50d34592"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#adb1d3f380d7c8748d50fb31b50d34592">operator*</a> (const T &amp;scalar) const</td></tr>
-<tr class="memdesc:adb1d3f380d7c8748d50fb31b50d34592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar multiplication operator.  <a href="classcramer_1_1Matrix.html#adb1d3f380d7c8748d50fb31b50d34592">More...</a><br /></td></tr>
+<tr class="memdesc:adb1d3f380d7c8748d50fb31b50d34592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the * operator to perform scalar multiplication.  <a href="classcramer_1_1Matrix.html#adb1d3f380d7c8748d50fb31b50d34592">More...</a><br /></td></tr>
 <tr class="separator:adb1d3f380d7c8748d50fb31b50d34592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa89519f6467348caecd7dba1953a046e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aa89519f6467348caecd7dba1953a046e">operator*=</a> (const T &amp;scalar)</td></tr>
-<tr class="memdesc:aa89519f6467348caecd7dba1953a046e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scalar multiplication assignment operator.  <a href="classcramer_1_1Matrix.html#aa89519f6467348caecd7dba1953a046e">More...</a><br /></td></tr>
+<tr class="memdesc:aa89519f6467348caecd7dba1953a046e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the *= operator to perform scalar multiplication and assignment.  <a href="classcramer_1_1Matrix.html#aa89519f6467348caecd7dba1953a046e">More...</a><br /></td></tr>
 <tr class="separator:aa89519f6467348caecd7dba1953a046e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03438e7a5c7fe16ef095a8d8972cf06e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a03438e7a5c7fe16ef095a8d8972cf06e">operator*</a> (const <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &amp;other) const</td></tr>
-<tr class="memdesc:a03438e7a5c7fe16ef095a8d8972cf06e"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a> multiplication operator.  <a href="classcramer_1_1Matrix.html#a03438e7a5c7fe16ef095a8d8972cf06e">More...</a><br /></td></tr>
+<tr class="memdesc:a03438e7a5c7fe16ef095a8d8972cf06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overloads the * operator to perform matrix multiplication.  <a href="classcramer_1_1Matrix.html#a03438e7a5c7fe16ef095a8d8972cf06e">More...</a><br /></td></tr>
 <tr class="separator:a03438e7a5c7fe16ef095a8d8972cf06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac647d890317a5be8ba8307f1ea7f24f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ac647d890317a5be8ba8307f1ea7f24f9">multiply_vector</a> (const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;vec) const</td></tr>
-<tr class="memdesc:ac647d890317a5be8ba8307f1ea7f24f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies the matrix with a vector.  <a href="classcramer_1_1Matrix.html#ac647d890317a5be8ba8307f1ea7f24f9">More...</a><br /></td></tr>
+<tr class="memdesc:ac647d890317a5be8ba8307f1ea7f24f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiplies the matrix by a vector.  <a href="classcramer_1_1Matrix.html#ac647d890317a5be8ba8307f1ea7f24f9">More...</a><br /></td></tr>
 <tr class="separator:ac647d890317a5be8ba8307f1ea7f24f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a743849b7cd955968ea4c5e95d928c64d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a743849b7cd955968ea4c5e95d928c64d">is_square</a> () const</td></tr>
 <tr class="memdesc:a743849b7cd955968ea4c5e95d928c64d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is square.  <a href="classcramer_1_1Matrix.html#a743849b7cd955968ea4c5e95d928c64d">More...</a><br /></td></tr>
@@ -147,7 +150,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a949aab7a6af4d200ffa26521271e8f97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is invertible.  <a href="classcramer_1_1Matrix.html#a949aab7a6af4d200ffa26521271e8f97">More...</a><br /></td></tr>
 <tr class="separator:a949aab7a6af4d200ffa26521271e8f97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31ce010955628124de423a127f8aba2f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a31ce010955628124de423a127f8aba2f">is_hermitian</a> () const</td></tr>
-<tr class="memdesc:a31ce010955628124de423a127f8aba2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is Hermitian.  <a href="classcramer_1_1Matrix.html#a31ce010955628124de423a127f8aba2f">More...</a><br /></td></tr>
+<tr class="memdesc:a31ce010955628124de423a127f8aba2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is Hermitian (conjugate symmetric).  <a href="classcramer_1_1Matrix.html#a31ce010955628124de423a127f8aba2f">More...</a><br /></td></tr>
 <tr class="separator:a31ce010955628124de423a127f8aba2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29f597f3632ef6eaf0997c1f200ba0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ac29f597f3632ef6eaf0997c1f200ba0f">is_orthogonal</a> () const</td></tr>
 <tr class="memdesc:ac29f597f3632ef6eaf0997c1f200ba0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is orthogonal.  <a href="classcramer_1_1Matrix.html#ac29f597f3632ef6eaf0997c1f200ba0f">More...</a><br /></td></tr>
@@ -161,6 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af11f0f887ccd390fee3be8dc9f781a32"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#af11f0f887ccd390fee3be8dc9f781a32">det_via_lu</a> () const</td></tr>
 <tr class="memdesc:af11f0f887ccd390fee3be8dc9f781a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the determinant of the matrix using LU decomposition.  <a href="classcramer_1_1Matrix.html#af11f0f887ccd390fee3be8dc9f781a32">More...</a><br /></td></tr>
 <tr class="separator:af11f0f887ccd390fee3be8dc9f781a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12b19513839b4aa3655cecc65af765cf"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">rank</a> () const</td></tr>
+<tr class="memdesc:a12b19513839b4aa3655cecc65af765cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the rank of the matrix.  <a href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">More...</a><br /></td></tr>
+<tr class="separator:a12b19513839b4aa3655cecc65af765cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8">transpose</a> () const</td></tr>
 <tr class="memdesc:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the transpose of the matrix.  <a href="classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8">More...</a><br /></td></tr>
 <tr class="separator:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,11 +174,23 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a7aa91b09271f3107aacb059281effb63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the inverse of the matrix.  <a href="classcramer_1_1Matrix.html#a7aa91b09271f3107aacb059281effb63">More...</a><br /></td></tr>
 <tr class="separator:a7aa91b09271f3107aacb059281effb63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6afdf552e079ab31c1bb103cbabb33ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a6afdf552e079ab31c1bb103cbabb33ec">adjoint</a> () const</td></tr>
-<tr class="memdesc:a6afdf552e079ab31c1bb103cbabb33ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the adjoint of the matrix.  <a href="classcramer_1_1Matrix.html#a6afdf552e079ab31c1bb103cbabb33ec">More...</a><br /></td></tr>
+<tr class="memdesc:a6afdf552e079ab31c1bb103cbabb33ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the adjoint (adjugate) of the matrix.  <a href="classcramer_1_1Matrix.html#a6afdf552e079ab31c1bb103cbabb33ec">More...</a><br /></td></tr>
 <tr class="separator:a6afdf552e079ab31c1bb103cbabb33ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea02187b10dc758038d505a17508c532"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aea02187b10dc758038d505a17508c532">conjugate</a> () const</td></tr>
 <tr class="memdesc:aea02187b10dc758038d505a17508c532"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the conjugate of the matrix.  <a href="classcramer_1_1Matrix.html#aea02187b10dc758038d505a17508c532">More...</a><br /></td></tr>
 <tr class="separator:aea02187b10dc758038d505a17508c532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebbcbf4940bc3053ad752e1e854ce9ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aebbcbf4940bc3053ad752e1e854ce9ad">exp</a> () const</td></tr>
+<tr class="memdesc:aebbcbf4940bc3053ad752e1e854ce9ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the exponential of the matrix.  <a href="classcramer_1_1Matrix.html#aebbcbf4940bc3053ad752e1e854ce9ad">More...</a><br /></td></tr>
+<tr class="separator:aebbcbf4940bc3053ad752e1e854ce9ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad66ea1072aa39453ae090055eea08d20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ad66ea1072aa39453ae090055eea08d20">pow</a> (int n) const</td></tr>
+<tr class="memdesc:ad66ea1072aa39453ae090055eea08d20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the matrix raised to a specified integer power.  <a href="classcramer_1_1Matrix.html#ad66ea1072aa39453ae090055eea08d20">More...</a><br /></td></tr>
+<tr class="separator:ad66ea1072aa39453ae090055eea08d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa75a05c06a7b7e4cce7b2a4e601b81ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aa75a05c06a7b7e4cce7b2a4e601b81ef">sqrt</a> () const</td></tr>
+<tr class="memdesc:aa75a05c06a7b7e4cce7b2a4e601b81ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the square root of the matrix.  <a href="classcramer_1_1Matrix.html#aa75a05c06a7b7e4cce7b2a4e601b81ef">More...</a><br /></td></tr>
+<tr class="separator:aa75a05c06a7b7e4cce7b2a4e601b81ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace7b02f300749003fc5aad3b70f0a27f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ace7b02f300749003fc5aad3b70f0a27f">log</a> () const</td></tr>
+<tr class="memdesc:ace7b02f300749003fc5aad3b70f0a27f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the natural logarithm of the matrix.  <a href="classcramer_1_1Matrix.html#ace7b02f300749003fc5aad3b70f0a27f">More...</a><br /></td></tr>
+<tr class="separator:ace7b02f300749003fc5aad3b70f0a27f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff64bf587f72f585e32efda9d4c8c964"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aff64bf587f72f585e32efda9d4c8c964">lu</a> () const</td></tr>
 <tr class="memdesc:aff64bf587f72f585e32efda9d4c8c964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs LU decomposition of the matrix.  <a href="classcramer_1_1Matrix.html#aff64bf587f72f585e32efda9d4c8c964">More...</a><br /></td></tr>
 <tr class="separator:aff64bf587f72f585e32efda9d4c8c964"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -180,7 +198,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab93c2dee0c8836709a1621c256c7ff9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs QR decomposition of the matrix.  <a href="classcramer_1_1Matrix.html#ab93c2dee0c8836709a1621c256c7ff9c">More...</a><br /></td></tr>
 <tr class="separator:ab93c2dee0c8836709a1621c256c7ff9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f174f132f7ab5a87cb3707292fc7a35"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a7f174f132f7ab5a87cb3707292fc7a35">svd</a> () const</td></tr>
-<tr class="memdesc:a7f174f132f7ab5a87cb3707292fc7a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs Singular Value Decomposition (SVD) of the matrix.  <a href="classcramer_1_1Matrix.html#a7f174f132f7ab5a87cb3707292fc7a35">More...</a><br /></td></tr>
+<tr class="memdesc:a7f174f132f7ab5a87cb3707292fc7a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs singular value decomposition (SVD) of the matrix.  <a href="classcramer_1_1Matrix.html#a7f174f132f7ab5a87cb3707292fc7a35">More...</a><br /></td></tr>
 <tr class="separator:a7f174f132f7ab5a87cb3707292fc7a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2779560770d5106a5afa28e2e267f401"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::complex&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a2779560770d5106a5afa28e2e267f401">eigenvalues</a> () const</td></tr>
 <tr class="memdesc:a2779560770d5106a5afa28e2e267f401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the eigenvalues of the matrix.  <a href="classcramer_1_1Matrix.html#a2779560770d5106a5afa28e2e267f401">More...</a><br /></td></tr>
@@ -188,30 +206,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a229a279f905d4646e734d787359ee4a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a229a279f905d4646e734d787359ee4a7">eigenvectors</a> () const</td></tr>
 <tr class="memdesc:a229a279f905d4646e734d787359ee4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the eigenvectors of the matrix.  <a href="classcramer_1_1Matrix.html#a229a279f905d4646e734d787359ee4a7">More...</a><br /></td></tr>
 <tr class="separator:a229a279f905d4646e734d787359ee4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12b19513839b4aa3655cecc65af765cf"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">rank</a> () const</td></tr>
-<tr class="memdesc:a12b19513839b4aa3655cecc65af765cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the rank of the matrix.  <a href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">More...</a><br /></td></tr>
-<tr class="separator:a12b19513839b4aa3655cecc65af765cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70c9c761c0ddd92bc8db6a758ba36d0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a70c9c761c0ddd92bc8db6a758ba36d0e">solve</a> (const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;b) const</td></tr>
-<tr class="memdesc:a70c9c761c0ddd92bc8db6a758ba36d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves the linear system Ax = b.  <a href="classcramer_1_1Matrix.html#a70c9c761c0ddd92bc8db6a758ba36d0e">More...</a><br /></td></tr>
+<tr class="memdesc:a70c9c761c0ddd92bc8db6a758ba36d0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Solves a linear system of equations Ax = b using LU decomposition.  <a href="classcramer_1_1Matrix.html#a70c9c761c0ddd92bc8db6a758ba36d0e">More...</a><br /></td></tr>
 <tr class="separator:a70c9c761c0ddd92bc8db6a758ba36d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac939fb86f52c9d1a843b0c9bb4e6b03"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aac939fb86f52c9d1a843b0c9bb4e6b03">identity</a> (size_t size)</td></tr>
-<tr class="memdesc:aac939fb86f52c9d1a843b0c9bb4e6b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an identity matrix of specified size.  <a href="classcramer_1_1Matrix.html#aac939fb86f52c9d1a843b0c9bb4e6b03">More...</a><br /></td></tr>
+<tr class="memitem:aac939fb86f52c9d1a843b0c9bb4e6b03"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aac939fb86f52c9d1a843b0c9bb4e6b03">identity</a> (size_t size)</td></tr>
+<tr class="memdesc:aac939fb86f52c9d1a843b0c9bb4e6b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an identity matrix of a specified size.  <a href="classcramer_1_1Matrix.html#aac939fb86f52c9d1a843b0c9bb4e6b03">More...</a><br /></td></tr>
 <tr class="separator:aac939fb86f52c9d1a843b0c9bb4e6b03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafaf3cfb2a818dcb89cacd897aabeac6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aafaf3cfb2a818dcb89cacd897aabeac6">zeros</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
-<tr class="memdesc:aafaf3cfb2a818dcb89cacd897aabeac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a zero matrix of specified dimensions.  <a href="classcramer_1_1Matrix.html#aafaf3cfb2a818dcb89cacd897aabeac6">More...</a><br /></td></tr>
+<tr class="memitem:aafaf3cfb2a818dcb89cacd897aabeac6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aafaf3cfb2a818dcb89cacd897aabeac6">zeros</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
+<tr class="memdesc:aafaf3cfb2a818dcb89cacd897aabeac6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix of zeros of a specified size.  <a href="classcramer_1_1Matrix.html#aafaf3cfb2a818dcb89cacd897aabeac6">More...</a><br /></td></tr>
 <tr class="separator:aafaf3cfb2a818dcb89cacd897aabeac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a129713502c0d778691ec6c4df00ab113"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">ones</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
-<tr class="memdesc:a129713502c0d778691ec6c4df00ab113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix of ones with specified dimensions.  <a href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">More...</a><br /></td></tr>
+<tr class="memitem:a129713502c0d778691ec6c4df00ab113"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">ones</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
+<tr class="memdesc:a129713502c0d778691ec6c4df00ab113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix of ones of a specified size.  <a href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">More...</a><br /></td></tr>
 <tr class="separator:a129713502c0d778691ec6c4df00ab113"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">random</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
-<tr class="memdesc:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix with random values between 0 and 1.  <a href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">More...</a><br /></td></tr>
+<tr class="memitem:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">random</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
+<tr class="memdesc:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a random matrix of a specified size.  <a href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">More...</a><br /></td></tr>
 <tr class="separator:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a492059e4940b4c4d6656c54fea2bcded"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">outer</a> (const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;u, const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;v)</td></tr>
-<tr class="memdesc:a492059e4940b4c4d6656c54fea2bcded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the outer product of two vectors.  <a href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">More...</a><br /></td></tr>
-<tr class="separator:a492059e4940b4c4d6656c54fea2bcded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -228,7 +240,18 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae05ec4670b106b3b2e43cac64a095e2c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ae05ec4670b106b3b2e43cac64a095e2c">data</a></td></tr>
 <tr class="separator:ae05ec4670b106b3b2e43cac64a095e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class cramer::Matrix&lt; T &gt;</h3>
+
+<p>Represents a matrix of elements of type T. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of elements stored in the matrix. </td></tr>
+  </table>
+  </dd>
+</dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a80b264ac3b5a165d8ce0cc1b37834894"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80b264ac3b5a165d8ce0cc1b37834894">&#9670;&nbsp;</a></span>Matrix() <span class="overload">[1/5]</span></h2>
 
@@ -275,11 +298,11 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor that creates a matrix with specified dimensions. </p>
+<p>Constructor that creates a matrix of a specified size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
   </table>
   </dd>
 </dl>
@@ -320,12 +343,12 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor that creates a matrix with specified dimensions and fills it with a value. </p>
+<p>Constructor that creates a matrix of a specified size and initializes all elements with a given value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
-    <tr><td class="paramname">value</td><td>The value to fill the matrix with. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
+    <tr><td class="paramname">value</td><td>The value to initialize all elements with. </td></tr>
   </table>
   </dd>
 </dl>
@@ -350,10 +373,16 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Constructor that creates a matrix from a 2D vector. </p>
+<p>Constructor that creates a matrix from a vector of vectors. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">values</td><td>The 2D vector to create the matrix from. </td></tr>
+    <tr><td class="paramname">values</td><td>The vector of vectors representing the matrix elements. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the input vector is empty or the rows have different sizes. </td></tr>
   </table>
   </dd>
 </dl>
@@ -397,15 +426,15 @@ template&lt;typename T &gt; </div>
 <p>Constructor that creates a matrix from an initializer list. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
-    <tr><td class="paramname">values</td><td>The initializer list of values to populate the matrix. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
+    <tr><td class="paramname">values</td><td>The initializer list representing the matrix elements. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>if the size of values doesn't match rows * cols. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the initializer list size does not match the specified dimensions. </td></tr>
   </table>
   </dd>
 </dl>
@@ -427,8 +456,14 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the adjoint of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The adjoint matrix. </dd></dl>
+<p>Calculates the adjoint (adjugate) of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>The adjoint of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -447,7 +482,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the conjugate of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The conjugate matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The conjugate of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If the conjugate operation is not supported for the given type. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -467,6 +508,12 @@ template&lt;typename T &gt; </div>
 
 <p>Calculates the determinant of the matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>The determinant of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -486,6 +533,12 @@ template&lt;typename T &gt; </div>
 
 <p>Calculates the determinant of the matrix using LU decomposition. </p>
 <dl class="section return"><dt>Returns</dt><dd>The determinant of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -504,7 +557,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the eigenvalues of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of complex eigenvalues. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A vector containing the eigenvalues of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -523,7 +582,41 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the eigenvectors of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>A matrix where each column is an eigenvector. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A matrix containing the eigenvectors of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aebbcbf4940bc3053ad752e1e854ce9ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebbcbf4940bc3053ad752e1e854ce9ad">&#9670;&nbsp;</a></span>exp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::exp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the exponential of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>The exponential of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -550,7 +643,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Gets the number of columns in the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of columns. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of columns in the matrix. </dd></dl>
 
 </div>
 </div>
@@ -577,7 +670,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Gets the number of rows in the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The number of rows. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of rows in the matrix. </dd></dl>
 
 </div>
 </div>
@@ -607,10 +700,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates an identity matrix of specified size. </p>
+<p>Creates an identity matrix of a specified size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>The size of the square identity matrix. </td></tr>
+    <tr><td class="paramname">size</td><td>The size of the identity matrix. </td></tr>
   </table>
   </dd>
 </dl>
@@ -633,7 +726,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the inverse of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The inverted matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The inverse of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square or invertible. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -652,7 +751,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if the matrix is diagonal. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is diagonal, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is diagonal, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -670,8 +769,8 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Checks if the matrix is Hermitian. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is Hermitian, false otherwise. </dd></dl>
+<p>Checks if the matrix is Hermitian (conjugate symmetric). </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is Hermitian, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -690,7 +789,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if the matrix is invertible. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is invertible, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is invertible, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -709,7 +808,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if the matrix is orthogonal. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is orthogonal, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is orthogonal, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -728,7 +827,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if the matrix is square. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is square, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is square, false otherwise. </dd></dl>
 
 </div>
 </div>
@@ -747,7 +846,35 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Checks if the matrix is symmetric. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the matrix is symmetric, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrix is symmetric, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ace7b02f300749003fc5aad3b70f0a27f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7b02f300749003fc5aad3b70f0a27f">&#9670;&nbsp;</a></span>log()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::log </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the natural logarithm of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>The natural logarithm of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -766,7 +893,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Performs LU decomposition of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pair of matrices (L, U) where L is lower triangular and U is upper triangular. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing the lower and upper triangular matrices (L and U). </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -793,7 +926,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the maximum norm of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The maximum norm value. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum norm of the matrix. </dd></dl>
 
 </div>
 </div>
@@ -815,14 +948,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Multiplies the matrix with a vector. </p>
+<p>Multiplies the matrix by a vector. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vec</td><td>The vector to multiply with. </td></tr>
+    <tr><td class="paramname">vec</td><td>The vector to multiply the matrix by. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The resulting vector. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting vector after matrix-vector multiplication. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the dimensions of the matrix and vector do not match for multiplication. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -862,11 +1001,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a matrix of ones with specified dimensions. </p>
+<p>Creates a matrix of ones of a specified size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
   </table>
   </dd>
 </dl>
@@ -910,15 +1049,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Access operator for matrix elements. </p>
+<p>Overloads the () operator to access elements of the matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">row</td><td>Row index. </td></tr>
-    <tr><td class="paramname">col</td><td>Column index. </td></tr>
+    <tr><td class="paramname">row</td><td>The row index of the element to access. </td></tr>
+    <tr><td class="paramname">col</td><td>The column index of the element to access. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the element at (row, col). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element at the specified indices. </dd></dl>
 
 </div>
 </div>
@@ -958,15 +1097,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Const access operator for matrix elements. </p>
+<p>Overloads the () operator to access elements of the matrix (const version). </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">row</td><td>Row index. </td></tr>
-    <tr><td class="paramname">col</td><td>Column index. </td></tr>
+    <tr><td class="paramname">row</td><td>The row index of the element to access. </td></tr>
+    <tr><td class="paramname">col</td><td>The column index of the element to access. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Const reference to the element at (row, col). </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A const reference to the element at the specified indices. </dd></dl>
 
 </div>
 </div>
@@ -988,14 +1127,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classcramer_1_1Matrix.html">Matrix</a> multiplication operator. </p>
+<p>Overloads the * operator to perform matrix multiplication. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The matrix to multiply with. </td></tr>
+    <tr><td class="paramname">other</td><td>The matrix to multiply the current matrix by. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The product of the two matrices. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A new matrix that is the result of multiplying the current matrix by the other matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the dimensions of the matrices do not match for multiplication. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1017,14 +1162,14 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Scalar multiplication operator. </p>
+<p>Overloads the * operator to perform scalar multiplication. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scalar</td><td>The scalar to multiply by. </td></tr>
+    <tr><td class="paramname">scalar</td><td>The scalar to multiply the matrix by. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The product of the matrix and the scalar. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A new matrix that is the result of multiplying the current matrix by the scalar. </dd></dl>
 
 </div>
 </div>
@@ -1046,14 +1191,14 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Scalar multiplication assignment operator. </p>
+<p>Overloads the *= operator to perform scalar multiplication and assignment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scalar</td><td>The scalar to multiply by. </td></tr>
+    <tr><td class="paramname">scalar</td><td>The scalar to multiply the matrix by. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the modified matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the updated current matrix. </dd></dl>
 
 </div>
 </div>
@@ -1075,14 +1220,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Addition operator. </p>
+<p>Overloads the + operator to perform matrix addition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The matrix to add. </td></tr>
+    <tr><td class="paramname">other</td><td>The matrix to add to the current matrix. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The sum of the two matrices. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A new matrix that is the result of adding the current matrix and the other matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrices have different dimensions. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1104,14 +1255,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Addition assignment operator. </p>
+<p>Overloads the += operator to perform matrix addition and assignment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The matrix to add. </td></tr>
+    <tr><td class="paramname">other</td><td>The matrix to add to the current matrix. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the modified matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the updated current matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrices have different dimensions. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1133,14 +1290,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Subtraction operator. </p>
+<p>Overloads the - operator to perform matrix subtraction. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The matrix to subtract. </td></tr>
+    <tr><td class="paramname">other</td><td>The matrix to subtract from the current matrix. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The difference of the two matrices. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A new matrix that is the result of subtracting the other matrix from the current matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrices have different dimensions. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1162,14 +1325,20 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Subtraction assignment operator. </p>
+<p>Overloads the -= operator to perform matrix subtraction and assignment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">other</td><td>The matrix to subtract. </td></tr>
+    <tr><td class="paramname">other</td><td>The matrix to subtract from the current matrix. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Reference to the modified matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the updated current matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrices have different dimensions. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1191,65 +1360,46 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Equality comparison operator. </p>
+<p>Overloads the == operator to check for matrix equality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">other</td><td>The matrix to compare with. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if matrices are equal, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the matrices are equal, false otherwise. </dd></dl>
 
 </div>
 </div>
-<a id="a492059e4940b4c4d6656c54fea2bcded"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a492059e4940b4c4d6656c54fea2bcded">&#9670;&nbsp;</a></span>outer()</h2>
+<a id="ad66ea1072aa39453ae090055eea08d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66ea1072aa39453ae090055eea08d20">&#9670;&nbsp;</a></span>pow()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::outer </td>
+          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::pow </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>u</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Computes the outer product of two vectors. </p>
+<p>Calculates the matrix raised to a specified integer power. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">u</td><td>The first vector. </td></tr>
-    <tr><td class="paramname">v</td><td>The second vector. </td></tr>
+    <tr><td class="paramname">n</td><td>The power to raise the matrix to. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Matrix&lt;T&gt; The resulting matrix from the outer product.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The matrix raised to the specified power. </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">std::invalid_argument</td><td>If the vectors have incompatible sizes. </td></tr>
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1274,7 +1424,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Performs QR decomposition of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pair of matrices (Q, R) where Q is orthogonal and R is upper triangular. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pair containing the orthogonal matrix Q and upper triangular matrix R. </dd></dl>
 
 </div>
 </div>
@@ -1314,15 +1464,21 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a matrix with random values between 0 and 1. </p>
+<p>Creates a random matrix of a specified size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The random matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::runtime_error</td><td>If the random matrix generation is not supported for the given type. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1366,14 +1522,49 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Solves the linear system Ax = b. </p>
+<p>Solves a linear system of equations Ax = b using LU decomposition. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">b</td><td>The right-hand side vector. </td></tr>
+    <tr><td class="paramname">b</td><td>The right-hand side vector b. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The solution vector x. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square or the dimensions do not match. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa75a05c06a7b7e4cce7b2a4e601b81ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa75a05c06a7b7e4cce7b2a4e601b81ef">&#9670;&nbsp;</a></span>sqrt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::sqrt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the square root of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>The square root of the matrix. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>If the matrix is not square. </td></tr>
+    <tr><td class="paramname">std::runtime_error</td><td>If the square root iteration does not converge. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1391,8 +1582,8 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Performs Singular Value Decomposition (SVD) of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>A tuple of matrices (U, S, V) where U and V are orthogonal and S is diagonal. </dd></dl>
+<p>Performs singular value decomposition (SVD) of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>A tuple containing the left singular vectors (U), singular values (S), and right singular vectors (V). </dd></dl>
 
 </div>
 </div>
@@ -1438,7 +1629,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p>Calculates the transpose of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The transposed matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The transpose of the matrix. </dd></dl>
 
 </div>
 </div>
@@ -1478,15 +1669,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a zero matrix of specified dimensions. </p>
+<p>Creates a matrix of zeros of a specified size. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rows</td><td>Number of rows. </td></tr>
-    <tr><td class="paramname">cols</td><td>Number of columns. </td></tr>
+    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
+    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The zero matrix. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The matrix of zeros. </dd></dl>
 
 </div>
 </div>
@@ -1512,6 +1703,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>The number of columns in the matrix. </p>
 
 </div>
 </div>
@@ -1536,6 +1728,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>The underlying container storing the matrix elements. </p>
 
 </div>
 </div>
@@ -1560,6 +1753,7 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>The number of rows in the matrix. </p>
 
 </div>
 </div>
