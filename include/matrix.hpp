@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include "vector.hpp"
 
 namespace cramer {
 
@@ -393,6 +394,15 @@ class Matrix {
      * @throws std::invalid_argument If the matrix is not square or the dimensions do not match.
      */
     Vector<T> solve(const Vector<T>& b) const;
+
+    /**
+     * @brief Computes the outer product of two vectors.
+     *
+     * @param u The first vector.
+     * @param v The second vector.
+     * @return The outer product matrix.
+     */
+    static Matrix<T> outer(const Vector<T>& u, const Vector<T>& v);
 
    private:
     /**
