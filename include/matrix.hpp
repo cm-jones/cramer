@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
 #include "vector.hpp"
 
 namespace cramer {
@@ -20,9 +21,10 @@ namespace cramer {
 template <typename T>
 class Matrix {
    private:
-    size_t rows;                            /**< The number of rows in the matrix. */
-    size_t cols;                            /**< The number of columns in the matrix. */
-    std::vector<std::vector<T>> data;       /**< The underlying container storing the matrix elements. */
+    size_t rows; /**< The number of rows in the matrix. */
+    size_t cols; /**< The number of columns in the matrix. */
+    std::vector<std::vector<T>>
+        data; /**< The underlying container storing the matrix elements. */
 
    public:
     /**
@@ -39,7 +41,8 @@ class Matrix {
     Matrix(size_t rows, size_t cols);
 
     /**
-     * @brief Constructor that creates a matrix of a specified size and initializes all elements with a given value.
+     * @brief Constructor that creates a matrix of a specified size and
+     * initializes all elements with a given value.
      *
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
@@ -51,7 +54,8 @@ class Matrix {
      * @brief Constructor that creates a matrix from a vector of vectors.
      *
      * @param values The vector of vectors representing the matrix elements.
-     * @throws std::invalid_argument If the input vector is empty or the rows have different sizes.
+     * @throws std::invalid_argument If the input vector is empty or the rows
+     * have different sizes.
      */
     Matrix(const std::vector<std::vector<T>>& values);
 
@@ -61,7 +65,8 @@ class Matrix {
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
      * @param values The initializer list representing the matrix elements.
-     * @throws std::invalid_argument If the initializer list size does not match the specified dimensions.
+     * @throws std::invalid_argument If the initializer list size does not match
+     * the specified dimensions.
      */
     Matrix(size_t rows, size_t cols, std::initializer_list<T> values);
 
@@ -111,7 +116,8 @@ class Matrix {
      * @param rows The number of rows in the matrix.
      * @param cols The number of columns in the matrix.
      * @return The random matrix.
-     * @throws std::runtime_error If the random matrix generation is not supported for the given type.
+     * @throws std::runtime_error If the random matrix generation is not
+     * supported for the given type.
      */
     static Matrix<T> random(size_t rows, size_t cols);
 
@@ -125,7 +131,8 @@ class Matrix {
     T& operator()(size_t row, size_t col);
 
     /**
-     * @brief Overloads the () operator to access elements of the matrix (const version).
+     * @brief Overloads the () operator to access elements of the matrix (const
+     * version).
      *
      * @param row The row index of the element to access.
      * @param col The column index of the element to access.
@@ -145,13 +152,15 @@ class Matrix {
      * @brief Overloads the + operator to perform matrix addition.
      *
      * @param other The matrix to add to the current matrix.
-     * @return A new matrix that is the result of adding the current matrix and the other matrix.
+     * @return A new matrix that is the result of adding the current matrix and
+     * the other matrix.
      * @throws std::invalid_argument If the matrices have different dimensions.
      */
     Matrix<T> operator+(const Matrix<T>& other) const;
 
     /**
-     * @brief Overloads the += operator to perform matrix addition and assignment.
+     * @brief Overloads the += operator to perform matrix addition and
+     * assignment.
      *
      * @param other The matrix to add to the current matrix.
      * @return A reference to the updated current matrix.
@@ -163,13 +172,15 @@ class Matrix {
      * @brief Overloads the - operator to perform matrix subtraction.
      *
      * @param other The matrix to subtract from the current matrix.
-     * @return A new matrix that is the result of subtracting the other matrix from the current matrix.
+     * @return A new matrix that is the result of subtracting the other matrix
+     * from the current matrix.
      * @throws std::invalid_argument If the matrices have different dimensions.
      */
     Matrix<T> operator-(const Matrix<T>& other) const;
 
     /**
-     * @brief Overloads the -= operator to perform matrix subtraction and assignment.
+     * @brief Overloads the -= operator to perform matrix subtraction and
+     * assignment.
      *
      * @param other The matrix to subtract from the current matrix.
      * @return A reference to the updated current matrix.
@@ -181,12 +192,14 @@ class Matrix {
      * @brief Overloads the * operator to perform scalar multiplication.
      *
      * @param scalar The scalar to multiply the matrix by.
-     * @return A new matrix that is the result of multiplying the current matrix by the scalar.
+     * @return A new matrix that is the result of multiplying the current matrix
+     * by the scalar.
      */
     Matrix<T> operator*(const T& scalar) const;
 
     /**
-     * @brief Overloads the *= operator to perform scalar multiplication and assignment.
+     * @brief Overloads the *= operator to perform scalar multiplication and
+     * assignment.
      *
      * @param scalar The scalar to multiply the matrix by.
      * @return A reference to the updated current matrix.
@@ -197,8 +210,10 @@ class Matrix {
      * @brief Overloads the * operator to perform matrix multiplication.
      *
      * @param other The matrix to multiply the current matrix by.
-     * @return A new matrix that is the result of multiplying the current matrix by the other matrix.
-     * @throws std::invalid_argument If the dimensions of the matrices do not match for multiplication.
+     * @return A new matrix that is the result of multiplying the current matrix
+     * by the other matrix.
+     * @throws std::invalid_argument If the dimensions of the matrices do not
+     * match for multiplication.
      */
     Matrix<T> operator*(const Matrix<T>& other) const;
 
@@ -207,7 +222,8 @@ class Matrix {
      *
      * @param vec The vector to multiply the matrix by.
      * @return The resulting vector after matrix-vector multiplication.
-     * @throws std::invalid_argument If the dimensions of the matrix and vector do not match for multiplication.
+     * @throws std::invalid_argument If the dimensions of the matrix and vector
+     * do not match for multiplication.
      */
     Vector<T> multiply_vector(const Vector<T>& vec) const;
 
@@ -310,7 +326,8 @@ class Matrix {
      * @brief Calculates the conjugate of the matrix.
      *
      * @return The conjugate of the matrix.
-     * @throws std::runtime_error If the conjugate operation is not supported for the given type.
+     * @throws std::runtime_error If the conjugate operation is not supported
+     * for the given type.
      */
     Matrix<T> conjugate() const;
 
@@ -336,7 +353,8 @@ class Matrix {
      *
      * @return The square root of the matrix.
      * @throws std::invalid_argument If the matrix is not square.
-     * @throws std::runtime_error If the square root iteration does not converge.
+     * @throws std::runtime_error If the square root iteration does not
+     * converge.
      */
     Matrix<T> sqrt() const;
 
@@ -351,7 +369,8 @@ class Matrix {
     /**
      * @brief Performs LU decomposition of the matrix.
      *
-     * @return A pair containing the lower and upper triangular matrices (L and U).
+     * @return A pair containing the lower and upper triangular matrices (L and
+     * U).
      * @throws std::invalid_argument If the matrix is not square.
      */
     std::pair<Matrix<T>, Matrix<T>> lu() const;
@@ -359,14 +378,16 @@ class Matrix {
     /**
      * @brief Performs QR decomposition of the matrix.
      *
-     * @return A pair containing the orthogonal matrix Q and upper triangular matrix R.
+     * @return A pair containing the orthogonal matrix Q and upper triangular
+     * matrix R.
      */
     std::pair<Matrix<T>, Matrix<T>> qr() const;
 
     /**
      * @brief Performs singular value decomposition (SVD) of the matrix.
      *
-     * @return A tuple containing the left singular vectors (U), singular values (S), and right singular vectors (V).
+     * @return A tuple containing the left singular vectors (U), singular values
+     * (S), and right singular vectors (V).
      */
     std::tuple<Matrix<T>, Matrix<T>, Matrix<T>> svd() const;
 
@@ -391,7 +412,8 @@ class Matrix {
      *
      * @param b The right-hand side vector b.
      * @return The solution vector x.
-     * @throws std::invalid_argument If the matrix is not square or the dimensions do not match.
+     * @throws std::invalid_argument If the matrix is not square or the
+     * dimensions do not match.
      */
     Vector<T> solve(const Vector<T>& b) const;
 
