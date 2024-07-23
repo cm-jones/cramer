@@ -39,35 +39,6 @@ Optional:
 - clang-format 10.0+ for code formatting
 - clang-tidy 10.0+ for static analysis
 
-## Usage
-
-Include the header in your source files:
-
-```cpp
-#include <cramer>
-```
-
-Create vectors and matrices, and perform operations on them:
-
-```cpp
-#include <vector> // Not to be confused with cramer::Vector!
-
-using namespace cramer;
-
-Matrix<double> A(2, 2);
-A(0, 0) = 1.0;
-A(0, 1) = 2.0;
-A(1, 0) = 3.0;
-A(1, 1) = 4.0;
-
-Vector<double> b(2);
-b(0) = 5.0;
-b(1) = 6.0;
-
-Vector<double> x = A.solve(b);
-std::vector<double> lambdas = A.eigenvalues();
-```
-
 ## Build and Install
 
 1. Clone the repository:
@@ -96,6 +67,35 @@ std::vector<double> lambdas = A.eigenvalues();
    ```
    sudo make install
    ```
+
+## Usage
+
+Include the header in your source files:
+
+```cpp
+#include <cramer>
+```
+
+Create vectors and matrices, and perform operations on them:
+
+```cpp
+#include <vector> // Not to be confused with cramer::Vector!
+
+using namespace cramer;
+
+Matrix<double> A(2, 2);
+A(0, 0) = 1.0;
+A(0, 1) = 2.0;
+A(1, 0) = 3.0;
+A(1, 1) = 4.0;
+
+Vector<double> b(2);
+b(0) = 5.0;
+b(1) = 6.0;
+
+Vector<double> x = A.solve(b);
+std::vector<double> lambdas = A.eigenvalues();
+```
 
 ## Unit Testing
 
