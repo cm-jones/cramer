@@ -155,6 +155,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac29f597f3632ef6eaf0997c1f200ba0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ac29f597f3632ef6eaf0997c1f200ba0f">is_orthogonal</a> () const</td></tr>
 <tr class="memdesc:ac29f597f3632ef6eaf0997c1f200ba0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the matrix is orthogonal.  <a href="classcramer_1_1Matrix.html#ac29f597f3632ef6eaf0997c1f200ba0f">More...</a><br /></td></tr>
 <tr class="separator:ac29f597f3632ef6eaf0997c1f200ba0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a812fc79ce29d2f7c75a4cc4fadca8afe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a812fc79ce29d2f7c75a4cc4fadca8afe">is_unitary</a> () const</td></tr>
+<tr class="separator:a812fc79ce29d2f7c75a4cc4fadca8afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8441cb382f11877897e09562e2afb3e7"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a8441cb382f11877897e09562e2afb3e7">trace</a> () const</td></tr>
 <tr class="memdesc:a8441cb382f11877897e09562e2afb3e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the trace of the matrix.  <a href="classcramer_1_1Matrix.html#a8441cb382f11877897e09562e2afb3e7">More...</a><br /></td></tr>
 <tr class="separator:a8441cb382f11877897e09562e2afb3e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,9 +166,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af11f0f887ccd390fee3be8dc9f781a32"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#af11f0f887ccd390fee3be8dc9f781a32">det_via_lu</a> () const</td></tr>
 <tr class="memdesc:af11f0f887ccd390fee3be8dc9f781a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the determinant of the matrix using LU decomposition.  <a href="classcramer_1_1Matrix.html#af11f0f887ccd390fee3be8dc9f781a32">More...</a><br /></td></tr>
 <tr class="separator:af11f0f887ccd390fee3be8dc9f781a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12b19513839b4aa3655cecc65af765cf"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">rank</a> () const</td></tr>
-<tr class="memdesc:a12b19513839b4aa3655cecc65af765cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the rank of the matrix.  <a href="classcramer_1_1Matrix.html#a12b19513839b4aa3655cecc65af765cf">More...</a><br /></td></tr>
-<tr class="separator:a12b19513839b4aa3655cecc65af765cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8">transpose</a> () const</td></tr>
 <tr class="memdesc:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the transpose of the matrix.  <a href="classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8">More...</a><br /></td></tr>
 <tr class="separator:acb1d3f4a21c82e3d94cb13d8e9af56f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,9 +193,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aff64bf587f72f585e32efda9d4c8c964"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aff64bf587f72f585e32efda9d4c8c964">lu</a> () const</td></tr>
 <tr class="memdesc:aff64bf587f72f585e32efda9d4c8c964"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs LU decomposition of the matrix.  <a href="classcramer_1_1Matrix.html#aff64bf587f72f585e32efda9d4c8c964">More...</a><br /></td></tr>
 <tr class="separator:aff64bf587f72f585e32efda9d4c8c964"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab93c2dee0c8836709a1621c256c7ff9c"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ab93c2dee0c8836709a1621c256c7ff9c">qr</a> () const</td></tr>
-<tr class="memdesc:ab93c2dee0c8836709a1621c256c7ff9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs QR decomposition of the matrix.  <a href="classcramer_1_1Matrix.html#ab93c2dee0c8836709a1621c256c7ff9c">More...</a><br /></td></tr>
-<tr class="separator:ab93c2dee0c8836709a1621c256c7ff9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90cb129cb477d39d8c53699107f87b9b"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a90cb129cb477d39d8c53699107f87b9b">qr</a> () const</td></tr>
+<tr class="memdesc:a90cb129cb477d39d8c53699107f87b9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs QR decomposition of the matrix.  <a href="classcramer_1_1Matrix.html#a90cb129cb477d39d8c53699107f87b9b">More...</a><br /></td></tr>
+<tr class="separator:a90cb129cb477d39d8c53699107f87b9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f174f132f7ab5a87cb3707292fc7a35"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a7f174f132f7ab5a87cb3707292fc7a35">svd</a> () const</td></tr>
 <tr class="memdesc:a7f174f132f7ab5a87cb3707292fc7a35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs singular value decomposition (SVD) of the matrix.  <a href="classcramer_1_1Matrix.html#a7f174f132f7ab5a87cb3707292fc7a35">More...</a><br /></td></tr>
 <tr class="separator:a7f174f132f7ab5a87cb3707292fc7a35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -221,9 +220,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a129713502c0d778691ec6c4df00ab113"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">ones</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
 <tr class="memdesc:a129713502c0d778691ec6c4df00ab113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a matrix of ones of a specified size.  <a href="classcramer_1_1Matrix.html#a129713502c0d778691ec6c4df00ab113">More...</a><br /></td></tr>
 <tr class="separator:a129713502c0d778691ec6c4df00ab113"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">random</a> (size_t <a class="el" href="classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430">rows</a>, size_t <a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a>)</td></tr>
-<tr class="memdesc:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a random matrix of a specified size.  <a href="classcramer_1_1Matrix.html#aea9bb7acf7928f128aaf2fcc3c09e9ee">More...</a><br /></td></tr>
-<tr class="separator:aea9bb7acf7928f128aaf2fcc3c09e9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a492059e4940b4c4d6656c54fea2bcded"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">outer</a> (const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;u, const <a class="el" href="classcramer_1_1Vector.html">Vector</a>&lt; T &gt; &amp;v)</td></tr>
 <tr class="memdesc:a492059e4940b4c4d6656c54fea2bcded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the outer product of two vectors.  <a href="classcramer_1_1Matrix.html#a492059e4940b4c4d6656c54fea2bcded">More...</a><br /></td></tr>
 <tr class="separator:a492059e4940b4c4d6656c54fea2bcded"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,8 +236,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af9cd4156e07007de8217600315c8e430"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8f055cac015deda0cd04fcc32293295"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#aa8f055cac015deda0cd04fcc32293295">cols</a></td></tr>
 <tr class="separator:aa8f055cac015deda0cd04fcc32293295"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae05ec4670b106b3b2e43cac64a095e2c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#ae05ec4670b106b3b2e43cac64a095e2c">data</a></td></tr>
-<tr class="separator:ae05ec4670b106b3b2e43cac64a095e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12cdd80b20f6c711e2572969fb9c7c2c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcramer_1_1Matrix.html#a12cdd80b20f6c711e2572969fb9c7c2c">entries</a></td></tr>
+<tr class="separator:a12cdd80b20f6c711e2572969fb9c7c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -853,6 +849,22 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a812fc79ce29d2f7c75a4cc4fadca8afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a812fc79ce29d2f7c75a4cc4fadca8afe">&#9670;&nbsp;</a></span>is_unitary()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::is_unitary</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ace7b02f300749003fc5aad3b70f0a27f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace7b02f300749003fc5aad3b70f0a27f">&#9670;&nbsp;</a></span>log()</h2>
 
@@ -1457,8 +1469,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ab93c2dee0c8836709a1621c256c7ff9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab93c2dee0c8836709a1621c256c7ff9c">&#9670;&nbsp;</a></span>qr()</h2>
+<a id="a90cb129cb477d39d8c53699107f87b9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90cb129cb477d39d8c53699107f87b9b">&#9670;&nbsp;</a></span>qr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1466,92 +1478,13 @@ template&lt;typename T &gt; </div>
 template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;<a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt;T&gt; &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::qr </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::pair&lt; <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt;, <a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::qr</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Performs QR decomposition of the matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>A pair containing the orthogonal matrix Q and upper triangular matrix R. </dd></dl>
-
-</div>
-</div>
-<a id="aea9bb7acf7928f128aaf2fcc3c09e9ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9bb7acf7928f128aaf2fcc3c09e9ee">&#9670;&nbsp;</a></span>random()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classcramer_1_1Matrix.html">Matrix</a>&lt; T &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::random </td>
-          <td>(</td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>rows</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>cols</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a random matrix of a specified size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rows</td><td>The number of rows in the matrix. </td></tr>
-    <tr><td class="paramname">cols</td><td>The number of columns in the matrix. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The random matrix. </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">std::runtime_error</td><td>If the random matrix generation is not supported for the given type. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a12b19513839b4aa3655cecc65af765cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12b19513839b4aa3655cecc65af765cf">&#9670;&nbsp;</a></span>rank()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::rank </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Calculates the rank of the matrix. </p>
-<dl class="section return"><dt>Returns</dt><dd>The rank of the matrix. </dd></dl>
 
 </div>
 </div>
@@ -1758,8 +1691,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="ae05ec4670b106b3b2e43cac64a095e2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae05ec4670b106b3b2e43cac64a095e2c">&#9670;&nbsp;</a></span>data</h2>
+<a id="a12cdd80b20f6c711e2572969fb9c7c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12cdd80b20f6c711e2572969fb9c7c2c">&#9670;&nbsp;</a></span>entries</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1770,7 +1703,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::vector&lt;T&gt; &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::data</td>
+          <td class="memname">std::vector&lt;std::vector&lt;T&gt; &gt; <a class="el" href="classcramer_1_1Matrix.html">cramer::Matrix</a>&lt; T &gt;::entries</td>
         </tr>
       </table>
   </td>

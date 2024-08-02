@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rows_145',['rows',['../classcramer_1_1Matrix.html#af9cd4156e07007de8217600315c8e430',1,'cramer::Matrix']]]
+  ['entries_140',['entries',['../classcramer_1_1Matrix.html#a12cdd80b20f6c711e2572969fb9c7c2c',1,'cramer::Matrix']]]
 ];

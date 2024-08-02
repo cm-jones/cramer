@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['trace_66',['trace',['../classcramer_1_1Matrix.html#a8441cb382f11877897e09562e2afb3e7',1,'cramer::Matrix']]],
-  ['transpose_67',['transpose',['../classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8',1,'cramer::Matrix']]]
+  ['trace_64',['trace',['../classcramer_1_1Matrix.html#a8441cb382f11877897e09562e2afb3e7',1,'cramer::Matrix']]],
+  ['transpose_65',['transpose',['../classcramer_1_1Matrix.html#acb1d3f4a21c82e3d94cb13d8e9af56f8',1,'cramer::Matrix']]]
 ];

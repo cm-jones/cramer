@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matrix_74',['Matrix',['../classcramer_1_1Matrix.html',1,'cramer']]]
+  ['vector_71',['Vector',['../classcramer_1_1Vector.html',1,'cramer']]]
 ];
