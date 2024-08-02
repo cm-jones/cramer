@@ -114,15 +114,18 @@ T Vector<T>::dot(const Vector<T>& other) const {
 }
 
 template <typename T>
-T Vector<T>::norm() const {
-    return std::sqrt(
-        std::inner_product(data.begin(), data.end(), data.begin(), T()));
+typename Vector<T>::value_type Vector<T>::norm() const {
+    value_type sum = 0;
+    for (const auto& element : data) {
+        sum += std::norm(element);
+    }
+    return std::sqrt(sum);
 }
 
 template <typename T>
 Vector<T> Vector<T>::normalize() const {
-    T magnitude = this->norm();
-    if (magnitude == T()) {
+    value_type magnitude = this->norm();
+    if (magnitude == value_type()) {
         throw std::runtime_error("Cannot normalize zero vector");
     }
     return *this * (T(1) / magnitude);
@@ -143,9 +146,9 @@ Vector<T> Vector<T>::cross(const Vector<T>& other) const {
 
 template <typename T>
 T Vector<T>::angle(const Vector<T>& other) const {
-    T magnitude1 = this->norm();
-    T magnitude2 = other.norm();
-    if (magnitude1 == T() || magnitude2 == T()) {
+    value_type magnitude1 = this->norm();
+    value_type magnitude2 = other.norm();
+    if (magnitude1 == value_type() || magnitude2 == value_type()) {
         throw std::runtime_error("Cannot compute angle with zero vector");
     }
     return std::acos(dot(other) / (magnitude1 * magnitude2));
@@ -218,25 +221,14 @@ T Vector<T>::product() const {
                            std::multiplies<T>());
 }
 
-// Specialization for complex types
-template <typename T>
-struct is_complex : std::false_type {};
-
-template <typename T>
-struct is_complex<std::complex<T>> : std::true_type {};
-
 template <typename T>
 T Vector<T>::min() const {
     if (data.empty()) {
         throw std::runtime_error("Cannot find minimum of empty vector");
     }
-    if constexpr (is_complex<T>::value) {
-        return *std::min_element(
-            data.begin(), data.end(),
-            [](const T& a, const T& b) { return std::abs(a) < std::abs(b); });
-    } else {
-        return *std::min_element(data.begin(), data.end());
-    }
+    return *std::min_element(
+        data.begin(), data.end(),
+        [](const T& a, const T& b) { return std::abs(a) < std::abs(b); });
 }
 
 template <typename T>
@@ -244,13 +236,9 @@ T Vector<T>::max() const {
     if (data.empty()) {
         throw std::runtime_error("Cannot find maximum of empty vector");
     }
-    if constexpr (is_complex<T>::value) {
-        return *std::max_element(
-            data.begin(), data.end(),
-            [](const T& a, const T& b) { return std::abs(a) < std::abs(b); });
-    } else {
-        return *std::max_element(data.begin(), data.end());
-    }
+    return *std::max_element(
+        data.begin(), data.end(),
+        [](const T& a, const T& b) { return std::abs(a) < std::abs(b); });
 }
 
 template <typename T>
@@ -273,7 +261,8 @@ template <typename T>
 Vector<T> Vector<T>::sqrt() const {
     Vector<T> result(this->size());
     for (size_t i = 0; i < this->size(); ++i) {
-        if constexpr (is_complex<T>::value) {
+        if constexpr (std::is_same_v<T, std::complex<float>> ||
+                      std::is_same_v<T, std::complex<double>>) {
             result[i] = std::sqrt(data[i]);
         } else {
             if (data[i] < T()) {
@@ -298,7 +287,8 @@ template <typename T>
 Vector<T> Vector<T>::log() const {
     Vector<T> result(this->size());
     for (size_t i = 0; i < this->size(); ++i) {
-        if constexpr (is_complex<T>::value) {
+        if constexpr (std::is_same_v<T, std::complex<float>> ||
+                      std::is_same_v<T, std::complex<double>>) {
             result[i] = std::log(data[i]);
         } else {
             if (data[i] <= T()) {

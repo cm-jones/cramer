@@ -20,11 +20,17 @@ namespace cramer {
  */
 template <typename T>
 class Matrix {
+    static_assert(
+        std::is_floating_point<T>::value ||
+            std::is_same<T, std::complex<float>>::value ||
+            std::is_same<T, std::complex<double>>::value,
+        "Matrix only supports floating-point and complex number types");
+
    private:
     size_t rows; /**< The number of rows in the matrix. */
     size_t cols; /**< The number of columns in the matrix. */
     std::vector<std::vector<T>>
-        data; /**< The underlying container storing the matrix elements. */
+        entries; /**< The underlying container storing the matrix elements. */
 
    public:
     /**
@@ -109,17 +115,6 @@ class Matrix {
      * @return The matrix of ones.
      */
     static Matrix<T> ones(size_t rows, size_t cols);
-
-    /**
-     * @brief Creates a random matrix of a specified size.
-     *
-     * @param rows The number of rows in the matrix.
-     * @param cols The number of columns in the matrix.
-     * @return The random matrix.
-     * @throws std::runtime_error If the random matrix generation is not
-     * supported for the given type.
-     */
-    static Matrix<T> random(size_t rows, size_t cols);
 
     /**
      * @brief Overloads the () operator to access elements of the matrix.
@@ -269,6 +264,8 @@ class Matrix {
      */
     bool is_orthogonal() const;
 
+    bool is_unitary() const;
+
     /**
      * @brief Calculates the trace of the matrix.
      *
@@ -291,13 +288,6 @@ class Matrix {
      * @throws std::invalid_argument If the matrix is not square.
      */
     T det_via_lu() const;
-
-    /**
-     * @brief Calculates the rank of the matrix.
-     *
-     * @return The rank of the matrix.
-     */
-    size_t rank() const;
 
     /**
      * @brief Calculates the transpose of the matrix.
