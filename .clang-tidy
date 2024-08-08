@@ -1,4 +1,4 @@
-Checks: '-*,bugprone-*,performance-*,readability-*'
+Checks: '-*,bugprone-*,performance-*'
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 FormatStyle: file
