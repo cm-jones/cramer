@@ -475,20 +475,19 @@ Matrix<T> Matrix<T>::transpose() const {
 template <typename T>
 Matrix<T> Matrix<T>::inverse() const {
     if (!is_square()) {
-        throw std::invalid_argument(
-            "Matrix must be square to calculate the inverse.");
+        throw std::invalid_argument("Matrix must be square to calculate the inverse.");
     }
 
     T determinant = this->det();
 
-    if (std::abs(determinant) < std::numeric_limits<T>::epsilon()) {
-        throw std::invalid_argument(
-            "Matrix must be non-singular to calculate the inverse.");
+    // Use std::abs for both real and complex numbers
+    if (std::abs(determinant) < std::numeric_limits<typename std::remove_cv<decltype(std::abs(determinant))>::type>::epsilon()) {
+        throw std::invalid_argument("Matrix must be non-singular to calculate the inverse.");
     }
 
-    Matrix<T> adjoint = this.adjoint();
+    Matrix<T> adj = this->adjoint();
 
-    return adjoint * (static_cast<T>(1) / determinant);
+    return adj * (static_cast<T>(1) / determinant);
 }
 
 template <typename T>
@@ -600,8 +599,8 @@ template <typename T>
 std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
     size_t m = rows;
     size_t n = cols;
-    Matrix<T> Q(m, n);
-    Matrix<T> R(n, n);
+    Matrix<T> q(m, n);
+    Matrix<T> r(n, n);
 
     for (size_t j = 0; j < n; ++j) {
         Vector<T> v(m);
@@ -612,23 +611,22 @@ std::pair<Matrix<T>, Matrix<T>> Matrix<T>::qr() const {
         for (size_t i = 0; i < j; ++i) {
             Vector<T> q_i(m);
             for (size_t k = 0; k < m; ++k) {
-                q_i[k] = Q(k, i);
+                q_i[k] = q(k, i);
             }
-            R(i, j) = q_i.dot(v);
-            v -= q_i * R(i, j);
+            r(i, j) = q_i.dot(v);
+            v -= q_i * r(i, j);
         }
 
-        R(j, j) = v.norm();
-        if (std::abs(R(j, j)) >
-            std::numeric_limits<typename Vector<T>::value_type>::epsilon()) {
-            T scale = T(1) / R(j, j);
+        r(j, j) = v.norm();
+        if (std::abs(r(j, j)) > std::numeric_limits<typename std::remove_cv<decltype(std::abs(r(j, j)))>::type>::epsilon()) {
+            T scale = static_cast<T>(1) / r(j, j);
             for (size_t i = 0; i < m; ++i) {
-                Q(i, j) = v[i] * scale;
+                q(i, j) = v[i] * scale;
             }
         }
     }
 
-    return std::make_pair(Q, R);
+    return std::make_pair(q, r);
 }
 
 template <typename T>

@@ -114,8 +114,8 @@ T Vector<T>::dot(const Vector<T>& other) const {
 }
 
 template <typename T>
-typename Vector<T>::value_type Vector<T>::norm() const {
-    value_type sum = 0;
+T Vector<T>::norm() const {
+    T sum = T();
     for (const auto& element : data) {
         sum += std::norm(element);
     }
