@@ -6,11 +6,11 @@
 
 ## Description
 
-Cramer is an open-source, numerical linear algebra library for C++. It supports a wide variety of computations with vectors and matrices. For a full list of features, see below.
+Cramer is a fast numerical linear algebra library for C++. It supports a wide range of computations with vectors and matrices. See the full list of features below.
 
 It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most well-known for Cramer's rule: a formula to solve a system of linear equations using determinants.
 
-There are better linear algebra libraries out there, but I wanted to create one that was easier to use, understand, and maintain. Think of it as a smaller version of [Eigen](https://gitlab.com/libeigen/eigen).
+I'm aware that there are more robust linear algebra libraries out there, but this one aims to be easier to use, read, and maintain. Think of it as a lightweight alternative to [Eigen](https://gitlab.com/libeigen/eigen).
 
 ## Features
 
