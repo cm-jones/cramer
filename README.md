@@ -4,8 +4,6 @@
 [![Test Coverage](https://img.shields.io/endpoint?url=https://codecov.io/gh/cm-jones/cramer/branch/main/graph/badge.svg?token=fc9ee083-78b6-4e43-bf23-bfa85832df85&style=flat&label=Test%20Coverage)](https://codecov.io/gh/cm-jones/cramer)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Description
-
 Cramer is a fast numerical linear algebra library for C++. It supports a wide range of computations with vectors and matrices. See the full list of features below.
 
 It's named after the Genevan mathematician [Gabriel Cramer](https://en.wikipedia.org/wiki/Gabriel_Cramer), who is probably most well-known for Cramer's rule: a formula to solve a system of linear equations using determinants.
