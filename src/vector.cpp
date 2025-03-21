@@ -42,10 +42,13 @@ Vector<T> Vector<T>::operator+(const Vector<T>& other) const {
         throw std::invalid_argument(
             "Vectors must have the same size for addition");
     }
+
     Vector<T> result(this->size());
+
     for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] + other[i];
     }
+
     return result;
 }
 
@@ -55,9 +58,11 @@ Vector<T>& Vector<T>::operator+=(const Vector<T>& other) {
         throw std::invalid_argument(
             "Vectors must have the same size for addition");
     }
+
     for (size_t i = 0; i < this->size(); ++i) {
         data[i] += other[i];
     }
+
     return *this;
 }
 
@@ -67,10 +72,13 @@ Vector<T> Vector<T>::operator-(const Vector<T>& other) const {
         throw std::invalid_argument(
             "Vectors must have the same size for subtraction");
     }
+
     Vector<T> result(this->size());
+
     for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] - other[i];
     }
+
     return result;
 }
 
@@ -80,18 +88,22 @@ Vector<T>& Vector<T>::operator-=(const Vector<T>& other) {
         throw std::invalid_argument(
             "Vectors must have the same size for subtraction");
     }
+
     for (size_t i = 0; i < this->size(); ++i) {
         data[i] -= other[i];
     }
+
     return *this;
 }
 
 template <typename T>
 Vector<T> Vector<T>::operator*(const T& scalar) const {
     Vector<T> result(this->size());
+
     for (size_t i = 0; i < this->size(); ++i) {
         result[i] = data[i] * scalar;
     }
+
     return result;
 }
 
@@ -124,8 +136,8 @@ T Vector<T>::norm() const {
 
 template <typename T>
 Vector<T> Vector<T>::normalize() const {
-    value_type magnitude = this->norm();
-    if (magnitude == value_type()) {
+    T magnitude = this->norm();
+    if (magnitude == T()) {
         throw std::runtime_error("Cannot normalize zero vector");
     }
     return *this * (T(1) / magnitude);
@@ -137,20 +149,25 @@ Vector<T> Vector<T>::cross(const Vector<T>& other) const {
         throw std::invalid_argument(
             "Cross product is only defined for 3D vectors");
     }
+
     Vector<T> result(3);
+
     result[0] = data[1] * other[2] - data[2] * other[1];
     result[1] = data[2] * other[0] - data[0] * other[2];
     result[2] = data[0] * other[1] - data[1] * other[0];
+
     return result;
 }
 
 template <typename T>
 T Vector<T>::angle(const Vector<T>& other) const {
-    value_type magnitude1 = this->norm();
-    value_type magnitude2 = other.norm();
-    if (magnitude1 == value_type() || magnitude2 == value_type()) {
+    T magnitude1 = this->norm();
+    T magnitude2 = other.norm();
+
+    if (magnitude1 == T() || magnitude2 == T()) {
         throw std::runtime_error("Cannot compute angle with zero vector");
     }
+
     return std::acos(dot(other) / (magnitude1 * magnitude2));
 }
 
@@ -167,7 +184,8 @@ Vector<T> Vector<T>::reject(const Vector<T>& from) const {
 
 template <typename T>
 Vector<T> Vector<T>::reflect(const Vector<T>& normal) const {
-    return *this - normal * (T(2) * dot(normal));
+    T two = T(2);  // Ensure proper type conversion for complex numbers
+    return *this - normal * (two * dot(normal));
 }
 
 template <typename T>

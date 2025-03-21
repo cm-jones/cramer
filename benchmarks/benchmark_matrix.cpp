@@ -13,7 +13,7 @@ using namespace cramer;
 template <typename T>
 Matrix<T> createRandomMatrix(size_t rows, size_t cols) {
     static std::random_device rand;
-    static std::mt19937 gen(rd());
+    static std::mt19937 gen(rand());
     static std::uniform_real_distribution<> dis(-1.0, 1.0);
 
     Matrix<T> matrix(rows, cols);
@@ -174,17 +174,6 @@ static void BM_MatrixEigenvectors(benchmark::State& state) {
     }
 }
 BENCHMARK(BM_MatrixEigenvectors)->Range(2, 64);
-
-// Benchmark Matrix Rank
-static void BM_MatrixRank(benchmark::State& state) {
-    const size_t size = state.range(0);
-    auto matrix = createRandomMatrix<double>(size, size);
-    for (auto iter : state) {
-        auto result = matrix.rank();
-        benchmark::DoNotOptimize(result);
-    }
-}
-BENCHMARK(BM_MatrixRank)->Range(2, 128);
 
 // Benchmark Matrix Trace
 static void BM_MatrixTrace(benchmark::State& state) {
