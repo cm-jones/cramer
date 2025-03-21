@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
@@ -32,8 +32,8 @@ jobs:
       if: always()
       working-directory: ${{github.workspace}}/build
       run: |
-        ./tests/test_all || true
-        lcov --capture --directory . --output-file coverage.info
+        ./test_all || true
+        lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch
         lcov --remove coverage.info '/usr/*' '*/tests/*' --output-file coverage.info
         lcov --list coverage.info
 
