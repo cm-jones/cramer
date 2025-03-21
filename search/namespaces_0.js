@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cramer_72',['cramer',['../namespacecramer.html',1,'']]]
+  ['cramer_0',['cramer',['../namespacecramer.html',1,'']]]
 ];
