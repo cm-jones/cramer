@@ -1,4 +1,4 @@
-# Cramer: a Numerical Linear Algebra Library for C++
+# Cramer
 
 ![build](https://github.com/cm-jones/cramer/actions/workflows/build.yml/badge.svg)
 [![Test Coverage](https://img.shields.io/endpoint?url=https://codecov.io/gh/cm-jones/cramer/branch/main/graph/badge.svg?token=fc9ee083-78b6-4e43-bf23-bfa85832df85&style=flat&label=Test%20Coverage)](https://codecov.io/gh/cm-jones/cramer)
