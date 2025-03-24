@@ -23,12 +23,7 @@ T Matrix<T>::max_norm() const {
         T row_sum = T(0);
 
         for (size_t j = 0; j < cols; ++j) {
-            if constexpr (std::is_arithmetic<T>::value) {
-                row_sum += std::abs(entries[i][j]);
-            } else if constexpr (std::is_same<T, std::complex<float>>::value ||
-                                 std::is_same<T, std::complex<double>>::value) {
-                row_sum += std::abs(entries[i][j]);
-            }
+            row_sum += std::abs(entries[i][j]);
         }
 
         if (std::abs(row_sum) > std::abs(norm)) {
@@ -807,6 +802,168 @@ Vector<T> Matrix<T>::solve(const Vector<T>& b) const {
     }
 
     return x;
+}
+
+// Matrix exponential, power, sqrt, and log implementations
+
+template <typename T>
+Matrix<T> Matrix<T>::exp() const {
+    if (!is_square()) {
+        throw std::invalid_argument("Matrix must be square to calculate the exponential.");
+    }
+
+    const size_t max_terms = 20;
+    const T tolerance = std::numeric_limits<T>::epsilon();
+
+    Matrix<T> result = identity(rows);
+    Matrix<T> term = identity(rows);
+    T factorial = 1.0;
+
+    for (size_t i = 1; i <= max_terms; ++i) {
+        factorial *= static_cast<T>(i);
+        term = term * (*this);
+        Matrix<T> next_term = term * (static_cast<T>(1) / factorial);
+        result += next_term;
+
+        // Check for convergence
+        if (std::abs(next_term.max_norm()) < std::abs(tolerance)) {
+            break;
+        }
+    }
+
+    return result;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::pow(int n) const {
+    if (!is_square()) {
+        throw std::invalid_argument("Matrix must be square to calculate the power.");
+    }
+
+    if (n == 0) {
+        return identity(rows);
+    }
+
+    if (n < 0) {
+        return inverse().pow(-n);
+    }
+
+    if (n == 1) {
+        return *this;
+    }
+
+    // Use binary exponentiation for efficiency
+    Matrix<T> result = identity(rows);
+    Matrix<T> base = *this;
+    int exponent = n;
+
+    while (exponent > 0) {
+        if (exponent % 2 == 1) {
+            result = result * base;
+        }
+        base = base * base;
+        exponent /= 2;
+    }
+
+    return result;
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::sqrt() const {
+    if (!is_square()) {
+        throw std::invalid_argument("Matrix must be square to calculate the square root.");
+    }
+
+    // For diagonal matrices, we can take the square root of each diagonal element
+    if (is_diagonal()) {
+        Matrix<T> result(rows, cols);
+        for (size_t i = 0; i < rows; ++i) {
+            result(i, i) = std::sqrt(entries[i][i]);
+        }
+        return result;
+    }
+
+    // For general matrices, use the Denman-Beavers iteration
+    const size_t max_iterations = 20;
+    const T tolerance = std::numeric_limits<T>::epsilon();
+
+    Matrix<T> Y = *this;
+    Matrix<T> Z = identity(rows);
+
+    for (size_t i = 0; i < max_iterations; ++i) {
+        Matrix<T> Y_inv = Y.inverse();
+        Matrix<T> Z_inv = Z.inverse();
+
+        Matrix<T> Y_next = (Y + Z_inv) * static_cast<T>(0.5);
+        Matrix<T> Z_next = (Z + Y_inv) * static_cast<T>(0.5);
+
+        // Check for convergence
+        Matrix<T> diff = Y_next - Y;
+        if (std::abs(diff.max_norm()) < std::abs(tolerance)) {
+            return Y_next;
+        }
+
+        Y = Y_next;
+        Z = Z_next;
+    }
+
+    throw std::runtime_error("Square root iteration did not converge.");
+}
+
+template <typename T>
+Matrix<T> Matrix<T>::log() const {
+    if (!is_square()) {
+        throw std::invalid_argument("Matrix must be square to calculate the logarithm.");
+    }
+
+    // For diagonal matrices, we can take the logarithm of each diagonal element
+    if (is_diagonal()) {
+        Matrix<T> result(rows, cols);
+        for (size_t i = 0; i < rows; ++i) {
+            result(i, i) = std::log(entries[i][i]);
+        }
+        return result;
+    }
+
+    // For general matrices, use the inverse scaling and squaring method
+    const size_t max_iterations = 20;
+    const T tolerance = std::numeric_limits<T>::epsilon();
+
+    // Find a suitable scaling factor
+    T norm = max_norm();
+    int scaling_factor = 0;
+    while (std::abs(norm) > 0.5) {
+        norm /= 2.0;
+        scaling_factor++;
+    }
+
+    // Scale the matrix
+    Matrix<T> scaled = *this;
+    for (int i = 0; i < scaling_factor; ++i) {
+        scaled = scaled.sqrt();
+    }
+
+    // Compute the logarithm using the Taylor series
+    Matrix<T> I = identity(rows);
+    Matrix<T> X = scaled - I;
+    Matrix<T> X_power = X;
+    Matrix<T> result = X;
+    T coefficient = 1.0;
+
+    for (size_t i = 2; i <= max_iterations; ++i) {
+        coefficient = -coefficient / static_cast<T>(i);
+        X_power = X_power * X;
+        Matrix<T> term = X_power * coefficient;
+        result += term;
+
+        // Check for convergence
+        if (std::abs(term.max_norm()) < std::abs(tolerance)) {
+            break;
+        }
+    }
+
+    // Undo the scaling
+    return result * static_cast<T>(std::pow(2.0, scaling_factor));
 }
 
 // Explicit template instantiations

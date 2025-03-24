@@ -310,4 +310,5 @@ class Vector {
     Vector<T> log() const;
 };
 
+
 }  // namespace cramer

@@ -127,11 +127,24 @@ T Vector<T>::dot(const Vector<T>& other) const {
 
 template <typename T>
 T Vector<T>::norm() const {
-    T sum = T();
-    for (const auto& element : data) {
-        sum += std::norm(element);
+    // For complex types, we need to handle the norm differently
+    if constexpr (std::is_same_v<T, std::complex<double>> || 
+                  std::is_same_v<T, std::complex<float>>) {
+        // For complex types, use std::norm and return a real value
+        using RealType = typename T::value_type;
+        RealType sum = RealType();
+        for (const auto& element : data) {
+            sum += std::norm(element);
+        }
+        return T(std::sqrt(sum), 0);  // Return as complex with zero imaginary part
+    } else {
+        // For non-complex types, use the standard approach
+        T sum = T();
+        for (const auto& element : data) {
+            sum += std::norm(element);
+        }
+        return std::sqrt(sum);
     }
-    return std::sqrt(sum);
 }
 
 template <typename T>
